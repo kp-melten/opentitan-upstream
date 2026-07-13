@@ -164,6 +164,12 @@ class dma_seq_item extends uvm_sequence_item;
       per_transfer_width == DmaXfer2BperTxn -> src_addr[0] == 1'b0;
       // Only the SoC System bus has a full 64-bit address space.
       src_asid != SocSystemAddr -> src_addr[63:32] == '0;
+      src_asid != SocSystemAddr ->
+          read_footprint_last_address(
+              src_addr[31:0],
+              address_footprint_size(src_addr_inc, src_chunk_wrap, per_transfer_width,
+                                     total_data_size, chunk_data_size),
+              src_addr_inc, src_chunk_wrap, per_transfer_width) <= 33'h0_ffff_ffff;
 
       // If OT internal address space is the source, data is being exported, and the memory
       // window is enabled, then ensure all source addresses lie within the window
@@ -172,19 +178,21 @@ class dma_seq_item extends uvm_sequence_item;
         // within the DMA-enabled memory range if the destination is outside of the OtInternalAddr
         // space.
         if (src_addr_in_range) {
-          src_addr >= mem_range_base;
-          src_addr <= mem_range_limit;
-          src_addr + address_footprint_size(src_addr_inc, src_chunk_wrap, per_transfer_width,
-                                            total_data_size, chunk_data_size) - 1'b1 <=
-              mem_range_limit;
+          read_footprint_first_address(src_addr[31:0]) >= {1'b0, mem_range_base};
+          read_footprint_last_address(
+              src_addr[31:0],
+              address_footprint_size(src_addr_inc, src_chunk_wrap, per_transfer_width,
+                                     total_data_size, chunk_data_size),
+              src_addr_inc, src_chunk_wrap, per_transfer_width) <= {1'b0, mem_range_limit};
         } else {
           // Choose a source address range that lies partially outside the inclusive DMA-enabled
           // memory range.
-          src_addr < mem_range_base  ||
-          src_addr > mem_range_limit ||
-          src_addr + address_footprint_size(src_addr_inc, src_chunk_wrap, per_transfer_width,
-                                            total_data_size, chunk_data_size) - 1'b1 >
-              mem_range_limit;
+          read_footprint_first_address(src_addr[31:0]) < {1'b0, mem_range_base} ||
+          read_footprint_last_address(
+              src_addr[31:0],
+              address_footprint_size(src_addr_inc, src_chunk_wrap, per_transfer_width,
+                                     total_data_size, chunk_data_size),
+              src_addr_inc, src_chunk_wrap, per_transfer_width) > {1'b0, mem_range_limit};
         }
       }
     }
@@ -216,6 +224,10 @@ class dma_seq_item extends uvm_sequence_item;
       per_transfer_width == DmaXfer2BperTxn -> dst_addr[0] == 1'b0;
       // Only the SoC System bus has a full 64-bit address space.
       dst_asid != SocSystemAddr -> dst_addr[63:32] == '0;
+      dst_asid != SocSystemAddr ->
+          dst_addr + address_footprint_size(dst_addr_inc, dst_chunk_wrap, per_transfer_width,
+                                            total_data_size, chunk_data_size) - 1'b1 <=
+              64'h0000_0000_ffff_ffff;
 
       // If OT internal address space is the destination, data is being imported, and the memory
       // window is enabled, then ensure all destination addresses lie within the window
@@ -510,12 +522,63 @@ class dma_seq_item extends uvm_sequence_item;
     return footprint_size;
   endfunction
 
+  // TL-UL reads fetch a complete aligned word regardless of the logical transfer width. Return
+  // the physical first and last byte addresses touched by the resulting Get requests.
+  static function bit [32:0] read_footprint_first_address(bit [31:0] base);
+    return {1'b0, base[31:2], 2'b00};
+  endfunction
+
+  static function bit [32:0] read_footprint_last_address(
+      bit [31:0] base, bit [31:0] size, bit addr_inc, bit chunk_wrap,
+      dma_transfer_width_e transfer_width);
+    bit [32:0] last_byte_offset = {1'b0, size} - 33'd1;
+    bit [32:0] last_request_offset = last_byte_offset;
+    bit [32:0] last_request_address;
+
+    if (!addr_inc && chunk_wrap) begin
+      last_request_offset = '0;
+    end else if (addr_inc) begin
+      unique case (transfer_width)
+        DmaXfer1BperTxn: last_request_offset = last_byte_offset;
+        DmaXfer2BperTxn: last_request_offset = {last_byte_offset[32:1], 1'b0};
+        DmaXfer4BperTxn: last_request_offset = {last_byte_offset[32:2], 2'b00};
+        default:         last_request_offset = last_byte_offset;
+      endcase
+    end
+
+    last_request_address = {1'b0, base} + last_request_offset;
+    return {last_request_address[32:2], 2'b11};
+  endfunction
+
   // Is a buffer of the given base address and size fully contained within the DMA-enabled memory
   // range?
   function bit is_buffer_in_dma_memory_region(bit [31:0] base, bit [31:0] size);
     bit [32:0] last_address = {1'b0, base} + {1'b0, size} - 33'd1;
     return (size != 0 && is_address_in_dma_memory_region(base) && !last_address[32] &&
             is_address_in_dma_memory_region(last_address[31:0]));
+  endfunction
+
+  function bit is_read_footprint_in_dma_memory_region(
+      bit [31:0] base, bit [31:0] size, bit addr_inc, bit chunk_wrap,
+      dma_transfer_width_e transfer_width);
+    bit [32:0] first_address = read_footprint_first_address(base);
+    bit [32:0] last_address = read_footprint_last_address(
+        base, size, addr_inc, chunk_wrap, transfer_width);
+    return (size != 0 && first_address >= {1'b0, mem_range_base} &&
+            last_address <= {1'b0, mem_range_limit});
+  endfunction
+
+  function bit does_read_footprint_wrap_32bit(
+      bit [31:0] base, bit [31:0] size, bit addr_inc, bit chunk_wrap,
+      dma_transfer_width_e transfer_width);
+    bit [32:0] last_address = read_footprint_last_address(
+        base, size, addr_inc, chunk_wrap, transfer_width);
+    return size != 0 && last_address[32];
+  endfunction
+
+  function bit does_write_footprint_wrap_32bit(bit [31:0] base, bit [31:0] size);
+    bit [32:0] last_address = {1'b0, base} + {1'b0, size} - 33'd1;
+    return size != 0 && last_address[32];
   endfunction
 
   // Function to check if the programmed DMA settings are valid.
@@ -598,8 +661,9 @@ class dma_seq_item extends uvm_sequence_item;
     // to OT internal address space, but the memory range restriction does not apply if _both_
     // are within the OT internal address space.
     if (src_asid == OtInternalAddr && dst_asid != OtInternalAddr) begin
-      if (mem_range_valid && !is_buffer_in_dma_memory_region(src_addr[31:0],
-                                                             src_memory_range)) begin
+      if (mem_range_valid && !is_read_footprint_in_dma_memory_region(
+              src_addr[31:0], src_memory_range, src_addr_inc, src_chunk_wrap,
+              per_transfer_width)) begin
         // If source address space ID points to OT internal address space,
         // it must be within DMA enabled address range.
         `uvm_info(`gfn,
@@ -619,6 +683,22 @@ class dma_seq_item extends uvm_sequence_item;
                     " - Invalid dst addr range found lo: %08x hi: %08x with base: %08x limit: %0x",
                     dst_addr[31:0], dst_addr[63:32], mem_range_base, mem_range_limit),
                   UVM_MEDIUM)
+        valid_config = 0;
+      end
+    end
+
+    // OT internal and CTN accesses use 32-bit TL-UL addresses. Reject any physical read or
+    // byte-enabled write footprint that would wrap the low address into a different location.
+    if (src_asid inside {OtInternalAddr, SocControlAddr}) begin
+      if (does_read_footprint_wrap_32bit(src_addr[31:0], src_memory_range, src_addr_inc,
+                                        src_chunk_wrap, per_transfer_width)) begin
+        `uvm_info(`gfn, " - Source read footprint wraps the 32-bit address space", UVM_MEDIUM)
+        valid_config = 0;
+      end
+    end
+    if (dst_asid inside {OtInternalAddr, SocControlAddr}) begin
+      if (does_write_footprint_wrap_32bit(dst_addr[31:0], dst_memory_range)) begin
+        `uvm_info(`gfn, " - Destination write footprint wraps the 32-bit address space", UVM_MEDIUM)
         valid_config = 0;
       end
     end

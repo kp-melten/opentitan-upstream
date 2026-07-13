@@ -25,7 +25,15 @@ the address CSR update path. The candidate conservatively validates its complete
 `total_data_size` span. The campaign capability and directed matrix cover the three
 documented modes above.
 
-For TL-UL requests the bus address is word aligned, but only byte-enable lanes are
-accessed. Scoreboard range checking therefore validates every asserted byte-enable lane
-against the inclusive range rather than treating the aligned request address as the
-complete access.
+TL-UL destination writes touch only their asserted byte-enable lanes, so their physical
+footprint equals the logical span above. TL-UL source reads are different: the host
+adapter emits an aligned full-word Get regardless of the logical transfer width. Their
+physical footprint therefore begins at `floor(start / 4) * 4` and ends at the final
+request word's aligned address plus three. For incrementing modes, the final request
+address is the largest transfer-width-aligned offset below the logical footprint end;
+for fixed wrapped mode it is the programmed start address. RTL and DV validate this
+physical read footprint, including bytes before or after the logical narrow transfer.
+
+OT internal and CTN endpoints both use 32-bit TL-UL addresses. Their applicable physical
+read or byte-enabled write footprint must not carry into address bit 32. The System
+interface remains 64-bit and is not subject to that low-32-bit wrap rule.

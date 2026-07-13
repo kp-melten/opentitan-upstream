@@ -8,7 +8,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
   `uvm_object_utils(dma_mem_boundary_vseq)
   `uvm_object_new
 
-  localparam int unsigned NumBoundaryCases = 18;
+  localparam int unsigned NumBoundaryCases = 23;
 
   int unsigned case_idx;
   bit          expect_addr_error;
@@ -209,6 +209,61 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.chunk_data_size = 32'd8;
         dma_config.per_transfer_width = DmaXfer4BperTxn;
         expect_addr_error = 1'b1;
+      end
+      18: begin
+        boundary_case_name = "fixed-src-1B-full-word-escapes-narrow-range";
+        dma_config.mem_range_base = 32'h0000_1001;
+        dma_config.mem_range_limit = 32'h0000_1001;
+        dma_config.src_addr = 64'h0000_0000_0000_1001;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.src_addr_inc = 1'b0;
+        dma_config.src_chunk_wrap = 1'b1;
+        dma_config.total_data_size = 32'd1;
+        dma_config.chunk_data_size = 32'd1;
+        expect_addr_error = 1'b1;
+        expected_error_bit = DmaSrcAddrErr;
+      end
+      19: begin
+        boundary_case_name = "increment-ctn-src-4B-32bit-wrap";
+        dma_config.src_addr = 64'h0000_0000_ffff_fffc;
+        dma_config.src_asid = SocControlAddr;
+        dma_config.total_data_size = 32'd8;
+        dma_config.chunk_data_size = 32'd8;
+        dma_config.per_transfer_width = DmaXfer4BperTxn;
+        expect_addr_error = 1'b1;
+        expected_error_bit = DmaSrcAddrErr;
+      end
+      20: begin
+        boundary_case_name = "increment-ctn-dst-4B-32bit-wrap";
+        dma_config.src_addr = 64'h0000_0000_0000_1000;
+        dma_config.dst_addr = 64'h0000_0000_ffff_fffc;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.total_data_size = 32'd8;
+        dma_config.chunk_data_size = 32'd8;
+        dma_config.per_transfer_width = DmaXfer4BperTxn;
+        expect_addr_error = 1'b1;
+        expected_error_bit = DmaDstAddrErr;
+      end
+      21: begin
+        boundary_case_name = "increment-dst-2B-partial-final-exact-limit";
+        dma_config.mem_range_limit = 32'h0000_100e;
+        dma_config.dst_addr = 64'h0000_0000_0000_100c;
+        dma_config.total_data_size = 32'd3;
+        dma_config.chunk_data_size = 32'd3;
+        dma_config.per_transfer_width = DmaXfer2BperTxn;
+      end
+      22: begin
+        boundary_case_name = "increment-src-4B-partial-final-full-word-exact-limit";
+        dma_config.src_addr = 64'h0000_0000_0000_1008;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.total_data_size = 32'd5;
+        dma_config.chunk_data_size = 32'd5;
+        dma_config.per_transfer_width = DmaXfer4BperTxn;
       end
       default: `uvm_fatal(`gfn, $sformatf("Invalid boundary case index %0d", selected_case))
     endcase

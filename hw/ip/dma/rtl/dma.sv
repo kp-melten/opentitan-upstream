@@ -91,20 +91,61 @@ module dma
     end
   endfunction
 
-  // Both memory-range bounds are inclusive. Widen the end-address calculation so a footprint
-  // that wraps the 32-bit OT address space is rejected instead of appearing in range.
-  function automatic logic address_footprint_outside_range(
+  // Validate one side of a transfer. TL-UL reads always fetch a complete aligned word, even when
+  // the logical transfer width is smaller, while writes only touch their enabled byte lanes.
+  // Widen all arithmetic so a footprint that wraps a 32-bit address space is rejected instead of
+  // appearing in range. Both memory-range bounds are inclusive.
+  function automatic logic address_footprint_invalid(
     input logic [31:0] address,
     input logic [32:0] footprint_size,
+    input logic        increment,
+    input logic        wrap,
+    input logic [1:0]  transfer_width,
+    input logic        full_word_read,
+    input logic        check_32bit,
+    input logic        check_range,
     input logic [31:0] range_base,
     input logic [31:0] range_limit
   );
+    logic [31:0] first_address;
     logic [32:0] last_address;
+    logic [32:0] last_byte_offset;
+    logic [32:0] last_request_offset;
+    logic [32:0] last_request_address;
 
-    last_address = {1'b0, address} + footprint_size - 33'd1;
-    address_footprint_outside_range = (footprint_size != '0) &&
-                                      ((address < range_base) || last_address[32] ||
-                                       (last_address[31:0] > range_limit));
+    last_byte_offset    = footprint_size - 33'd1;
+    last_request_offset = last_byte_offset;
+
+    // Incrementing accesses advance by one programmed transfer width. Fixed, wrapped accesses
+    // repeatedly issue the same request. The unsupported no-increment/no-wrap combination retains
+    // the conservative complete-span check used for non-wrapped transfers.
+    if (full_word_read && (!increment && wrap)) begin
+      last_request_offset = '0;
+    end else if (full_word_read && increment) begin
+      unique case (transfer_width)
+        DmaXfer1BperTxn: last_request_offset = last_byte_offset;
+        DmaXfer2BperTxn: last_request_offset = {last_byte_offset[32:1], 1'b0};
+        DmaXfer4BperTxn: last_request_offset = {last_byte_offset[32:2], 2'b00};
+        default:         last_request_offset = last_byte_offset;
+      endcase
+    end
+
+    if (full_word_read) begin
+      first_address        = {address[31:2], 2'b00};
+      last_request_address = {1'b0, address} + last_request_offset;
+      last_address         = last_request_address | 33'd3;
+    end else begin
+      first_address        = address;
+      last_request_address = '0;
+      last_address         = {1'b0, address} + last_byte_offset;
+    end
+
+    address_footprint_invalid = (footprint_size != '0) &&
+                                ((check_32bit && last_address[32]) ||
+                                 (check_range &&
+                                  ((first_address[31:0] < range_base) ||
+                                   last_address[32] ||
+                                   (last_address[31:0] > range_limit))));
   endfunction
 
   // Flopped bus for SYS interface
@@ -324,7 +365,7 @@ module dma
   control_state_t control_d, control_q;
 
   logic [32:0] src_memory_footprint_size, dst_memory_footprint_size;
-  logic        src_memory_footprint_outside, dst_memory_footprint_outside;
+  logic        src_memory_footprint_invalid, dst_memory_footprint_invalid;
 
   assign src_memory_footprint_size = address_footprint_size(
       reg2hw.src_config.increment.q, reg2hw.src_config.wrap.q, reg2hw.transfer_width.q,
@@ -332,11 +373,17 @@ module dma
   assign dst_memory_footprint_size = address_footprint_size(
       reg2hw.dst_config.increment.q, reg2hw.dst_config.wrap.q, reg2hw.transfer_width.q,
       reg2hw.total_data_size.q, reg2hw.chunk_data_size.q);
-  assign src_memory_footprint_outside = address_footprint_outside_range(
-      reg2hw.src_addr_lo.q, src_memory_footprint_size,
+  assign src_memory_footprint_invalid = address_footprint_invalid(
+      reg2hw.src_addr_lo.q, src_memory_footprint_size, reg2hw.src_config.increment.q,
+      reg2hw.src_config.wrap.q, reg2hw.transfer_width.q, 1'b1,
+      src_asid inside {OtInternalAddr, SocControlAddr},
+      (src_asid == OtInternalAddr) && (dst_asid inside {SocControlAddr, SocSystemAddr}),
       control_q.enabled_memory_range_base, control_q.enabled_memory_range_limit);
-  assign dst_memory_footprint_outside = address_footprint_outside_range(
-      reg2hw.dst_addr_lo.q, dst_memory_footprint_size,
+  assign dst_memory_footprint_invalid = address_footprint_invalid(
+      reg2hw.dst_addr_lo.q, dst_memory_footprint_size, reg2hw.dst_config.increment.q,
+      reg2hw.dst_config.wrap.q, reg2hw.transfer_width.q, 1'b0,
+      dst_asid inside {OtInternalAddr, SocControlAddr},
+      (dst_asid == OtInternalAddr) && (src_asid inside {SocControlAddr, SocSystemAddr}),
       control_q.enabled_memory_range_base, control_q.enabled_memory_range_limit);
   logic           capture_state;
 
@@ -925,19 +972,17 @@ module dma
             next_error[DmaDstAddrErr] = 1'b1;
           end
 
-          // If data from the SOC system bus or the control bus is transferred
-          // to the OT internal memory, we must check if the destination address range falls into
-          // the DMA enabled memory region.
-          if ((src_asid inside {SocControlAddr, SocSystemAddr}) && (dst_asid == OtInternalAddr) &&
-              dst_memory_footprint_outside) begin
+          // Check destination low-address wrap for every 32-bit interface. When data is imported
+          // from the System or CTN bus, also require the OT destination write footprint to remain
+          // inside the DMA-enabled memory region.
+          if (dst_memory_footprint_invalid) begin
             next_error[DmaDstAddrErr] = 1'b1;
           end
 
-          // If data from the OT internal memory is transferred  to the SOC system bus or the
-          // control bus, we must check if the source address range falls into the
-          // DMA enabled memory region.
-          if ((dst_asid inside {SocControlAddr, SocSystemAddr}) && (src_asid == OtInternalAddr) &&
-              src_memory_footprint_outside) begin
+          // Check source low-address wrap for every 32-bit interface. When data is exported to the
+          // System or CTN bus, also require the complete aligned OT source-read footprint to remain
+          // inside the DMA-enabled memory region.
+          if (src_memory_footprint_invalid) begin
             next_error[DmaSrcAddrErr] = 1'b1;
           end
 
