@@ -1,0 +1,85 @@
+{
+  "schema": "swb-campaign-milestones/v0",
+  "status": "draft",
+  "created": "2026-07-13",
+  "support_profile_id": "opentitan-dma",
+  "campaign_id": "dma-memory-protection-closure-f96de0c2d41b",
+  "campaign_path": "campaigns/dma-memory-protection-closure-f96de0c2d41b",
+  "campaign_branch": "campaign/dma-memory-protection-closure-f96de0c2d41b",
+  "review_questions": [
+    "Which milestone did this advance, block, or leave unchanged?",
+    "What design/work-product became executable, integrated, or explicitly unchanged?",
+    "What is the closeout posture: implementation checkpoint, claim-bearing, or promotion?",
+    "For claim-bearing or promotion closeouts, what evidence and claim-boundary state changed?",
+    "Did accepted objective, DV plan, milestone, requirement, or claim-boundary state change or need review?",
+    "What is the next milestone-directed action?"
+  ],
+  "review_policy": "Every closeout should answer the review questions as a compact delta and should update ledgers only when accepted campaign state changes. Production design deltas should foreground executable design/work-product progress and efficient movement toward working silicon before evidence bookkeeping. Implementation-checkpoint closeouts do not require verifier review or claim advancement. Updates that affect claim scope, evidence scope, hard gates, or success criteria require verification-agent review. Promotion claims require initial-packet sign-off from the human silicon architect and DV engineer / verification owner. Controller-recorded narrowed-scope exceptions authorize non-promotion discovery or implementation with explicit non-claims only.",
+  "current_next_milestone": "M4",
+  "milestones": [
+    {
+      "id": "M0",
+      "status": "complete",
+      "title": "Campaign subtree initialized",
+      "exit_criteria": "Campaign scaffold exists on a campaign branch",
+      "owner": "main_agent",
+      "review": "none"
+    },
+    {
+      "id": "M1",
+      "status": "pending",
+      "title": "Objective, working capability target, and acceptance boundary recorded",
+      "exit_criteria": "For promotion, objective, working capability target, executable design deliverable, readiness ladder, requirements, baselines, hard gates, preferences, diagnostics, non-claims, and authority are recorded with human silicon architect sign-off. A controller-recorded narrowed-scope exception may record the construction boundary only for non-promotion discovery or implementation",
+      "owner": "human_silicon_architect_plus_controller",
+      "review": "required"
+    },
+    {
+      "id": "M2",
+      "status": "pending",
+      "title": "DV/evidence plan supports the capability target and design deliverable",
+      "exit_criteria": "Full initial DV/evidence plan is reviewable at campaign resolution, covers the working capability target, executable deliverable/readiness ladder, identifies unblocked construction work, and is approved by the DV engineer / verification owner before promotion claims",
+      "owner": "dv_engineer_plus_verification_agent",
+      "review": "required"
+    },
+    {
+      "id": "M3",
+      "status": "pending",
+      "title": "Initial campaign packet resolved",
+      "exit_criteria": "For promotion, initial-packet.md records human silicon architect and DV engineer / verification-owner sign-offs. An explicit controller-recorded narrowed-scope exception may resolve the packet only for non-promotion discovery or implementation with explicit non-claims",
+      "owner": "human_silicon_architect_plus_dv_engineer_or_controller_exception",
+      "review": "required"
+    },
+    {
+      "id": "M4",
+      "status": "pending",
+      "title": "First meaningful executable design increment",
+      "exit_criteria": "A meaningful RTL, model, BFM, generated-collateral, interface, or integration increment exists, can be locally exercised, and materially reduces distance to the working capability target. This advances construction only; promotion claims still require the M1-M3 gates and verifier-owned evidence",
+      "owner": "main_agent",
+      "review": "implementation_checkpoint"
+    },
+    {
+      "id": "M5",
+      "status": "pending",
+      "title": "DMA boundary RTL and DV collateral aligned",
+      "exit_criteria": "Overflow-safe exact footprint validation, directed boundary sequence, inclusive scoreboard/model semantics, no-request assertion or equivalent, testplan, and simulation config are reviewable together",
+      "owner": "main_agent",
+      "review": "implementation_checkpoint"
+    },
+    {
+      "id": "M6",
+      "status": "pending",
+      "title": "Focused checks recorded",
+      "exit_criteria": "DMA Verilator lint and the narrowest available directed simulation are recorded; unavailable simulator work is explicitly pending",
+      "owner": "main_agent",
+      "review": "implementation_checkpoint"
+    },
+    {
+      "id": "M7",
+      "status": "pending",
+      "title": "Independent review and broader verification",
+      "exit_criteria": "Required sign-offs, verifier review, and any accepted broader regression or coverage work are complete",
+      "owner": "verification_agent_plus_controller",
+      "review": "promotion"
+    }
+  ]
+}

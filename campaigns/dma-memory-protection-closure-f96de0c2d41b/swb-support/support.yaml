@@ -1,0 +1,47 @@
+schema: swb-campaign-support/v0
+support_profile_id: opentitan-dma
+campaign_id: dma-memory-protection-closure-f96de0c2d41b
+campaign_path: campaigns/dma-memory-protection-closure-f96de0c2d41b
+support_root: campaigns/dma-memory-protection-closure-f96de0c2d41b/swb-support
+
+# SWB-owned common tools used by this campaign. Tool IDs match `swb tool run <tool-id>`.
+swb_tools: []
+
+# Campaign or repo-owned helper scripts/wrappers. Paths must stay inside the workspace.
+repo_tools: []
+
+# Campaign-local or repo-owned support references. Paths must stay inside the workspace.
+checks: []
+configs: []
+schemas: []
+fixtures: []
+
+# Optional per-entry runtime setup metadata is allowed on swb_tools, repo_tools,
+# checks, configs, schemas, and fixtures. It is routing/setup context only.
+# Example:
+# swb_tools:
+#   - tool_id: dvsim-matrix
+#     purpose: Matrix runner.
+#     prerequisites:
+#       notes:
+#         - Requires simulator binaries available to the SWB tool runtime.
+#
+# repo_tools:
+#   - path: tools/model-check.sh
+#     purpose: Validate local model behavior.
+#     prerequisites:
+#       env:
+#         PATH_prefix:
+#           - /opt/systemc/bin
+#         vars:
+#           SYSTEMC_HOME: /opt/systemc
+#       packages:
+#         - systemc
+#       notes:
+#         - Requires systemc-config discoverable on PATH.
+#
+non_claims:
+  - Campaign support discovery does not prove that a referenced check was run.
+  - Runtime prerequisites are setup/routing metadata only and do not prove a tool ran successfully.
+  - Campaign-local support can change on the same branch as RTL and must be independently reviewed for promotion-relevant claims.
+  - Referenced tools, configs, fixtures, and schemas do not prove design correctness, verification sufficiency, or claim acceptance.

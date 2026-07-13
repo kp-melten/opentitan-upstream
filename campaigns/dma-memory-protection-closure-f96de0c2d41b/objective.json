@@ -1,0 +1,130 @@
+{
+  "schema": "swb-campaign-objective/v0",
+  "status": "active_non_promotion_implementation",
+  "created": "2026-07-13",
+  "support_profile_id": "opentitan-dma",
+  "campaign_id": "dma-memory-protection-closure-f96de0c2d41b",
+  "campaign_path": "campaigns/dma-memory-protection-closure-f96de0c2d41b",
+  "campaign_branch": "campaign/dma-memory-protection-closure-f96de0c2d41b",
+  "authority": {
+    "objective_owner": "human_controller_plus_main_agent",
+    "change_authority": "human_controller",
+    "verification_plan_owner": "verification_agent",
+    "accepted": true,
+    "acceptance_boundary": "User/controller accepted the objective and hard gates for non-promotion implementation on 2026-07-13; architect and DV-owner promotion sign-offs remain pending."
+  },
+  "objective": {
+    "summary": "Make the DMA-enabled memory boundary exact, overflow-safe, and consistent across RTL and DV for every transfer addressing mode."
+  },
+  "artifact_roots": {
+    "root": "campaigns/dma-memory-protection-closure-f96de0c2d41b",
+    "surfaces": {
+      "artifacts": "campaigns/dma-memory-protection-closure-f96de0c2d41b/artifacts",
+      "checks": "campaigns/dma-memory-protection-closure-f96de0c2d41b/checks",
+      "evidence": "campaigns/dma-memory-protection-closure-f96de0c2d41b/evidence",
+      "tool-runs": "campaigns/dma-memory-protection-closure-f96de0c2d41b/tool-runs",
+      "verifier": "campaigns/dma-memory-protection-closure-f96de0c2d41b/verifier"
+    },
+    "non_claims": [
+      "Artifact-root metadata declares campaign-owned storage surfaces; it does not prove any artifact content or design claim."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "DMA-MP-01",
+      "classification": "hard_gate",
+      "target": "Final accessed byte equal to the inclusive limit is accepted",
+      "measurement_method": "Directed boundary simulation and model comparison",
+      "evidence_source": "Campaign-recorded directed result or pending simulator record",
+      "owner": "human_controller",
+      "change_authority": "human_controller",
+      "status": "active"
+    },
+    {
+      "id": "DMA-MP-02",
+      "classification": "hard_gate",
+      "target": "Below-base and beyond-limit restricted accesses raise the correct source or destination address error",
+      "measurement_method": "Directed source- and destination-restricted cases",
+      "evidence_source": "Campaign-recorded directed result",
+      "owner": "human_controller",
+      "change_authority": "human_controller",
+      "status": "active"
+    },
+    {
+      "id": "DMA-MP-03",
+      "classification": "hard_gate",
+      "target": "32-bit effective-footprint overflow is rejected before a bus request",
+      "measurement_method": "Widened-arithmetic source review and directed wraparound cases",
+      "evidence_source": "Lint and directed simulation",
+      "owner": "human_controller",
+      "change_authority": "human_controller",
+      "status": "active"
+    },
+    {
+      "id": "DMA-MP-04",
+      "classification": "hard_gate",
+      "target": "Non-wrapped transfers validate the complete reachable footprint",
+      "measurement_method": "Directed multi-chunk cases",
+      "evidence_source": "Campaign-recorded directed result",
+      "owner": "human_controller",
+      "change_authority": "human_controller",
+      "status": "active"
+    },
+    {
+      "id": "DMA-MP-05",
+      "classification": "hard_gate",
+      "target": "Fixed and wrapped modes are not rejected for unreachable bytes",
+      "measurement_method": "Footprint table review and exact-fit directed cases",
+      "evidence_source": "Source review and directed simulation",
+      "owner": "human_controller",
+      "change_authority": "human_controller",
+      "status": "active"
+    },
+    {
+      "id": "DMA-MP-06",
+      "classification": "hard_gate",
+      "target": "Rejected configurations issue no source or destination data-bus transaction",
+      "measurement_method": "Bound assertion or equivalent monitor across directed invalid cases",
+      "evidence_source": "Directed simulation assertion result",
+      "owner": "human_controller",
+      "change_authority": "human_controller",
+      "status": "active"
+    },
+    {
+      "id": "DMA-MP-07",
+      "classification": "hard_gate",
+      "target": "DMA Verilator lint target exits successfully",
+      "measurement_method": "Repository DMA lint invocation",
+      "evidence_source": "Campaign-recorded lint output",
+      "owner": "human_controller",
+      "change_authority": "human_controller",
+      "status": "active"
+    },
+    {
+      "id": "DMA-MP-08",
+      "classification": "diagnostic",
+      "target": "Narrowest available directed simulation passes or is explicitly recorded pending when its simulator is unavailable",
+      "measurement_method": "Tool probe and DMA DVSim invocation",
+      "evidence_source": "Campaign-recorded output or pending reason",
+      "owner": "main_agent",
+      "change_authority": "human_controller",
+      "status": "active"
+    }
+  ],
+  "hard_rows": ["DMA-MP-01", "DMA-MP-02", "DMA-MP-03", "DMA-MP-04", "DMA-MP-05", "DMA-MP-06", "DMA-MP-07"],
+  "milestone_review_questions": [
+    "Which milestone did this advance, block, or leave unchanged?",
+    "What design/work-product became executable, integrated, or explicitly unchanged?",
+    "What is the closeout posture: implementation checkpoint, claim-bearing, or promotion?",
+    "For claim-bearing or promotion closeouts, what evidence and claim-boundary state changed?",
+    "Did accepted objective, DV plan, milestone, requirement, or claim-boundary state change or need review?",
+    "What is the next milestone-directed action?"
+  ],
+  "non_claims": [
+    "No full DMA regression or coverage closure.",
+    "No formal security proof.",
+    "No top-level integration, synthesis, timing, or silicon claim.",
+    "No promotion claim until independently reviewed and the initial packet is signed.",
+    "Simulator-unavailable tests remain pending, not implicitly passing."
+  ]
+}
