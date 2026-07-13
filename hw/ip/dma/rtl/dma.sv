@@ -58,6 +58,55 @@ module dma
   localparam int unsigned INTR_CLEAR_SOURCES_WIDTH = $clog2(NumIntClearSources);
   localparam int unsigned NR_SHA_DIGEST_ELEMENTS  = 16;
 
+  // Return the number of bytes reachable from the programmed start address for one side of a
+  // transfer. Non-wrapped transfers can reach the complete transfer span. Wrapped transfers
+  // repeatedly use one chunk, and fixed-address transfers repeatedly use only the first transfer
+  // width within that chunk.
+  function automatic logic [32:0] address_footprint_size(
+    input logic        increment,
+    input logic        wrap,
+    input logic [1:0]  transfer_width,
+    input logic [31:0] total_data_size,
+    input logic [31:0] chunk_data_size
+  );
+    logic [32:0] transfer_width_bytes;
+    logic [32:0] wrapped_size;
+
+    unique case (transfer_width)
+      DmaXfer1BperTxn: transfer_width_bytes = 33'd1;
+      DmaXfer2BperTxn: transfer_width_bytes = 33'd2;
+      DmaXfer4BperTxn: transfer_width_bytes = 33'd4;
+      default:         transfer_width_bytes = '0;
+    endcase
+
+    wrapped_size = (total_data_size < chunk_data_size) ? {1'b0, total_data_size} :
+                                                         {1'b0, chunk_data_size};
+    if (!wrap) begin
+      address_footprint_size = {1'b0, total_data_size};
+    end else if (increment) begin
+      address_footprint_size = wrapped_size;
+    end else begin
+      address_footprint_size = (transfer_width_bytes < wrapped_size) ? transfer_width_bytes :
+                                                                      wrapped_size;
+    end
+  endfunction
+
+  // Both memory-range bounds are inclusive. Widen the end-address calculation so a footprint
+  // that wraps the 32-bit OT address space is rejected instead of appearing in range.
+  function automatic logic address_footprint_outside_range(
+    input logic [31:0] address,
+    input logic [32:0] footprint_size,
+    input logic [31:0] range_base,
+    input logic [31:0] range_limit
+  );
+    logic [32:0] last_address;
+
+    last_address = {1'b0, address} + footprint_size - 33'd1;
+    address_footprint_outside_range = (footprint_size != '0) &&
+                                      ((address < range_base) || last_address[32] ||
+                                       (last_address[31:0] > range_limit));
+  endfunction
+
   // Flopped bus for SYS interface
   dma_pkg::sys_req_t sys_req_d;
   dma_pkg::sys_rsp_t sys_resp_q;
@@ -273,6 +322,22 @@ module dma
   // during the start of the operation and, later on, only use the captured value in the state
   // machine. The captured state is stored in control_q.
   control_state_t control_d, control_q;
+
+  logic [32:0] src_memory_footprint_size, dst_memory_footprint_size;
+  logic        src_memory_footprint_outside, dst_memory_footprint_outside;
+
+  assign src_memory_footprint_size = address_footprint_size(
+      reg2hw.src_config.increment.q, reg2hw.src_config.wrap.q, reg2hw.transfer_width.q,
+      reg2hw.total_data_size.q, reg2hw.chunk_data_size.q);
+  assign dst_memory_footprint_size = address_footprint_size(
+      reg2hw.dst_config.increment.q, reg2hw.dst_config.wrap.q, reg2hw.transfer_width.q,
+      reg2hw.total_data_size.q, reg2hw.chunk_data_size.q);
+  assign src_memory_footprint_outside = address_footprint_outside_range(
+      reg2hw.src_addr_lo.q, src_memory_footprint_size,
+      control_q.enabled_memory_range_base, control_q.enabled_memory_range_limit);
+  assign dst_memory_footprint_outside = address_footprint_outside_range(
+      reg2hw.dst_addr_lo.q, dst_memory_footprint_size,
+      control_q.enabled_memory_range_base, control_q.enabled_memory_range_limit);
   logic           capture_state;
 
   // Fiddle out control bits into captured state
@@ -864,12 +929,7 @@ module dma
           // to the OT internal memory, we must check if the destination address range falls into
           // the DMA enabled memory region.
           if ((src_asid inside {SocControlAddr, SocSystemAddr}) && (dst_asid == OtInternalAddr) &&
-              // Out-of-bound check
-              ((reg2hw.dst_addr_lo.q > control_q.enabled_memory_range_limit) ||
-                (reg2hw.dst_addr_lo.q < control_q.enabled_memory_range_base) ||
-                ((SYS_ADDR_WIDTH'(reg2hw.dst_addr_lo.q) +
-                  SYS_ADDR_WIDTH'(reg2hw.chunk_data_size.q)) >
-                  SYS_ADDR_WIDTH'(control_q.enabled_memory_range_limit)))) begin
+              dst_memory_footprint_outside) begin
             next_error[DmaDstAddrErr] = 1'b1;
           end
 
@@ -877,12 +937,7 @@ module dma
           // control bus, we must check if the source address range falls into the
           // DMA enabled memory region.
           if ((dst_asid inside {SocControlAddr, SocSystemAddr}) && (src_asid == OtInternalAddr) &&
-                // Out-of-bound check
-                ((reg2hw.src_addr_lo.q > control_q.enabled_memory_range_limit) ||
-                (reg2hw.src_addr_lo.q < control_q.enabled_memory_range_base)   ||
-                ((SYS_ADDR_WIDTH'(reg2hw.src_addr_lo.q) +
-                  SYS_ADDR_WIDTH'(reg2hw.chunk_data_size.q)) >
-                  SYS_ADDR_WIDTH'(control_q.enabled_memory_range_limit)))) begin
+              src_memory_footprint_outside) begin
             next_error[DmaSrcAddrErr] = 1'b1;
           end
 

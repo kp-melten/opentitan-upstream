@@ -156,7 +156,8 @@ class dma_seq_item extends uvm_sequence_item;
   constraint src_addr_c {
     // Set solve order to make sure source address is randomized correctly in case
     // valid_dma_config is set
-    solve mem_range_base, mem_range_limit before src_addr;
+    solve mem_range_base, mem_range_limit, total_data_size, chunk_data_size,
+          per_transfer_width, src_addr_inc, src_chunk_wrap before src_addr;
     if (valid_dma_config) {
       // For valid configurations, the source address must be aligned to the transfer width.
       per_transfer_width == DmaXfer4BperTxn -> src_addr[1:0] == 2'd0;
@@ -173,24 +174,17 @@ class dma_seq_item extends uvm_sequence_item;
         if (src_addr_in_range) {
           src_addr >= mem_range_base;
           src_addr <= mem_range_limit;
-          mem_range_limit - src_addr >= chunk_data_size;
-          // If wrapping is not used after chunk than the entire transfer must fit within the window
-          if (!src_chunk_wrap) {
-            mem_range_limit - src_addr >= total_data_size;
-          }
+          src_addr + address_footprint_size(src_addr_inc, src_chunk_wrap, per_transfer_width,
+                                            total_data_size, chunk_data_size) - 1'b1 <=
+              mem_range_limit;
         } else {
-          // Choose a source address range that lies partially outside the DMA-enabled memory range.
-          if (!src_chunk_wrap) {
-            // Choose start address to be too low or end address to be too high.
-            src_addr < mem_range_base  ||
-            src_addr > mem_range_limit ||
-            mem_range_limit - src_addr < total_data_size;
-          } else {
-            // Choose start address to be too low or end address to be too high.
-            src_addr < mem_range_base  ||
-            src_addr > mem_range_limit ||
-            mem_range_limit - src_addr < chunk_data_size;
-          }
+          // Choose a source address range that lies partially outside the inclusive DMA-enabled
+          // memory range.
+          src_addr < mem_range_base  ||
+          src_addr > mem_range_limit ||
+          src_addr + address_footprint_size(src_addr_inc, src_chunk_wrap, per_transfer_width,
+                                            total_data_size, chunk_data_size) - 1'b1 >
+              mem_range_limit;
         }
       }
     }
@@ -214,7 +208,8 @@ class dma_seq_item extends uvm_sequence_item;
     //
     // Ensure that the source buffer has been decided already, so that we can prevent this
     // destination buffer overlapping it.
-    solve src_addr before dst_addr;
+    solve src_addr, total_data_size, chunk_data_size, per_transfer_width,
+          dst_addr_inc, dst_chunk_wrap before dst_addr;
     if (valid_dma_config) {
       // For valid configurations, the destination address must be aligned to the transfer width.
       per_transfer_width == DmaXfer4BperTxn -> dst_addr[1:0] == 2'd0;
@@ -228,25 +223,17 @@ class dma_seq_item extends uvm_sequence_item;
         if (dst_addr_in_range) {
           dst_addr >= mem_range_base;
           dst_addr <= mem_range_limit;
-          mem_range_limit - dst_addr >= chunk_data_size;
-          // If wrapping is not used after chunk than the entire transfer must fit within the window
-          if (!dst_chunk_wrap) {
-            mem_range_limit - dst_addr >= total_data_size;
-          }
+          dst_addr + address_footprint_size(dst_addr_inc, dst_chunk_wrap, per_transfer_width,
+                                            total_data_size, chunk_data_size) - 1'b1 <=
+              mem_range_limit;
         } else {
           // Choose a destination address range that lies partially outside the DMA-enabled memory
           // range.
-          if (!dst_chunk_wrap) {
-            // Choose start address to be too low or end address to be too high.
-            dst_addr < mem_range_base  ||
-            dst_addr > mem_range_limit ||
-            mem_range_limit - dst_addr < total_data_size;
-          } else {
-            // Choose start address to be too low or end address to be too high.
-            dst_addr < mem_range_base  ||
-            dst_addr > mem_range_limit ||
-            mem_range_limit - dst_addr < chunk_data_size;
-          }
+          dst_addr < mem_range_base  ||
+          dst_addr > mem_range_limit ||
+          dst_addr + address_footprint_size(dst_addr_inc, dst_chunk_wrap, per_transfer_width,
+                                            total_data_size, chunk_data_size) - 1'b1 >
+              mem_range_limit;
         }
       }
     }
@@ -298,7 +285,8 @@ class dma_seq_item extends uvm_sequence_item;
   constraint total_data_size_c {
     solve mem_range_limit before total_data_size;
     if (valid_dma_config) {
-      total_data_size <= mem_range_limit - mem_range_base;
+      {1'b0, total_data_size} <=
+          {1'b0, mem_range_limit} - {1'b0, mem_range_base} + 33'd1;
       total_data_size > 0;
     }
   }
@@ -306,7 +294,8 @@ class dma_seq_item extends uvm_sequence_item;
   constraint chunk_data_size_c {
     solve mem_range_limit before chunk_data_size;
     if (valid_dma_config) {
-      chunk_data_size <= mem_range_limit - mem_range_base;
+      {1'b0, chunk_data_size} <=
+          {1'b0, mem_range_limit} - {1'b0, mem_range_base} + 33'd1;
       chunk_data_size > 0;
     }
     if (handshake) {
@@ -368,7 +357,7 @@ class dma_seq_item extends uvm_sequence_item;
     // later be invalidated. We do this even if not waiving full testing because in that case they
     // shall simply be ignored.
     solve soc_system_src_base_addr, soc_system_dst_base_addr, mem_range_base before mem_range_limit;
-    // For valid DMA config, [mem_range_base, mem_range_limit) describes the addressable memory
+    // For valid DMA config, [mem_range_base, mem_range_limit] describes the addressable memory
     // window, but it need not always be enabled, and only applies to transfers crossing the divide
     // (importing to/exporting from OT)
     if (valid_dma_config && mem_range_valid) {
@@ -503,11 +492,30 @@ class dma_seq_item extends uvm_sequence_item;
     return ((address >= mem_range_base) && (address <= mem_range_limit));
   endfunction
 
+  // Return the number of bytes reachable from the start address under the selected addressing
+  // mode. This mirrors the RTL footprint calculation.
+  static function bit [31:0] address_footprint_size(bit addr_inc, bit chunk_wrap,
+                                                    dma_transfer_width_e transfer_width,
+                                                    bit [31:0] total_size,
+                                                    bit [31:0] chunk_size);
+    bit [31:0] footprint_size = total_size;
+    bit [31:0] transfer_bytes = transfer_width_to_num_bytes(transfer_width);
+
+    if (chunk_wrap) begin
+      footprint_size = (chunk_size < total_size) ? chunk_size : total_size;
+      if (!addr_inc && transfer_bytes < footprint_size) begin
+        footprint_size = transfer_bytes;
+      end
+    end
+    return footprint_size;
+  endfunction
+
   // Is a buffer of the given base address and size fully contained within the DMA-enabled memory
   // range?
   function bit is_buffer_in_dma_memory_region(bit [31:0] base, bit [31:0] size);
-    return (is_address_in_dma_memory_region(base) &&
-            is_address_in_dma_memory_region(base + size - 1'b1));
+    bit [32:0] last_address = {1'b0, base} + {1'b0, size} - 33'd1;
+    return (size != 0 && is_address_in_dma_memory_region(base) && !last_address[32] &&
+            is_address_in_dma_memory_region(last_address[31:0]));
   endfunction
 
   // Function to check if the programmed DMA settings are valid.
@@ -524,20 +532,10 @@ class dma_seq_item extends uvm_sequence_item;
     `uvm_info(`gfn, $sformatf("Checking configuration (%s)", reason), UVM_MEDIUM)
 
     // Ascertain the size of the in-memory buffer(s).
-    src_memory_range = total_data_size;
-    if (src_chunk_wrap) begin
-      src_memory_range = chunk_data_size;  // All chunks overlap each other
-      if (!src_addr_inc) begin
-        src_memory_range = 4;
-      end
-    end
-    dst_memory_range = total_data_size;
-    if (dst_chunk_wrap) begin
-      dst_memory_range = chunk_data_size;  // All chunks overlaps each other
-      if (!dst_addr_inc) begin
-        dst_memory_range = 4;
-      end
-    end
+    src_memory_range = address_footprint_size(src_addr_inc, src_chunk_wrap, per_transfer_width,
+                                              total_data_size, chunk_data_size);
+    dst_memory_range = address_footprint_size(dst_addr_inc, dst_chunk_wrap, per_transfer_width,
+                                              total_data_size, chunk_data_size);
 
     // Use of the System bus imposes additional constraints that have had to be introduced to
     // permit testing in block level DV (see `soc_system_src|dst_base_addr` above); if the transfer

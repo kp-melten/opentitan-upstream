@@ -15,7 +15,7 @@
     "What is the next milestone-directed action?"
   ],
   "review_policy": "Every closeout should answer the review questions as a compact delta and should update ledgers only when accepted campaign state changes. Production design deltas should foreground executable design/work-product progress and efficient movement toward working silicon before evidence bookkeeping. Implementation-checkpoint closeouts do not require verifier review or claim advancement. Updates that affect claim scope, evidence scope, hard gates, or success criteria require verification-agent review. Promotion claims require initial-packet sign-off from the human silicon architect and DV engineer / verification owner. Controller-recorded narrowed-scope exceptions authorize non-promotion discovery or implementation with explicit non-claims only.",
-  "current_next_milestone": "M4",
+  "current_next_milestone": "M7",
   "milestones": [
     {
       "id": "M0",
@@ -51,7 +51,7 @@
     },
     {
       "id": "M4",
-      "status": "pending",
+      "status": "complete",
       "title": "First meaningful executable design increment",
       "exit_criteria": "A meaningful RTL, model, BFM, generated-collateral, interface, or integration increment exists, can be locally exercised, and materially reduces distance to the working capability target. This advances construction only; promotion claims still require the M1-M3 gates and verifier-owned evidence",
       "owner": "main_agent",
@@ -59,7 +59,7 @@
     },
     {
       "id": "M5",
-      "status": "pending",
+      "status": "complete",
       "title": "DMA boundary RTL and DV collateral aligned",
       "exit_criteria": "Overflow-safe exact footprint validation, directed boundary sequence, inclusive scoreboard/model semantics, no-request assertion or equivalent, testplan, and simulation config are reviewable together",
       "owner": "main_agent",
@@ -67,7 +67,7 @@
     },
     {
       "id": "M6",
-      "status": "pending",
+      "status": "complete",
       "title": "Focused checks recorded",
       "exit_criteria": "DMA Verilator lint and the narrowest available directed simulation are recorded; unavailable simulator work is explicitly pending",
       "owner": "main_agent",

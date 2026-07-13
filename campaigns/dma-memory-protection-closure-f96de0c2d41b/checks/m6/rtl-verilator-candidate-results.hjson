@@ -1,0 +1,46 @@
+{
+  flow_info: []
+  flow_warning:
+  [
+    WARNING: This backend is deprecated and will eventually be removed. Please migrate to the flow API instead.  See https://edalize.readthedocs.io/en/latest/ref/migrations.html#migrating-from-the-tool-api-to-the-flow-api for more details.
+  ]
+  flow_error:
+  [
+    ERROR: %Warning-WIDTHEXPAND: src/lowrisc_prim_diff_decode_0/rtl/prim_diff_decode.sv:162:28: Operator LT expects 32 bits on the LHS, but LHS's VARREF 'skew_cnt_q' generates 1 bits.
+    ERROR: Failed to build lowrisc:ip:dma:0.1 : '['make', 'lint-only']' exited with an error: 2
+  ]
+  lint_info: []
+  lint_warning:
+  [
+    %Warning-WIDTHEXPAND: src/lowrisc_ip_dma_0.1/rtl/dma.sv:495:59: Operator SHIFTL expects 64 bits on the LHS, but LHS's SEL generates 32 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:767:27: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:793:25: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:817:32: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:882:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:886:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:892:25: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:899:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:902:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:908:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:913:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:916:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:921:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:925:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:933:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:941:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:948:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:956:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:960:23: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:982:25: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:1009:25: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:1356:75: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:1357:75: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:1358:75: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:1359:75: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:1360:75: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:1361:75: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:1362:75: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+    %Warning-WIDTHTRUNC: src/lowrisc_ip_dma_0.1/rtl/dma.sv:1363:75: Bit extraction of var[7:0] requires 3 bit index, not 5 bits.
+  ]
+  lint_error: []
+}
