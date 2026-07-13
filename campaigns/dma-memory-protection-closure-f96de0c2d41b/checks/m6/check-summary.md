@@ -2,7 +2,14 @@
 
 Date: 2026-07-13
 Candidate base: `58f8fdd5396817b775d2c69af9a6322ac7a84e5a`
+Implementation commit: `4c0b71ccc9085482e9ebbac53dfef2f37d194fdb`
 Campaign branch: `campaign/dma-memory-protection-closure-f96de0c2d41b`
+
+The focused commands ran against the campaign working tree rooted at packet commit
+`ef6996d7d083ec4b40c456a503d710976cb415fa`. The tested RTL and DV collateral was then
+committed without intervening source changes as the implementation commit above. The raw
+dvsim report therefore names the pre-commit root while this ledger records the durable
+candidate identity.
 
 ## DMA Verilator lint target
 
