@@ -1,0 +1,49 @@
+[
+  {
+    "name": "default",
+    "job_type": "CompileOneShot",
+    "target": "build",
+    "backend": null,
+    "resources": {
+      "VERILATOR": 1
+    },
+    "seed": null,
+    "full_name": "dma:default",
+    "qual_name": "default",
+    "block": {
+      "name": "dma",
+      "variant": null,
+      "commit": "591bcfb34f2a48025c517bd1e0cb1a1eddfb99d2",
+      "commit_short": "591bcfb34f",
+      "branch": "campaign-dma-memory-protection-closure-f96de0c2d41b",
+      "url": "",
+      "revision_info": "GitHub Revision: [`591bcfb34f`](https://github.com/lowrisc/opentitan/tree/591bcfb34f2a48025c517bd1e0cb1a1eddfb99d2)"
+    },
+    "tool": {
+      "name": "verilator",
+      "version": ""
+    },
+    "workspace_cfg": {
+      "timestamp": "20260714_154610",
+      "project_root": "/home/k/melten-dev/opentitan-dma-memory-protection",
+      "scratch_root": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator",
+      "scratch_path": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator"
+    },
+    "dependencies": [],
+    "needs_all_dependencies_passing": true,
+    "weight": 1,
+    "timeout_mins": 60.0,
+    "cmd": "make -f /home/k/melten-dev/opentitan-dma-memory-protection/hw/lint/tools/dvsim/lint.mk build build_cmd=fusesoc build_dir=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default build_log=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/verilator.log build_opts='--cores-root /home/k/melten-dev/opentitan-dma-memory-protection/hw run --target=lint --tool=verilator --work-root=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/fusesoc-work --mapping=lowrisc:prim_generic:all:0.1 --mapping=lowrisc:systems:top_darjeeling:0.1 lowrisc:ip:dma' build_timeout_mins=None post_build_cmds='' post_build_opts='' pre_build_cmds='' proj_root=/home/k/melten-dev/opentitan-dma-memory-protection report_cmd=/home/k/melten-dev/opentitan-dma-memory-protection/util/dvsim/verilator-report-parser.py report_opts='--repfile=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/verilator.log --outfile=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/results.hjson' sv_flist_gen_cmd='' sv_flist_gen_dir='' sv_flist_gen_opts=''",
+    "exports": {
+      "SCRATCH_PATH": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator",
+      "proj_root": "/home/k/melten-dev/opentitan-dma-memory-protection"
+    },
+    "dry_run": false,
+    "interactive": false,
+    "odir": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default",
+    "renew_odir": false,
+    "log_path": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/build.log",
+    "pass_patterns": [],
+    "fail_patterns": []
+  }
+]

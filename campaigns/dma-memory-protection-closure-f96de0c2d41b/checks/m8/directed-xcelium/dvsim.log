@@ -1,0 +1,53 @@
+[32m[I 260714 10:47:39 run:950][0m [proj_root]: /home/k/melten-dev/opentitan-dma-memory-protection
+[32m[I 260714 10:47:39 flow:229][0m [scratch_path]: [dma] [/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium]
+[32m[I 260714 10:47:39 flow:277][0m Purging scratch path /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium
+[32m[I 260714 10:47:39 status_printer:199][0m [1m         [0m [   legend    ]: [S: scheduled, Q: queued, R: running, P: passed, F: failed, K: killed, T: total]
+[33m[W 260714 10:47:40 backend:376][0m dma:default: Job runtime not found in the log.
+[33m[W 260714 10:47:40 backend:245][0m dma:default: Using dvsim-maintained job_runtime instead.
+[31m[E 260714 10:47:40 core:273][0m Status change to [F: Failed] for dma:default
+[31m[E 260714 10:47:40 core:273][0m Status change to [K: Killed] for dma:0.dma_mem_boundary.108653396375128996819069972012555481985280936168309613159863083322695046236484
+[32m[I 260714 10:47:40 status_printer:223][0m [1m00:00:01 [0m [    build    ]: [S:         0, Q:      0, R:       0, P:      0, F:      1, K:      0, T:     1] 100%  
+[32m[I 260714 10:47:40 status_printer:223][0m [1m00:00:01 [0m [     run     ]: [S:         0, Q:      0, R:       0, P:      0, F:      0, K:      1, T:     1] 100%  
+[32m[I 260714 10:47:40 report:484][0m [results]: [dma]
+## DMA Simulation Results
+### Tuesday July 14 2026 15:47:39 UTC
+### GitHub Revision: [`591bcfb34f`](https://github.com/lowrisc/opentitan/tree/591bcfb34f2a48025c517bd1e0cb1a1eddfb99d2)
+### Branch: campaign-dma-memory-protection-closure-f96de0c2d41b
+### [Testplan](https://opentitan.org/book/hw/ip/dma/data/dma_testplan.html)
+### Simulator: XCELIUM
+
+### Test Results
+
+|  Stage  |       Name       | Tests            |  Max Job Runtime  |  Simulated Time  |  Passing  |  Total  |  Pass Rate  |
+|:-------:|:----------------:|:-----------------|:-----------------:|:----------------:|:---------:|:-------:|:-----------:|
+|   V2S   | dma_mem_boundary | dma_mem_boundary |      0.000s       |     0.000us      |     0     |    1    |   0.00 %    |
+|   V2S   |                  | **TOTAL**        |                   |                  |     0     |    1    |   0.00 %    |
+|         |                  | **TOTAL**        |                   |                  |     0     |    1    |   0.00 %    |
+
+## Coverage Results
+### [Coverage Dashboard](/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/cov_report/index.html)
+
+## Failure Buckets
+* `Job returned a non-zero exit code: *` has 1 failure:
+    * Test default has 1 failure.
+        * default\
+          Log /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/build.log
+
+                INFO: Generating lowrisc:dv:dma_sva-csr_assert_gen:0.1
+                INFO: Generating lowrisc:dv:dma_env-ral:0.1.0
+                Calling tool in ralgen.py: /home/k/melten-dev/opentitan-dma-memory-protection/hw/dv/tools/ralgen/../../../../util/regtool.py -s -t /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/fusesoc-work/generator_cache/lowrisc_dv_dma_env-ral_0.1.0-165814b13d3e1a1c95dede2f7d17c2a427ff25da08ff5c2d84721cac2bbc3540 /home/k/melten-dev/opentitan-dma-memory-protection/hw/ip/dma/dv/env/../../data/dma.hjson
+                RAL pkg for dma written to /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/fusesoc-work/generator_cache/lowrisc_dv_dma_env-ral_0.1.0-165814b13d3e1a1c95dede2f7d17c2a427ff25da08ff5c2d84721cac2bbc3540.
+                INFO: Setting up project
+                
+                [make]: build
+                cd /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/fusesoc-work && xrun +define+UVM +define+UVM_NO_DEPRECATED +define+UVM_REGEX_NO_DPI +define+UVM_REG_ADDR_WIDTH=32 +define+UVM_REG_DATA_WIDTH=32 +define+UVM_REG_BYTENABLE_WIDTH=4 +define+SIMULATION +define+DUT_HIER=tb.dut -elaborate -64bit -sv -licqueue -ALLOWREDEFINITION -messages -errormax 50 -timescale 1ns/1ps -f /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/fusesoc-work/lowrisc_dv_dma_sim_0.1.scr -uvmhome CDNS-1.2 -xmlibdirname /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/xcelium.d -top dma_cov_bind -top dma_bind -top tb -snapshot tb -access +rw -enable_strict_timescale +define+XCELIUM -nocopyright -nowarn TSNSPK -nowarn DSEMEL -nowarn CUVIHR -nowarn REVRNG -nowarn SPDUSD -I/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/fusesoc-work/src/lowrisc_dv_secded_enc_0 -xmerror ENUMERR -enable_abv_asrtctrl_enh -xprop F -xverbose
+                bash: line 1: xrun: command not found
+                make: *** [/home/k/melten-dev/opentitan-dma-memory-protection/hw/dv/tools/dvsim/sim.mk:36: do_build] Error 127
+
+* `Job cancelled because one of its dependencies failed or was killed.` has 1 failure:
+    * Test dma_mem_boundary has 1 failure.
+        * 0.dma_mem_boundary.108653396375128996819069972012555481985280936168309613159863083322695046236484\
+          Log /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/0.dma_mem_boundary/latest/run.log
+
+
+[31m[E 260714 10:47:40 run:1044][0m Errors were encountered in this run.

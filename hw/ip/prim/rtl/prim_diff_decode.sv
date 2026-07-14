@@ -57,9 +57,21 @@ module prim_diff_decode #(
     // 2 sync regs, one reg for edge detection
     logic diff_pq, diff_nq, diff_pd, diff_nd;
 
-    // Counter for skew cycles tolerated before flagging an issue
-    // The width needs to accommodate SkewCycles + 1 to count up to SkewCycles.
-    logic [prim_util_pkg::vbits(SkewCycles + 1)-1:0] skew_cnt_d, skew_cnt_q;
+    // The counter stores the inclusive range 0..SkewCycles. Extend SkewCycles before adding one so
+    // the width calculation also works for the maximum value of the unsigned parameter.
+    localparam int unsigned SkewCntWidth =
+        (SkewCycles == 0) ? 1 : $clog2(33'(SkewCycles) + 33'd1);
+    typedef logic [SkewCntWidth-1:0] skew_cnt_t;
+    localparam skew_cnt_t SkewCyclesCnt = SkewCycles[SkewCntWidth-1:0];
+    localparam skew_cnt_t SkewCntIncr = {{(SkewCntWidth - 1){1'b0}}, 1'b1};
+    skew_cnt_t skew_cnt_d, skew_cnt_q;
+    logic skew_cnt_lt;
+
+    if (SkewCycles == 0) begin : gen_zero_skew_cycles
+      assign skew_cnt_lt = 1'b0;
+    end else begin : gen_nonzero_skew_cycles
+      assign skew_cnt_lt = skew_cnt_q < SkewCyclesCnt;
+    end
 
     prim_flop_2sync #(
       .Width(1),
@@ -144,7 +156,7 @@ module prim_diff_decode #(
             end else begin
               // Mismatch with an edge: likely start of a tolerated skew
               state_d    = IsSkewing;
-              skew_cnt_d = 1;
+              skew_cnt_d = SkewCntIncr;
             end
           end
         end
@@ -159,9 +171,9 @@ module prim_diff_decode #(
             if (level) rise_o = 1'b1;
             else       fall_o = 1'b1;
           end else begin
-            if (skew_cnt_q < SkewCycles) begin
+            if (skew_cnt_lt) begin
               // Still within tolerated skew cycles
-              skew_cnt_d = skew_cnt_q + 1;
+              skew_cnt_d = skew_cnt_q + SkewCntIncr;
             end else begin
               // Maximum skew cycles exceeded, raise an integrity issue
               state_d    = SigInt;

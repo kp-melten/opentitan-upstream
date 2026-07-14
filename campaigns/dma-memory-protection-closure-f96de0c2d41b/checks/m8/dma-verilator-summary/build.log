@@ -1,0 +1,287 @@
+[Executing]:
+make -f /home/k/melten-dev/opentitan-dma-memory-protection/hw/lint/tools/dvsim/lint.mk build build_cmd=fusesoc build_dir=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default build_log=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/verilator.log build_opts='--cores-root /home/k/melten-dev/opentitan-dma-memory-protection/hw run --target=lint --tool=verilator --work-root=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/fusesoc-work --mapping=lowrisc:prim_generic:all:0.1 --mapping=lowrisc:systems:top_darjeeling:0.1 lowrisc:ip:dma' build_timeout_mins=None post_build_cmds='' post_build_opts='' pre_build_cmds='' proj_root=/home/k/melten-dev/opentitan-dma-memory-protection report_cmd=/home/k/melten-dev/opentitan-dma-memory-protection/util/dvsim/verilator-report-parser.py report_opts='--repfile=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/verilator.log --outfile=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/results.hjson' sv_flist_gen_cmd='' sv_flist_gen_dir='' sv_flist_gen_opts=''
+
+[make]: pre_build
+mkdir -p /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default
+[make]: do_build
+cd /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default && fusesoc --cores-root /home/k/melten-dev/opentitan-dma-memory-protection/hw run --target=lint --tool=verilator --work-root=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/fusesoc-work --mapping=lowrisc:prim_generic:all:0.1 --mapping=lowrisc:systems:top_darjeeling:0.1 lowrisc:ip:dma 2>&1 | tee /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/verilator.log
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:prim:clock_div:0 to lowrisc:prim_generic:clock_div:0.
+INFO: Mapped lowrisc:prim:clock_mux2:0 to lowrisc:prim_generic:clock_mux2:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:pad_attr:0 to lowrisc:prim_generic:pad_attr:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_div:0 to lowrisc:prim_generic:clock_div:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:virtual_constants:rnd_cnst_pkg:0 to lowrisc:darjeeling_constants:testing_rnd_cnst_pkg:0.
+INFO: Mapped lowrisc:prim:ram_1p:0 to lowrisc:prim_generic:ram_1p:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:prim:prim_pkg:0 to lowrisc:prim_generic:prim_pkg:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_div:0 to lowrisc:prim_generic:clock_div:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:prim:clock_inv:0 to lowrisc:prim_generic:clock_inv:0.
+INFO: Mapped lowrisc:prim:prim_pkg:0 to lowrisc:prim_generic:prim_pkg:0.
+INFO: Mapped lowrisc:prim:prim_pkg:0 to lowrisc:prim_generic:prim_pkg:0.
+INFO: Mapped lowrisc:prim:clock_inv:0 to lowrisc:prim_generic:clock_inv:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:prim:and2:0 to lowrisc:prim_generic:and2:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:clock_mux2:0 to lowrisc:prim_generic:clock_mux2:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:prim:flash:0 to lowrisc:prim_generic:flash:0.
+INFO: Mapped lowrisc:prim:clock_div:0 to lowrisc:prim_generic:clock_div:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:prim:flash:0 to lowrisc:prim_generic:flash:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:prim_pkg:0 to lowrisc:prim_generic:prim_pkg:0.
+INFO: Mapped lowrisc:prim:clock_mux2:0 to lowrisc:prim_generic:clock_mux2:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:pad_attr:0 to lowrisc:prim_generic:pad_attr:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_div:0 to lowrisc:prim_generic:clock_div:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:prim:clock_div:0 to lowrisc:prim_generic:clock_div:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_div:0 to lowrisc:prim_generic:clock_div:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:prim:clock_inv:0 to lowrisc:prim_generic:clock_inv:0.
+INFO: Mapped lowrisc:prim:prim_pkg:0 to lowrisc:prim_generic:prim_pkg:0.
+INFO: Mapped lowrisc:prim:ram_1p:0 to lowrisc:prim_generic:ram_1p:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:prim:flash:0 to lowrisc:prim_generic:flash:0.
+INFO: Mapped lowrisc:prim:usb_diff_rx:0 to lowrisc:prim_generic:usb_diff_rx:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:prim:clock_div:0 to lowrisc:prim_generic:clock_div:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:prim:flash:0 to lowrisc:prim_generic:flash:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:prim_pkg:0 to lowrisc:prim_generic:prim_pkg:0.
+INFO: Mapped lowrisc:prim:clock_mux2:0 to lowrisc:prim_generic:clock_mux2:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:pad_attr:0 to lowrisc:prim_generic:pad_attr:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_div:0 to lowrisc:prim_generic:clock_div:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:virtual_constants:rnd_cnst_pkg:0 to lowrisc:darjeeling_constants:testing_rnd_cnst_pkg:0.
+INFO: Mapped lowrisc:prim:ram_1p:0 to lowrisc:prim_generic:ram_1p:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:prim:prim_pkg:0 to lowrisc:prim_generic:prim_pkg:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_div:0 to lowrisc:prim_generic:clock_div:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:prim:clock_inv:0 to lowrisc:prim_generic:clock_inv:0.
+INFO: Mapped lowrisc:prim:prim_pkg:0 to lowrisc:prim_generic:prim_pkg:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:prim:clock_inv:0 to lowrisc:prim_generic:clock_inv:0.
+INFO: Mapped lowrisc:prim:rst_sync:0 to lowrisc:prim_generic:rst_sync:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:prim:ram_1p:0 to lowrisc:prim_generic:ram_1p:0.
+INFO: Mapped lowrisc:prim:clock_mux2:0 to lowrisc:prim_generic:clock_mux2:0.
+INFO: Mapped lowrisc:virtual_constants:lc_ctrl_token_pkg:0 to lowrisc:darjeeling_constants:testing_lc_ctrl_token_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:prim:flop_en:0 to lowrisc:prim_generic:flop_en:0.
+INFO: Mapped lowrisc:prim:clock_mux2:0 to lowrisc:prim_generic:clock_mux2:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:prim:clock_inv:0 to lowrisc:prim_generic:clock_inv:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:prim:clock_mux2:0 to lowrisc:prim_generic:clock_mux2:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:clock_mux2:0 to lowrisc:prim_generic:clock_mux2:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:prim:ram_1p:0 to lowrisc:prim_generic:ram_1p:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:ram_1p:0 to lowrisc:prim_generic:ram_1p:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:and2:0 to lowrisc:prim_generic:and2:0.
+INFO: Mapped lowrisc:prim:ram_1r1w:0 to lowrisc:prim_generic:ram_1r1w:0.
+INFO: Mapped lowrisc:prim:pad_wrapper:0 to lowrisc:prim_generic:pad_wrapper:0.
+INFO: Mapped lowrisc:prim:clock_mux2:0 to lowrisc:prim_generic:clock_mux2:0.
+INFO: Mapped lowrisc:prim:clock_inv:0 to lowrisc:prim_generic:clock_inv:0.
+INFO: Mapped lowrisc:prim:const:0 to lowrisc:prim_generic:const:0.
+INFO: Mapped lowrisc:prim:const_sec:0 to lowrisc:prim_generic:const_sec:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:prim:flop_en:0 to lowrisc:prim_generic:flop_en:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:flop_no_rst:0 to lowrisc:prim_generic:flop_no_rst:0.
+INFO: Mapped lowrisc:prim:rst_sync:0 to lowrisc:prim_generic:rst_sync:0.
+INFO: Mapped lowrisc:prim:xor2:0 to lowrisc:prim_generic:xor2:0.
+INFO: Mapped lowrisc:prim:xnor2:0 to lowrisc:prim_generic:xnor2:0.
+INFO: Mapped lowrisc:prim:and2:0 to lowrisc:prim_generic:and2:0.
+INFO: Mapped lowrisc:prim:inv:0 to lowrisc:prim_generic:inv:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:rom:0 to lowrisc:prim_generic:rom:0.
+INFO: Mapped lowrisc:prim:ram_2p:0 to lowrisc:prim_generic:ram_2p:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:xnor2:0 to lowrisc:prim_generic:xnor2:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:prim:buf:0 to lowrisc:prim_generic:buf:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:prim:flop:0 to lowrisc:prim_generic:flop:0.
+INFO: Mapped lowrisc:prim:clock_inv:0 to lowrisc:prim_generic:clock_inv:0.
+INFO: Mapped lowrisc:prim:clock_buf:0 to lowrisc:prim_generic:clock_buf:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:prim:clock_inv:0 to lowrisc:prim_generic:clock_inv:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:prim:flop_2sync:0 to lowrisc:prim_generic:flop_2sync:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:prim:clock_gating:0 to lowrisc:prim_generic:clock_gating:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:prim:flop_en:0 to lowrisc:prim_generic:flop_en:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_racl_pkg:0 to lowrisc:darjeeling_constants:top_racl_pkg:0.
+INFO: Mapped lowrisc:virtual_constants:top_pkg:0 to lowrisc:darjeeling_constants:top_pkg:0.
+INFO: Mapped lowrisc:systems:ast_pkg:0 to lowrisc:systems:top_darjeeling_ast_pkg:0.
+INFO: Preparing lowrisc:ip:jtag_pkg:0.1
+INFO: Preparing lowrisc:lint:comportable:0.1
+INFO: Preparing lowrisc:tool:check_tool_requirements:0.1
+INFO: Preparing lowrisc:lint:common:0.1
+INFO: Preparing lowrisc:prim:assert:0.1
+INFO: Preparing lowrisc:prim:cipher_pkg:0.1
+INFO: Preparing lowrisc:prim_generic:and2:0
+INFO: Preparing lowrisc:prim_generic:buf:0
+INFO: Preparing lowrisc:prim_generic:clock_gating:0
+INFO: Preparing lowrisc:prim_generic:const:0
+INFO: Preparing lowrisc:prim_generic:const_sec:0
+INFO: Preparing lowrisc:prim_generic:flop:0
+INFO: Preparing lowrisc:prim_generic:flop_no_rst:0
+INFO: Preparing lowrisc:prim_generic:inv:0
+INFO: Preparing lowrisc:prim_generic:xnor2:0
+INFO: Preparing lowrisc:prim_generic:xor2:0
+INFO: Preparing lowrisc:prim:pad_wrapper_pkg:0
+INFO: Preparing lowrisc:prim:secded:0.1
+INFO: Preparing lowrisc:prim:sha2_pkg:0
+INFO: Preparing lowrisc:prim:blanker:0
+INFO: Preparing lowrisc:prim:cdc_rand_delay:0
+INFO: Preparing lowrisc:prim:cipher:0
+INFO: Preparing lowrisc:prim:count:0
+INFO: Preparing lowrisc:prim_generic:clock_mux2:0
+INFO: Preparing lowrisc:prim_generic:pad_wrapper:0
+INFO: Preparing lowrisc:prim:mubi_pkg:0.1
+INFO: Preparing lowrisc:prim:sec_anchor:0.1
+INFO: Preparing lowrisc:prim:sha2:0
+INFO: Preparing lowrisc:prim:sparse_fsm:0
+INFO: Preparing lowrisc:prim:util:0.1
+INFO: Preparing lowrisc:darjeeling_constants:top_pkg:0
+INFO: Preparing lowrisc:ip:lc_ctrl_state_pkg:0.1
+INFO: Preparing lowrisc:prim_generic:clock_inv:0
+INFO: Preparing lowrisc:prim_generic:flop_2sync:0
+INFO: Preparing lowrisc:prim_generic:flop_en:0
+INFO: Preparing lowrisc:prim:leading_one_ppc:0
+INFO: Preparing lowrisc:prim:mubi:0.1
+INFO: Preparing lowrisc:prim:onehot_check:0
+INFO: Preparing lowrisc:prim:arbiter:0
+INFO: Preparing lowrisc:prim:diff_decode:0
+INFO: Preparing lowrisc:prim:fifo:0
+INFO: Preparing lowrisc:prim_generic:rst_sync:0
+INFO: Preparing lowrisc:prim:reg_we_check:0
+INFO: Preparing lowrisc:prim:subreg:0
+INFO: Preparing lowrisc:tlul:headers:0.1
+INFO: Preparing lowrisc:darjeeling_constants:top_racl_pkg:0.1
+INFO: Preparing lowrisc:ip:lc_ctrl_pkg:0.1
+INFO: Preparing lowrisc:prim:esc:0
+INFO: Preparing lowrisc:tlul:trans_intg:0.1
+INFO: Preparing lowrisc:ip:dma_pkg:0.1
+INFO: Preparing lowrisc:prim:alert:0
+INFO: Preparing lowrisc:prim:lc_sync:0.1
+INFO: Preparing lowrisc:tlul:common:0.1
+INFO: Preparing lowrisc:prim:all:0.1
+INFO: Preparing lowrisc:tlul:adapter_host:0.1
+INFO: Preparing lowrisc:tlul:adapter_reg:0.1
+INFO: Preparing lowrisc:tlul:adapter_sram:0.1
+INFO: Preparing lowrisc:tlul:lc_gate:0.1
+INFO: Preparing lowrisc:tlul:request_loopback:0.1
+INFO: Preparing lowrisc:tlul:socket_1n:0.1
+INFO: Preparing lowrisc:tlul:socket_m1:0.1
+INFO: Preparing lowrisc:tlul:sram2tlul:0.1
+INFO: Preparing lowrisc:tlul:adapter_racl:0.1
+INFO: Preparing lowrisc:tlul:adapter_reg_racl:0.1
+INFO: Preparing pulp-platform:riscv-dbg:0.1:0
+INFO: Preparing lowrisc:tlul:adapter_dmi:0.1
+INFO: Preparing lowrisc:tlul:adapter_sram_racl:0.1
+INFO: Preparing lowrisc:tlul:jtag_dtm:0.1
+INFO: Preparing lowrisc:ip:tlul:0.1
+INFO: Preparing lowrisc:ip:dma:0.1
+INFO: Setting up project
+WARNING: This backend is deprecated and will eventually be removed. Please migrate to the flow API instead.  See https://edalize.readthedocs.io/en/latest/ref/migrations.html#migrating-from-the-tool-api-to-the-flow-api for more details.
+INFO: Running pre_build script check_tool_requirements_verilator
+INFO: Tool python present: Sufficiently recent version (found 3.14.6; needed 3.10)
+INFO: Tool edalize present: Sufficiently recent version (found 0.6.3; needed 0.2.0)
+INFO: Tool verilator present: Sufficiently recent version (found 5.020; needed 4.210)
+INFO: Building simulation model
+INFO: Running
+[make]: post_build
+[make]: build_result
+/home/k/melten-dev/opentitan-dma-memory-protection/util/dvsim/verilator-report-parser.py --repfile=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/verilator.log --outfile=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/dma-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/results.hjson
+make: *** [/home/k/melten-dev/opentitan-dma-memory-protection/hw/lint/tools/dvsim/lint.mk:34: build_result] Error 1

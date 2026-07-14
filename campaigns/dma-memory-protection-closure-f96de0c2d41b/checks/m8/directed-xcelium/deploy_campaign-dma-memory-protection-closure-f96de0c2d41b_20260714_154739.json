@@ -1,0 +1,147 @@
+[
+  {
+    "name": "dma_mem_boundary",
+    "job_type": "RunTest",
+    "target": "run",
+    "backend": null,
+    "resources": {
+      "XCELIUM": 1
+    },
+    "seed": 108653396375128996819069972012555481985280936168309613159863083322695046236484,
+    "full_name": "dma:0.dma_mem_boundary.108653396375128996819069972012555481985280936168309613159863083322695046236484",
+    "qual_name": "0.dma_mem_boundary.108653396375128996819069972012555481985280936168309613159863083322695046236484",
+    "block": {
+      "name": "dma",
+      "variant": "",
+      "commit": "591bcfb34f2a48025c517bd1e0cb1a1eddfb99d2",
+      "commit_short": "591bcfb34f",
+      "branch": "campaign-dma-memory-protection-closure-f96de0c2d41b",
+      "url": "",
+      "revision_info": "GitHub Revision: [`591bcfb34f`](https://github.com/lowrisc/opentitan/tree/591bcfb34f2a48025c517bd1e0cb1a1eddfb99d2)"
+    },
+    "tool": {
+      "name": "xcelium",
+      "version": ""
+    },
+    "workspace_cfg": {
+      "timestamp": "20260714_154739",
+      "project_root": "/home/k/melten-dev/opentitan-dma-memory-protection",
+      "scratch_root": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium",
+      "scratch_path": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium"
+    },
+    "dependencies": [
+      "dma:default"
+    ],
+    "needs_all_dependencies_passing": true,
+    "weight": 1,
+    "timeout_mins": 60.0,
+    "cmd": "make -f /home/k/melten-dev/opentitan-dma-memory-protection/hw/dv/tools/dvsim/sim.mk run build_seed=None post_run_cmds='' pre_run_cmds='' proj_root=/home/k/melten-dev/opentitan-dma-memory-protection run_cmd=xrun run_dir=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/0.dma_mem_boundary/latest run_opts='+UVM_NO_RELNOTES +UVM_VERBOSITY=UVM_LOW -input /home/k/melten-dev/opentitan-dma-memory-protection/hw/dv/tools/sim.tcl -nocopyright -licqueue -64bit -xmlibdirname /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/xcelium.d -r tb +SVSEED=3564210500 +UVM_TESTNAME=dma_base_test +UVM_TEST_SEQ=dma_mem_boundary_vseq -nowarn DSEM2009' seed=108653396375128996819069972012555481985280936168309613159863083322695046236484 sw_build_cmd='python /home/k/melten-dev/opentitan-dma-memory-protection/util/py/scripts/build_sw_collateral_for_sim.py --sw-images='\"'\"''\"'\"' --sw-build-opts='\"'\"''\"'\"' --sw-build-device= --seed=108653396375128996819069972012555481985280936168309613159863083322695046236484 --run-dir=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/0.dma_mem_boundary/latest' sw_build_device='' sw_build_opts='' sw_images='' uvm_test=dma_base_test uvm_test_seq=dma_mem_boundary_vseq",
+    "exports": {
+      "dv_root": "/home/k/melten-dev/opentitan-dma-memory-protection/hw/dv",
+      "self_dir": "/home/k/melten-dev/opentitan-dma-memory-protection/hw/ip/dma/dv",
+      "SIMULATOR": "xcelium",
+      "GUI": "0",
+      "GUI_DEBUG": "0",
+      "WAVES": "none",
+      "DUT_TOP": "dma",
+      "TB_TOP": "tb",
+      "dut_instance": "tb.dut",
+      "CDS_LIC_QUEUE_POLL": "1",
+      "CDS_LIC_QUEUE_POLL_INT": "60",
+      "VL_ENABLE_INVALID_IDX_XPROP": "1",
+      "VL_ENABLE_OUTOFRANGE_IDX_XPROP": "1",
+      "cov_merge_db_dir": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/cov_merge/merged",
+      "cov_report_dir": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/cov_report",
+      "cov_unr_dir": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/cov_unr",
+      "cov_merge_cmd": "imc",
+      "job_prefix": "",
+      "SCRATCH_PATH": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium",
+      "proj_root": "/home/k/melten-dev/opentitan-dma-memory-protection"
+    },
+    "dry_run": false,
+    "interactive": false,
+    "odir": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/0.dma_mem_boundary/latest",
+    "renew_odir": true,
+    "log_path": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/0.dma_mem_boundary/latest/run.log",
+    "pass_patterns": [
+      "^TEST PASSED (UVM_)?CHECKS$"
+    ],
+    "fail_patterns": [
+      "^UVM_ERROR\\s[^:].*$",
+      "^UVM_FATAL\\s[^:].*$",
+      "^UVM_WARNING\\s[^:].*$",
+      "^Assert failed: ",
+      "^\\s*Offending '.*'",
+      "^TEST FAILED (UVM_)?CHECKS$",
+      "^Error:.*$",
+      "\\*E.*$"
+    ]
+  },
+  {
+    "name": "default",
+    "job_type": "CompileSim",
+    "target": "build",
+    "backend": null,
+    "resources": {
+      "XCELIUM": 1
+    },
+    "seed": null,
+    "full_name": "dma:default",
+    "qual_name": "default",
+    "block": {
+      "name": "dma",
+      "variant": "",
+      "commit": "591bcfb34f2a48025c517bd1e0cb1a1eddfb99d2",
+      "commit_short": "591bcfb34f",
+      "branch": "campaign-dma-memory-protection-closure-f96de0c2d41b",
+      "url": "",
+      "revision_info": "GitHub Revision: [`591bcfb34f`](https://github.com/lowrisc/opentitan/tree/591bcfb34f2a48025c517bd1e0cb1a1eddfb99d2)"
+    },
+    "tool": {
+      "name": "xcelium",
+      "version": ""
+    },
+    "workspace_cfg": {
+      "timestamp": "20260714_154739",
+      "project_root": "/home/k/melten-dev/opentitan-dma-memory-protection",
+      "scratch_root": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium",
+      "scratch_path": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium"
+    },
+    "dependencies": [],
+    "needs_all_dependencies_passing": true,
+    "weight": 5,
+    "timeout_mins": 60.0,
+    "cmd": "make -f /home/k/melten-dev/opentitan-dma-memory-protection/hw/dv/tools/dvsim/sim.mk build build_cmd=xrun build_dir=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default build_opts='+define+UVM +define+UVM_NO_DEPRECATED +define+UVM_REGEX_NO_DPI +define+UVM_REG_ADDR_WIDTH=32 +define+UVM_REG_DATA_WIDTH=32 +define+UVM_REG_BYTENABLE_WIDTH=4 +define+SIMULATION +define+DUT_HIER=tb.dut -elaborate -64bit -sv -licqueue -ALLOWREDEFINITION -messages -errormax 50 -timescale 1ns/1ps -f /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/fusesoc-work/lowrisc_dv_dma_sim_0.1.scr -uvmhome CDNS-1.2 -xmlibdirname /home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/xcelium.d -top dma_cov_bind -top dma_bind -top tb -snapshot tb -access +rw -enable_strict_timescale +define+XCELIUM -nocopyright -nowarn TSNSPK -nowarn DSEMEL -nowarn CUVIHR -nowarn REVRNG -nowarn SPDUSD -I/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/fusesoc-work/src/lowrisc_dv_secded_enc_0 -xmerror ENUMERR -enable_abv_asrtctrl_enh -xprop F -xverbose' post_build_cmds='' post_build_opts='' pre_build_cmds='' proj_root=/home/k/melten-dev/opentitan-dma-memory-protection sv_flist_gen_cmd=fusesoc sv_flist_gen_dir=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/fusesoc-work sv_flist_gen_opts='--cores-root /home/k/melten-dev/opentitan-dma-memory-protection/hw run --mapping=lowrisc:prim_generic:all:0.1 --target=sim --work-root=/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/fusesoc-work --setup lowrisc:dv:dma_sim:0.1'",
+    "exports": {
+      "dv_root": "/home/k/melten-dev/opentitan-dma-memory-protection/hw/dv",
+      "self_dir": "/home/k/melten-dev/opentitan-dma-memory-protection/hw/ip/dma/dv",
+      "SIMULATOR": "xcelium",
+      "GUI": "0",
+      "GUI_DEBUG": "0",
+      "WAVES": "none",
+      "DUT_TOP": "dma",
+      "TB_TOP": "tb",
+      "dut_instance": "tb.dut",
+      "CDS_LIC_QUEUE_POLL": "1",
+      "CDS_LIC_QUEUE_POLL_INT": "60",
+      "VL_ENABLE_INVALID_IDX_XPROP": "1",
+      "VL_ENABLE_OUTOFRANGE_IDX_XPROP": "1",
+      "cov_merge_db_dir": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/cov_merge/merged",
+      "cov_report_dir": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/cov_report",
+      "cov_unr_dir": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/cov_unr",
+      "cov_merge_cmd": "imc",
+      "job_prefix": "",
+      "SCRATCH_PATH": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium",
+      "proj_root": "/home/k/melten-dev/opentitan-dma-memory-protection"
+    },
+    "dry_run": false,
+    "interactive": false,
+    "odir": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default",
+    "renew_odir": false,
+    "log_path": "/home/k/melten-dev/opentitan-dma-memory-protection/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m8/directed-xcelium/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-sim-xcelium/default/build.log",
+    "pass_patterns": [],
+    "fail_patterns": [
+      "\\*E.*$"
+    ]
+  }
+]
