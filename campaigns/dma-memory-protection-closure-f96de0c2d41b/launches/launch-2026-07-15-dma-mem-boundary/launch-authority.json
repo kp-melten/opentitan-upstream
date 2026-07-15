@@ -1,0 +1,26 @@
+{
+  "schema": "swb-campaign-launch-authority/v0",
+  "created": "2026-07-15T17:30:52Z",
+  "support_profile_id": "opentitan-dma",
+  "campaign_id": "dma-memory-protection-closure-f96de0c2d41b",
+  "campaign_path": "campaigns/dma-memory-protection-closure-f96de0c2d41b",
+  "launch_id": "launch-2026-07-15-dma-mem-boundary",
+  "launch_path": "campaigns/dma-memory-protection-closure-f96de0c2d41b/launches/launch-2026-07-15-dma-mem-boundary",
+  "authority": {
+    "recorded_by": "human_controller",
+    "recorded_at": "2026-07-15T17:30:52Z",
+    "authority_boundary": "Controller accepts the runtime-lock v0 and MCP bundle v0 for DMA memory-protection-closure campaign; same-user local validation is setup feedback only.",
+    "accepted": true
+  },
+  "accepted_runtime_lock_hash": "swb-runtime-lock/v0@sha256:69d3899ee65e159352fc75dafa3732915c2d8b7733c8c6380b14e07e12661af6",
+  "expected_swb_runtime_digest": "sha256:b02f5a3a142dd8e37bdadd4e46562be0f2206f2db5a6087ebcf118ad24b9526b",
+  "required_runtime_capabilities": [
+    "knowledge"
+  ],
+  "mcp_bundle_hash": "swb-mcp-bundle/v0@sha256:c8e0e921a9e92264697b325cf1aa681fe04aa33c3c2afbd35e7ff9d86d8f7cef",
+  "non_claims": [
+    "Launch-authority validation checks a git-owned campaign selector record; it does not prove design correctness, MCP use, or verification sufficiency.",
+    "Same-user local validation does not prove an enforceable controller or remote-worker launch boundary.",
+    "Runtime-lock, bundle, and SWB runtime digest agreement are setup selectors, not design evidence."
+  ]
+}
