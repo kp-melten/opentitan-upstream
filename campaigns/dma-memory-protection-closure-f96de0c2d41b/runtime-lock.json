@@ -1,0 +1,26 @@
+{
+  "runtime_lock_schema_version": "swb-runtime-lock/v0",
+  "campaign_id": "dma-memory-protection-closure-f96de0c2d41b",
+  "support_profile_id": "opentitan-dma",
+  "swb_version": "dev",
+  "swb_runtime_digest": "sha256:b02f5a3a142dd8e37bdadd4e46562be0f2206f2db5a6087ebcf118ad24b9526b",
+  "mcp_bundle_hash": "swb-mcp-bundle/v0@sha256:c8e0e921a9e92264697b325cf1aa681fe04aa33c3c2afbd35e7ff9d86d8f7cef",
+  "modules": {
+    "knowledge": {
+      "visibility_policy": [
+        "proposer_public"
+      ],
+      "source_identities": [
+        "source:design-knowledge@commit:388e89f3d71ff4e2dda39ea9fb8cc2e1f401a344"
+      ],
+      "module_implementation_identity": {
+        "module_implementation": "swb-knowledge-module",
+        "module_behavior_version": "knowledge-module-behavior/v0",
+        "module_schema_version": "swb-mcp-module-manifest/v0",
+        "behavior_fixture_hash": "sha256:c8eed6866b7e717915492404f4bcc0991b84ff57df309523e2c5319b813695d9",
+        "tool_schema_hash": "sha256:ece40c5f1e44916ce22a78882320889b77b689fca4bda287a9348126d9a7d8c1",
+        "resource_schema_hash": "sha256:165570e4ac5490b15570d9c4c9aea33021c77a1458ac1f13f13ea18d2327d78a"
+      }
+    }
+  }
+}
