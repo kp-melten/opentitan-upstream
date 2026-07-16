@@ -52,25 +52,27 @@ using the same terminology as the objective ledger.
 | --- | --- | --- | --- | --- | --- | --- |
 | MP-BASE-LIMIT | hard_gate | Inclusive base/limit semantics, exact fit, one-byte underflow and overflow | `dma_mem_boundary_vseq` directed cases | Correct error result; exact-limit fit accepted | planned | No exhaustive address proof |
 | MP-WRAP | hard_gate | 32-bit OT and CTN source/destination end-address arithmetic wraparound | Near-`32'hffff_ffff` directed cases on both 32-bit interfaces | Direction-appropriate address error before any DMA data request | planned | No formal proof |
-| MP-MODES | hard_gate | Fixed, incrementing, chunk-wrap, and non-wrapped multi-chunk logical footprints plus aligned full-word source-read footprints | Mode/width/direction matrix in directed sequence | RTL and model agree with expected physical bus footprint and result | planned | Only configured cases imply coverage |
+| MP-MODES | hard_gate | Fixed wrapped, fixed-within-chunk non-wrapped, incrementing chunk-wrap, and incrementing non-wrapped multi-chunk logical footprints plus aligned full-word source-read footprints | 44-case mode/width/direction matrix in directed sequence; focused RTL-helper XSim check | RTL and model agree with expected physical bus footprint and result | implemented; focused check passed; UVM run pending | Only configured cases imply coverage |
 | MP-WIDTHS | hard_gate | One-, two-, and four-byte transfer widths, aligned full-word narrow reads, and final partial accesses | Cross each supported width with boundary cases | Correct inclusive physical final-byte decision | planned | No unsupported width claim |
 | MP-DIRECTIONS | hard_gate | OT-to-CTN/system and CTN/system-to-OT restricted directions | Source- and destination-restricted directed cases | Direction-appropriate address error | planned | OT-to-OT range behavior is out of restriction scope |
-| MP-NO-REQUEST | hard_gate | Invalid configuration produces no source or destination DMA data request | SVA or equivalent monitor bound to internal request/state signals | No assertion failure for rejected cases | planned | Interrupt-clear transactions are excluded |
-| MP-LINT | hard_gate | RTL remains lint-clean on DMA Verilator target | Repository lint command | Exit status zero | planned | Static only |
+| MP-NO-REQUEST | hard_gate | Invalid configuration produces no source or destination DMA data request | Scoreboard-fatal bus monitor plus focused XSim structural check of `DmaAddrSetup` request signals | No assertion failure for rejected cases | focused XSim structural check passed; UVM bus-level run pending | Interrupt-clear transactions are excluded; focused check uses hierarchical setup |
+| MP-LINT | hard_gate | RTL remains lint-clean on DMA Verilator target | Repository lint command plus generated `make lint-only` | Exit status zero | passed at generated target; wrapper warning recorded | Static only |
 | MP-REGRESSION | out_of_scope | Full DMA regression and coverage closure | Deferred to independent verification | Not required for implementation checkpoint | deferred | Explicit non-claim |
 
 ## Acceptance Evidence
 
 | Evidence ID | Requirement / Metric | Method | Tool / Flow | Owner | Status | Non-Claims |
 | --- | --- | --- | --- | --- | --- | --- |
-| E-MP-SOURCE | DMA-MP-01 through DMA-MP-06 | Review footprint table, RTL/DV diff, and fail-before-request structure | Source inspection | verification_agent | pending | Guidance until independently reviewed |
-| E-MP-LINT | DMA-MP-07 | DMA Verilator lint target | Verilator/DVSim | main_agent | pending | No behavioral claim |
-| E-MP-DIRECTED | DMA-MP-01 through DMA-MP-06 and DMA-MP-08 | Directed boundary sequence | Available supported simulator | verification_agent | pending | No full regression or coverage closure |
+| E-MP-SOURCE | DMA-MP-01 through DMA-MP-06 | Review footprint table, RTL/DV diff, and fail-before-request structure | Source inspection | verification_agent | re-review requested for C4 | Guidance until independently reviewed |
+| E-MP-LINT | DMA-MP-07 | DMA Verilator lint target | Verilator/DVSim | main_agent | passed; wrapper deprecation warning remains | No behavioral claim |
+| E-MP-DIRECTED | DMA-MP-01 through DMA-MP-06 and DMA-MP-08 | 44-case UVM sequence plus focused RTL-helper/setup-path check | XSim focused check; supported UVM simulator pending | verification_agent | focused XSim check passed; UVM run pending | No full UVM result, regression, or coverage closure |
 
 ## Known Gaps / Deferred Decisions
 
-- Commercial simulator availability is unknown and will be probed; unavailable
-  runs remain pending.
+- XSim 2025.2.1 is available and passes the campaign-local focused RTL check. It
+  is run with `SYNTHESIS=1` because XSim cannot compile OpenTitan assertion
+  implication syntax. The full UVM `dma_mem_boundary` simulation remains pending
+  because Xcelium (`xrun`) is unavailable and the XSim check is not a UVM replacement.
 - Independent DV-plan review and promotion review are deferred under the
   controller-recorded implementation exception.
 - Full DMA regression, coverage closure, and formal security proof are out of

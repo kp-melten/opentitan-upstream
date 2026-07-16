@@ -135,7 +135,9 @@ hardware handshake DMA operation.
 -   [*Chunk Size*](registers.md#chunk_data_size): Size of each of the non-final chunks
     of data making up the total transfer. Chunked transfers allowing the DMA controller
     to perform a transfer in a piecemeal fashion, incrementally moving chunks of data
-    from the Low Speed IO peripheral FIFO as they become available.
+    from the Low Speed IO peripheral FIFO as they become available. Every non-final chunk
+    must be an integer multiple of the transfer width; a configuration that violates this
+    requirement reports a size error before any data transfer.
 -   [*Total Size*](registers.md#total_data_size): Total size of the data object to be popped
     from the FIFO (equivalent to the number of reads from the FIFO per
     interrupt times the FIFO read data width).
@@ -197,7 +199,9 @@ hardware handshake DMA operation.
 -   [*Chunk Size*](registers.md#chunk_data_size): Size of each of the non-final chunks
     of data making up the total transfers. Chunked transfers allowing the DMA controller
     to perform a transfer in a piecemeal fashion, incrementally sending chunks of data
-    to the Low Speed IO peripheral FIFO as space becomes available.
+    to the Low Speed IO peripheral FIFO as space becomes available. Every non-final chunk
+    must be an integer multiple of the transfer width; a configuration that violates this
+    requirement reports a size error before any data transfer.
 -   [*Total Size*](registers.md#total_data_size): Size of the data object to be pushed
     into the FIFO.
 -   [*Transfer Width*](registers.md#transfer_width): Write Data width of the LSIO FIFO

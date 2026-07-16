@@ -58,10 +58,11 @@ module dma
   localparam int unsigned INTR_CLEAR_SOURCES_WIDTH = $clog2(NumIntClearSources);
   localparam int unsigned NR_SHA_DIGEST_ELEMENTS  = 16;
 
-  // Return the number of bytes reachable from the programmed start address for one side of a
-  // transfer. Non-wrapped transfers can reach the complete transfer span. Wrapped transfers
-  // repeatedly use one chunk, and fixed-address transfers repeatedly use only the first transfer
-  // width within that chunk.
+  // Return the size of the address envelope reachable from the programmed start address for one
+  // side of a transfer. Incrementing non-wrapped transfers can reach the complete transfer span.
+  // Fixed non-wrapped transfers repeatedly access one address within each chunk, then advance the
+  // programmed address by one chunk. Wrapped transfers repeatedly use one chunk, and fixed wrapped
+  // transfers repeatedly use only the first transfer width within that chunk.
   function automatic logic [32:0] address_footprint_size(
     input logic        increment,
     input logic        wrap,
@@ -71,6 +72,8 @@ module dma
   );
     logic [32:0] transfer_width_bytes;
     logic [32:0] wrapped_size;
+    logic [31:0] last_chunk_offset;
+    logic [32:0] last_chunk_access_size;
 
     unique case (transfer_width)
       DmaXfer1BperTxn: transfer_width_bytes = 33'd1;
@@ -81,7 +84,16 @@ module dma
 
     wrapped_size = (total_data_size < chunk_data_size) ? {1'b0, total_data_size} :
                                                          {1'b0, chunk_data_size};
-    if (!wrap) begin
+    if (!increment && !wrap && (total_data_size != '0) && (chunk_data_size != '0)) begin
+      // The last accessed chunk begins at floor((N - 1) / C) * C. Only one transfer-width request
+      // is reachable within that chunk, bounded by the bytes remaining in a partial final chunk.
+      last_chunk_offset = ((total_data_size - 32'd1) / chunk_data_size) * chunk_data_size;
+      last_chunk_access_size = {1'b0, total_data_size - last_chunk_offset};
+      if (transfer_width_bytes < last_chunk_access_size) begin
+        last_chunk_access_size = transfer_width_bytes;
+      end
+      address_footprint_size = {1'b0, last_chunk_offset} + last_chunk_access_size;
+    end else if (!wrap) begin
       address_footprint_size = {1'b0, total_data_size};
     end else if (increment) begin
       address_footprint_size = wrapped_size;
@@ -117,8 +129,8 @@ module dma
     last_request_offset = last_byte_offset;
 
     // Incrementing accesses advance by one programmed transfer width. Fixed, wrapped accesses
-    // repeatedly issue the same request. The unsupported no-increment/no-wrap combination retains
-    // the conservative complete-span check used for non-wrapped transfers.
+    // repeatedly issue the same request. Fixed, non-wrapped accesses issue one repeated request
+    // per chunk, so address_footprint_size() returns an envelope ending at the final request.
     if (full_word_read && (!increment && wrap)) begin
       last_request_offset = '0;
     end else if (full_word_read && increment) begin
@@ -364,15 +376,31 @@ module dma
   // machine. The captured state is stored in control_q.
   control_state_t control_d, control_q;
 
+  // Fiddle ASIDs out for better readability during the rest of the code.
+  logic [ASID_WIDTH-1:0] src_asid, dst_asid;
+  assign src_asid = reg2hw.addr_space_id.src_asid.q;
+  assign dst_asid = reg2hw.addr_space_id.dst_asid.q;
+
+  logic [TRANSFER_BYTES_WIDTH-1:0] transfer_byte_q, transfer_byte_d;
+  logic [31:0] src_memory_footprint_data_size, dst_memory_footprint_data_size;
   logic [32:0] src_memory_footprint_size, dst_memory_footprint_size;
   logic        src_memory_footprint_invalid, dst_memory_footprint_invalid;
 
+  // The programmed address advances after every fixed, non-wrapped chunk. In that mode, validate
+  // the current and all remaining chunk starts from the current programmed address. Other modes
+  // retain their original programmed base throughout the transfer and validate the full size.
+  assign src_memory_footprint_data_size =
+      (!reg2hw.src_config.increment.q && !reg2hw.src_config.wrap.q) ?
+          reg2hw.total_data_size.q - transfer_byte_q : reg2hw.total_data_size.q;
+  assign dst_memory_footprint_data_size =
+      (!reg2hw.dst_config.increment.q && !reg2hw.dst_config.wrap.q) ?
+          reg2hw.total_data_size.q - transfer_byte_q : reg2hw.total_data_size.q;
   assign src_memory_footprint_size = address_footprint_size(
       reg2hw.src_config.increment.q, reg2hw.src_config.wrap.q, reg2hw.transfer_width.q,
-      reg2hw.total_data_size.q, reg2hw.chunk_data_size.q);
+      src_memory_footprint_data_size, reg2hw.chunk_data_size.q);
   assign dst_memory_footprint_size = address_footprint_size(
       reg2hw.dst_config.increment.q, reg2hw.dst_config.wrap.q, reg2hw.transfer_width.q,
-      reg2hw.total_data_size.q, reg2hw.chunk_data_size.q);
+      dst_memory_footprint_data_size, reg2hw.chunk_data_size.q);
   assign src_memory_footprint_invalid = address_footprint_invalid(
       reg2hw.src_addr_lo.q, src_memory_footprint_size, reg2hw.src_config.increment.q,
       reg2hw.src_config.wrap.q, reg2hw.transfer_width.q, 1'b1,
@@ -410,7 +438,6 @@ module dma
   `PRIM_FLOP_SPARSE_FSM(aff_ctrl_state_q, ctrl_state_d, ctrl_state_q, dma_ctrl_state_e, DmaIdle,
                         gated_clk, rst_ni)
 
-  logic [TRANSFER_BYTES_WIDTH-1:0] transfer_byte_q, transfer_byte_d;
   logic [TRANSFER_BYTES_WIDTH-1:0] transfer_remaining_bytes;
   logic [TRANSFER_BYTES_WIDTH-1:0] chunk_remaining_bytes;
   logic [TRANSFER_BYTES_WIDTH-1:0] remaining_bytes;
@@ -575,11 +602,6 @@ module dma
     .hash_running_o     (                       ),
     .idle_o             (                       )
   );
-
-  // Fiddle ASIDs out for better readability during the rest of the code
-  logic [ASID_WIDTH-1:0] src_asid, dst_asid;
-  assign src_asid = reg2hw.addr_space_id.src_asid.q;
-  assign dst_asid = reg2hw.addr_space_id.dst_asid.q;
 
   // Note: bus signals shall be asserted only when configured and active, to ensure
   // that address and - especially - data are not leaked to other buses.
@@ -927,6 +949,26 @@ module dma
           if ((reg2hw.chunk_data_size.q == '0) ||         // No empty transactions
               (reg2hw.total_data_size.q == '0)) begin     // No empty transactions
             next_error[3'(DmaSizeErr)] = 1'b1;
+          end
+
+          // The transfer and chunk byte counters advance by a complete transfer width after each
+          // request. Consequently every non-final chunk must contain an integral number of
+          // requests. Reject a partial non-final chunk before issuing any data-bus request rather
+          // than silently skipping bytes at the next chunk boundary.
+          if (reg2hw.chunk_data_size.q < reg2hw.total_data_size.q) begin
+            unique case (reg2hw.transfer_width.q)
+              DmaXfer2BperTxn: begin
+                if (reg2hw.chunk_data_size.q[0]) begin
+                  next_error[3'(DmaSizeErr)] = 1'b1;
+                end
+              end
+              DmaXfer4BperTxn: begin
+                if (|reg2hw.chunk_data_size.q[1:0]) begin
+                  next_error[3'(DmaSizeErr)] = 1'b1;
+                end
+              end
+              default: ;
+            endcase
           end
 
           if (!(control_q.opcode inside {OpcCopy, OpcSha256, OpcSha384, OpcSha512})) begin

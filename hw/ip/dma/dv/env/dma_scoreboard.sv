@@ -168,8 +168,8 @@ class dma_scoreboard extends cip_base_scoreboard #(
           bit [63:0] byte_addr = addr + lane;
           `DV_CHECK(byte_addr >= dma_config.mem_range_base &&
                     byte_addr <= dma_config.mem_range_limit,
-                    $sformatf("%s byte addr 0x%0x does not lie within the DMA-enabled range "
-                              "[0x%0x,0x%0x]",
+                    $sformatf({"%s byte addr 0x%0x does not lie within the DMA-enabled range ",
+                               "[0x%0x,0x%0x]"},
                               check_type, byte_addr, dma_config.mem_range_base,
                               dma_config.mem_range_limit))
         end

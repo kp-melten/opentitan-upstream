@@ -1,0 +1,10 @@
+{
+  flow_info: []
+  flow_warning: [
+    "Edalize backend deprecation warning; the generated lint target is unaffected."
+  ]
+  flow_error: []
+  lint_info: []
+  lint_warning: []
+  lint_error: []
+}

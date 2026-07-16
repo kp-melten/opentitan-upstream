@@ -8,10 +8,28 @@ support_root: campaigns/dma-memory-protection-closure-f96de0c2d41b/swb-support
 swb_tools: []
 
 # Campaign or repo-owned helper scripts/wrappers. Paths must stay inside the workspace.
-repo_tools: []
+repo_tools:
+  - path: campaigns/dma-memory-protection-closure-f96de0c2d41b/swb-support/checks/run_dma_footprint_xsim.sh
+    purpose: Generate the DMA dependency graph and run the focused XSim footprint check.
+    prerequisites:
+      env:
+        PATH_prefix:
+          - /data/tools/Xilinx/2025.2.1/Vivado/bin
+      notes:
+        - Pass an empty output directory below the campaign checks surface.
+        - The runner defines SYNTHESIS because XSim does not support OpenTitan assertion syntax.
 
 # Campaign-local or repo-owned support references. Paths must stay inside the workspace.
-checks: []
+checks:
+  - path: campaigns/dma-memory-protection-closure-f96de0c2d41b/swb-support/checks/dma_footprint_xsim_tb.sv
+    purpose: XSim-compatible directed check of the RTL footprint helpers and setup rejection path.
+    prerequisites:
+      env:
+        PATH_prefix:
+          - /data/tools/Xilinx/2025.2.1/Vivado/bin
+      notes:
+        - The full UVM dma_mem_boundary_vseq remains a separate supported-simulator check.
+        - The check requires SYNTHESIS=1 and therefore does not exercise OpenTitan RTL assertions.
 configs: []
 schemas: []
 fixtures: []

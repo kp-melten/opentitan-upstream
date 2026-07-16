@@ -504,16 +504,26 @@ class dma_seq_item extends uvm_sequence_item;
     return ((address >= mem_range_base) && (address <= mem_range_limit));
   endfunction
 
-  // Return the number of bytes reachable from the start address under the selected addressing
-  // mode. This mirrors the RTL footprint calculation.
+  // Return the size of the address envelope reachable from the start address under the selected
+  // addressing mode. This mirrors the RTL footprint calculation, including the sparse envelope
+  // produced by an address that is fixed within each non-wrapped chunk.
   static function bit [31:0] address_footprint_size(bit addr_inc, bit chunk_wrap,
                                                     dma_transfer_width_e transfer_width,
                                                     bit [31:0] total_size,
                                                     bit [31:0] chunk_size);
     bit [31:0] footprint_size = total_size;
     bit [31:0] transfer_bytes = transfer_width_to_num_bytes(transfer_width);
+    bit [31:0] last_chunk_offset;
+    bit [31:0] last_chunk_access_size;
 
-    if (chunk_wrap) begin
+    if (!addr_inc && !chunk_wrap && total_size != 0 && chunk_size != 0) begin
+      last_chunk_offset = ((total_size - 1) / chunk_size) * chunk_size;
+      last_chunk_access_size = total_size - last_chunk_offset;
+      if (transfer_bytes < last_chunk_access_size) begin
+        last_chunk_access_size = transfer_bytes;
+      end
+      footprint_size = last_chunk_offset + last_chunk_access_size;
+    end else if (chunk_wrap) begin
       footprint_size = (chunk_size < total_size) ? chunk_size : total_size;
       if (!addr_inc && transfer_bytes < footprint_size) begin
         footprint_size = transfer_bytes;
@@ -741,15 +751,14 @@ class dma_seq_item extends uvm_sequence_item;
       valid_config = 0;
     end
 
-    // Multi-chunk transfers will fault the transfer at the point of starting non-initial chunks
-    // if the `chunk_data_size` values does not ensure that they do not have appropriately-aligned
-    // addresses, so we expect an error at some point even if not immediately.
-    if (chunk_data_size < total_data_size && (!dst_chunk_wrap || !src_chunk_wrap)) begin
-      if (|(chunk_data_size & align_mask)) begin
-        `uvm_info(`gfn,
-                  " - Chunk data does not meet alignment requirements for multi-chunk transfers",
-                  UVM_MEDIUM)
-      end
+    // RTL advances both byte counters by a complete transfer width. Every non-final chunk must
+    // therefore contain an integral number of requests; RTL rejects a partial non-final chunk
+    // before starting the transfer.
+    if (chunk_data_size < total_data_size && |(chunk_data_size & align_mask)) begin
+      `uvm_info(`gfn,
+                " - Chunk data is not transfer-width aligned for a multi-chunk transfer",
+                UVM_MEDIUM)
+      valid_config = 0;
     end
 
     if (valid_config) begin

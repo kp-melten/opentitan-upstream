@@ -8,10 +8,10 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
   `uvm_object_utils(dma_mem_boundary_vseq)
   `uvm_object_new
 
-  localparam int unsigned NumBoundaryCases = 23;
+  localparam int unsigned NumBoundaryCases = 44;
 
   int unsigned case_idx;
-  bit          expect_addr_error;
+  bit          expect_error;
   int unsigned expected_error_bit;
   string       boundary_case_name;
 
@@ -57,7 +57,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
     dma_config.intr_src_wr_val = new[dma_reg_pkg::NumIntClearSources];
     dma_config.sha2_digest = new[16];
 
-    expect_addr_error = 1'b0;
+    expect_error = 1'b0;
     expected_error_bit = DmaDstAddrErr;
 
     unique case (selected_case)
@@ -86,7 +86,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.dst_asid = SocControlAddr;
         dma_config.total_data_size = 32'd1;
         dma_config.chunk_data_size = 32'd1;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
         expected_error_bit = DmaSrcAddrErr;
       end
       4: begin
@@ -94,7 +94,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.dst_addr = 64'h0000_0000_0000_0fff;
         dma_config.total_data_size = 32'd1;
         dma_config.chunk_data_size = 32'd1;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
       end
       5: begin
         boundary_case_name = "src-1B-one-byte-over-limit";
@@ -104,14 +104,14 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.dst_asid = SocControlAddr;
         dma_config.total_data_size = 32'd17;
         dma_config.chunk_data_size = 32'd8;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
         expected_error_bit = DmaSrcAddrErr;
       end
       6: begin
         boundary_case_name = "dst-4B-one-transaction-over-limit";
         dma_config.per_transfer_width = DmaXfer4BperTxn;
         dma_config.total_data_size = 32'd20;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
       end
       7: begin
         boundary_case_name = "dst-4B-32bit-wrap";
@@ -121,7 +121,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.total_data_size = 32'd8;
         dma_config.chunk_data_size = 32'd8;
         dma_config.per_transfer_width = DmaXfer4BperTxn;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
       end
       8: begin
         boundary_case_name = "src-2B-32bit-wrap-to-system";
@@ -134,7 +134,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.total_data_size = 32'd4;
         dma_config.chunk_data_size = 32'd4;
         dma_config.per_transfer_width = DmaXfer2BperTxn;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
         expected_error_bit = DmaSrcAddrErr;
       end
       9: begin
@@ -167,7 +167,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.dst_addr_inc = 1'b0;
         dma_config.dst_chunk_wrap = 1'b1;
         dma_config.per_transfer_width = DmaXfer2BperTxn;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
       end
       13: begin
         boundary_case_name = "chunk-wrap-src-1B-exact-limit";
@@ -191,7 +191,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.mem_range_limit = 32'h0000_1006;
         dma_config.dst_chunk_wrap = 1'b1;
         dma_config.per_transfer_width = DmaXfer2BperTxn;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
       end
       16: begin
         boundary_case_name = "nonwrap-multichunk-src-2B-exact-limit";
@@ -208,7 +208,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.dst_chunk_wrap = 1'b0;
         dma_config.chunk_data_size = 32'd8;
         dma_config.per_transfer_width = DmaXfer4BperTxn;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
       end
       18: begin
         boundary_case_name = "fixed-src-1B-full-word-escapes-narrow-range";
@@ -222,7 +222,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.src_chunk_wrap = 1'b1;
         dma_config.total_data_size = 32'd1;
         dma_config.chunk_data_size = 32'd1;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
         expected_error_bit = DmaSrcAddrErr;
       end
       19: begin
@@ -232,7 +232,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.total_data_size = 32'd8;
         dma_config.chunk_data_size = 32'd8;
         dma_config.per_transfer_width = DmaXfer4BperTxn;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
         expected_error_bit = DmaSrcAddrErr;
       end
       20: begin
@@ -244,7 +244,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.total_data_size = 32'd8;
         dma_config.chunk_data_size = 32'd8;
         dma_config.per_transfer_width = DmaXfer4BperTxn;
-        expect_addr_error = 1'b1;
+        expect_error = 1'b1;
         expected_error_bit = DmaDstAddrErr;
       end
       21: begin
@@ -265,11 +265,191 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
         dma_config.chunk_data_size = 32'd5;
         dma_config.per_transfer_width = DmaXfer4BperTxn;
       end
+      // Complete the addressing-mode x transfer-width x restricted-direction matrix. The earlier
+      // cases include the complementary combinations and the negative boundary variants.
+      23: begin
+        boundary_case_name = "nonwrap-multichunk-src-1B-exact-limit";
+        dma_config.src_addr = 64'h0000_0000_0000_1000;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.chunk_data_size = 32'd4;
+      end
+      24: begin
+        boundary_case_name = "fixed-dst-2B-ending-at-limit";
+        dma_config.dst_addr = 64'h0000_0000_0000_100e;
+        dma_config.dst_addr_inc = 1'b0;
+        dma_config.dst_chunk_wrap = 1'b1;
+        dma_config.per_transfer_width = DmaXfer2BperTxn;
+      end
+      25: begin
+        boundary_case_name = "fixed-src-1B-aligned-word-ending-at-limit";
+        dma_config.src_addr = 64'h0000_0000_0000_100c;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.src_addr_inc = 1'b0;
+        dma_config.src_chunk_wrap = 1'b1;
+      end
+      26: begin
+        boundary_case_name = "fixed-src-4B-ending-at-limit";
+        dma_config.src_addr = 64'h0000_0000_0000_100c;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.src_addr_inc = 1'b0;
+        dma_config.src_chunk_wrap = 1'b1;
+        dma_config.per_transfer_width = DmaXfer4BperTxn;
+      end
+      27: begin
+        boundary_case_name = "chunk-wrap-dst-1B-exact-limit";
+        dma_config.mem_range_limit = 32'h0000_1003;
+        dma_config.dst_chunk_wrap = 1'b1;
+        dma_config.total_data_size = 32'd12;
+        dma_config.chunk_data_size = 32'd4;
+      end
+      28: begin
+        boundary_case_name = "chunk-wrap-dst-2B-exact-limit";
+        dma_config.mem_range_limit = 32'h0000_1007;
+        dma_config.dst_chunk_wrap = 1'b1;
+        dma_config.per_transfer_width = DmaXfer2BperTxn;
+      end
+      29: begin
+        boundary_case_name = "chunk-wrap-src-2B-exact-limit";
+        dma_config.mem_range_limit = 32'h0000_1007;
+        dma_config.src_addr = 64'h0000_0000_0000_1000;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.src_chunk_wrap = 1'b1;
+        dma_config.per_transfer_width = DmaXfer2BperTxn;
+      end
+      30: begin
+        boundary_case_name = "chunk-wrap-src-4B-exact-limit";
+        dma_config.mem_range_limit = 32'h0000_1007;
+        dma_config.src_addr = 64'h0000_0000_0000_1000;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.src_chunk_wrap = 1'b1;
+        dma_config.per_transfer_width = DmaXfer4BperTxn;
+      end
+      31: begin
+        boundary_case_name = "multichunk-4B-partial-nonfinal-size-error";
+        dma_config.total_data_size = 32'd8;
+        dma_config.chunk_data_size = 32'd3;
+        dma_config.per_transfer_width = DmaXfer4BperTxn;
+        expect_error = 1'b1;
+        expected_error_bit = DmaSizeErr;
+      end
+      // With increment and wrap both clear, the address is fixed within a chunk and advances by
+      // chunk_data_size between chunks. Cover the sparse envelope in both restricted directions
+      // and at every supported width.
+      32: begin
+        boundary_case_name = "fixed-nonwrap-dst-1B-exact-limit";
+        dma_config.mem_range_limit = 32'h0000_1008;
+        dma_config.dst_addr_inc = 1'b0;
+        dma_config.dst_chunk_wrap = 1'b0;
+      end
+      33: begin
+        boundary_case_name = "fixed-nonwrap-src-1B-physical-exact-limit";
+        dma_config.mem_range_limit = 32'h0000_100b;
+        dma_config.src_addr = 64'h0000_0000_0000_1000;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.src_addr_inc = 1'b0;
+        dma_config.src_chunk_wrap = 1'b0;
+      end
+      34: begin
+        boundary_case_name = "fixed-nonwrap-dst-2B-exact-limit";
+        dma_config.mem_range_limit = 32'h0000_1009;
+        dma_config.dst_addr_inc = 1'b0;
+        dma_config.dst_chunk_wrap = 1'b0;
+        dma_config.per_transfer_width = DmaXfer2BperTxn;
+      end
+      35: begin
+        boundary_case_name = "fixed-nonwrap-src-2B-physical-exact-limit";
+        dma_config.mem_range_limit = 32'h0000_100b;
+        dma_config.src_addr = 64'h0000_0000_0000_1000;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.src_addr_inc = 1'b0;
+        dma_config.src_chunk_wrap = 1'b0;
+        dma_config.per_transfer_width = DmaXfer2BperTxn;
+      end
+      36: begin
+        boundary_case_name = "fixed-nonwrap-dst-4B-exact-limit";
+        dma_config.mem_range_limit = 32'h0000_100b;
+        dma_config.dst_addr_inc = 1'b0;
+        dma_config.dst_chunk_wrap = 1'b0;
+        dma_config.per_transfer_width = DmaXfer4BperTxn;
+      end
+      37: begin
+        boundary_case_name = "fixed-nonwrap-src-4B-exact-limit";
+        dma_config.mem_range_limit = 32'h0000_100b;
+        dma_config.src_addr = 64'h0000_0000_0000_1000;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.src_addr_inc = 1'b0;
+        dma_config.src_chunk_wrap = 1'b0;
+        dma_config.per_transfer_width = DmaXfer4BperTxn;
+      end
+      38: begin
+        boundary_case_name = "fixed-nonwrap-dst-1B-one-byte-over-limit";
+        dma_config.mem_range_limit = 32'h0000_1007;
+        dma_config.dst_addr_inc = 1'b0;
+        dma_config.dst_chunk_wrap = 1'b0;
+        expect_error = 1'b1;
+      end
+      39: begin
+        boundary_case_name = "fixed-nonwrap-src-2B-physical-one-byte-over-limit";
+        dma_config.mem_range_limit = 32'h0000_100a;
+        dma_config.src_addr = 64'h0000_0000_0000_1000;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.src_addr_inc = 1'b0;
+        dma_config.src_chunk_wrap = 1'b0;
+        dma_config.per_transfer_width = DmaXfer2BperTxn;
+        expect_error = 1'b1;
+        expected_error_bit = DmaSrcAddrErr;
+      end
+      40: begin
+        boundary_case_name = "multichunk-4B-two-byte-nonfinal-size-error";
+        dma_config.total_data_size = 32'd8;
+        dma_config.chunk_data_size = 32'd2;
+        dma_config.per_transfer_width = DmaXfer4BperTxn;
+        expect_error = 1'b1;
+        expected_error_bit = DmaSizeErr;
+      end
+      41: begin
+        boundary_case_name = "multichunk-2B-odd-nonfinal-size-error";
+        dma_config.total_data_size = 32'd8;
+        dma_config.chunk_data_size = 32'd3;
+        dma_config.per_transfer_width = DmaXfer2BperTxn;
+        expect_error = 1'b1;
+        expected_error_bit = DmaSizeErr;
+      end
+      42: begin
+        boundary_case_name = "nonwrap-multichunk-src-4B-exact-limit";
+        dma_config.src_addr = 64'h0000_0000_0000_1000;
+        dma_config.dst_addr = 64'h0000_0000_0000_2000;
+        dma_config.src_asid = OtInternalAddr;
+        dma_config.dst_asid = SocControlAddr;
+        dma_config.per_transfer_width = DmaXfer4BperTxn;
+      end
+      43: begin
+        boundary_case_name = "nonwrap-multichunk-dst-2B-exact-limit";
+        dma_config.per_transfer_width = DmaXfer2BperTxn;
+      end
       default: `uvm_fatal(`gfn, $sformatf("Invalid boundary case index %0d", selected_case))
     endcase
 
     dma_config.is_valid_config = dma_config.check_config(boundary_case_name);
-    `DV_CHECK_EQ(dma_config.is_valid_config, !expect_addr_error, $sformatf(
+    `DV_CHECK_EQ(dma_config.is_valid_config, !expect_error, $sformatf(
                  "Model classification mismatch for %s", boundary_case_name))
     `uvm_info(`gfn, $sformatf(
               "Configured boundary case %0d/%0d: %s",
@@ -282,7 +462,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
 
   virtual task ending_txn(int unsigned txn, int unsigned num_txns, ref dma_seq_item dma_config,
                           status_t status);
-    if (expect_addr_error) begin
+    if (expect_error) begin
       bit [31:0] error_code;
       `DV_CHECK(status[StatusError], $sformatf("%s did not report an error", boundary_case_name))
       `DV_CHECK(!status[StatusDone], $sformatf("%s unexpectedly completed", boundary_case_name))

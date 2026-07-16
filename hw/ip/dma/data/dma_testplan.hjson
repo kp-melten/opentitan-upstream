@@ -278,8 +278,9 @@
 
               Stimulus:
               - Exercise OT-to-CTN/System and CTN/System-to-OT transfers.
-              - Cross one-, two-, and four-byte transfer widths with fixed, incrementing,
-                chunk-wrapped, and non-wrapped multi-chunk addressing.
+              - Cross one-, two-, and four-byte transfer widths with fixed wrapped, incrementing,
+                chunk-wrapped, incrementing non-wrapped, and fixed-within-chunk non-wrapped
+                multi-chunk addressing.
               - Place the effective footprint exactly at the base/limit, one byte below/above the
                 range, and across the 32-bit address wrap point.
               - Cover full-word TL-UL source reads for narrow logical widths, CTN source and
