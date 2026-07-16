@@ -35,8 +35,8 @@ larger design increments are efficient enough to review as one unit.
 | Tier | Purpose | Required Before | Evidence / Method | Owner | Status | Non-Claims |
 | --- | --- | --- | --- | --- | --- | --- |
 | T0 | Setup and source hygiene | Any long-running work | Clean-base identity, SWB doctor, source-derived footprint table, tool availability | main_agent | complete | no design behavior claim |
-| T1 | Static candidate checks | Implementation checkpoint | DMA RTL Verilator lint, DV Verible lint, diff inspection | main_agent | pending | static evidence does not prove runtime behavior |
-| T2 | Focused directed behavior | Bounded behavioral claim | `dma_mem_boundary` on an available UVM simulator; focused XSim helper where full UVM is unavailable | verification_agent | pending | helper-only XSim does not prove clocked DMA/scoreboard behavior |
+| T1 | Static candidate checks | Implementation checkpoint | DMA RTL Verilator lint, DV Verible lint, diff inspection | main_agent | complete | static evidence does not prove runtime behavior |
+| T2 | Focused directed behavior | Bounded behavioral claim | `dma_mem_boundary` on an available UVM simulator; focused XSim helper where full UVM is unavailable | verification_agent | focused_helper_complete_full_uvm_pending | helper-only XSim does not prove clocked DMA/scoreboard behavior |
 | T3 | Promotion behavioral evidence | Promotion claim | Independently reviewed directed test plus broader DMA regression and coverage review | verification_agent | blocked_pending_signoff | no untested surface implied |
 | T4 | Backend/system evidence | Physical or integration claim | Synthesis/QoR and top-level integration evidence if separately authorized | controller | out_of_scope | no physical or silicon claim |
 
@@ -57,15 +57,15 @@ using the same terminology as the objective ledger.
 | BND-READ-PHYS | hard_gate | Narrow OT source reads fetch aligned full TL word | Cases with base/limit cutting aligned word | Physical read footprint enforced | implemented_pending_run | no claim for unrelated bus fabric |
 | BND-NO-REQ | hard_gate | Invalid config produces no transfer data request | Scoreboard fatal on any source/destination data transaction after invalid classification | Zero such transactions | implemented_pending_run | interrupt-clear writes provisionally excluded |
 | BND-CHUNK-ALIGN | hard_gate | Non-final chunk is width-aligned | Directed 2B/4B invalid chunk cases | Size error before transfer request | implemented_pending_run | final partial chunk remains allowed |
-| BND-XILINX-UVM | diagnostic | Full directed sequence on XSim | Build/run attempt with OpenTitan UVM | Pass or exact tool incompatibility recorded | pending | unavailable run is not passing |
+| BND-XILINX-UVM | diagnostic | Full directed sequence on XSim | Build/run attempt with OpenTitan UVM | Pass or exact tool incompatibility recorded | blocked_by_uvm_hdl_release_signature | unavailable run is not passing |
 
 ## Acceptance Evidence
 
 | Evidence ID | Requirement / Metric | Method | Tool / Flow | Owner | Status | Non-Claims |
 | --- | --- | --- | --- | --- | --- | --- |
-| EV-RTL-LINT | MP-LINT and structural consistency | DMA-selected Verilator lint plus direct generated lint target if wrapper warning masks result | DVSim/Verilator | main_agent | pending | no functional proof |
-| EV-DV-LINT | Directed sequence/model/scoreboard syntax and style | DMA DV Verible lint | DVSim/Verible | main_agent | pending | no runtime proof |
-| EV-XSIM-FOCUSED | Footprint helper composition and source structure | Campaign-local XSim testbench | Vivado Simulator | main_agent | pending | no full UVM or bus-monitor proof |
+| EV-RTL-LINT | MP-LINT and structural consistency | DMA-selected Verilator lint plus direct generated lint target if wrapper warning masks result | DVSim/Verilator | main_agent | complete | no functional proof |
+| EV-DV-LINT | Directed sequence/model/scoreboard syntax and style | DMA DV Verible lint | DVSim/Verible | main_agent | complete | no runtime proof |
+| EV-XSIM-FOCUSED | Footprint helper composition and source structure | Campaign-local XSim testbench | Vivado Simulator | main_agent | complete | no full UVM or bus-monitor proof |
 | EV-UVM-DIRECTED | Full boundary behavior and no-data-request check | `dma_mem_boundary` | available supported simulator | verification_agent | pending | no full regression |
 
 ## Known Gaps / Deferred Decisions

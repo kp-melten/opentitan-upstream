@@ -12,7 +12,9 @@
   directed sequence, testplan/config entries, documentation, and a
   behavior-preserving `prim_diff_decode` counter-width cleanup required for the
   selected DMA Verilator target to complete.
-- Status: implementation candidate; fresh evidence pending.
+- Implementation commit: `d1038f6154ed90667756fba454fe023bc04bf8be`.
+- Status: implementation checkpoint with fresh static and focused XSim evidence;
+  full UVM evidence pending.
 - Risks: variable-divider synthesis/QoR; full UVM simulator availability;
   interrupt-clear behavior for invalid handshake configurations awaits
   controller clarification.
@@ -23,4 +25,4 @@ Record every candidate base and promotion-relevant source identity here.
 
 | Candidate ID | Base Ref / Commit | Implementation Commit | Measurement Anchors | Status | Claims | Non-Claims |
 | --- | --- | --- | --- | --- | --- | --- |
-| C1 | `58f8fdd5396817b775d2c69af9a6322ac7a84e5a` | uncommitted candidate | EV-RTL-LINT, EV-DV-LINT, EV-XSIM-FOCUSED, EV-UVM-DIRECTED | implementation | bounded checkpoint pending fresh checks | no promotion or full closure |
+| C1 | `58f8fdd5396817b775d2c69af9a6322ac7a84e5a` | `d1038f6154ed90667756fba454fe023bc04bf8be` | EV-RTL-LINT, EV-DV-LINT, EV-XSIM-FOCUSED; EV-UVM-DIRECTED pending | implementation_checkpoint | recorded static and focused-check claim only | no promotion or full closure |
