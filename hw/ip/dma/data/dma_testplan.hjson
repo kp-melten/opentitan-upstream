@@ -272,6 +272,35 @@
         tests: ["dma_stress_all"]
       }
       {
+        name: dma_mem_boundary
+        desc: '''
+              Directed closure of the inclusive DMA-enabled OT memory boundary.
+
+              Stimulus:
+              - Exercise OT-to-CTN/System and CTN/System-to-OT transfers.
+              - Cross one-, two-, and four-byte transfer widths with fixed wrapped, incrementing,
+                chunk-wrapped, incrementing non-wrapped, and fixed-within-chunk non-wrapped
+                multi-chunk addressing.
+              - Place the effective footprint exactly at the base/limit, one byte below/above the
+                range, and across the 32-bit address wrap point.
+              - Cover full-word TL-UL source reads for narrow logical widths, CTN source and
+                destination wraparound, and partial-final two- and four-byte transfers.
+
+              Checking:
+              - An effective final byte equal to the inclusive limit is accepted.
+              - Below-base, beyond-limit, and arithmetic-wrap configurations report the
+                direction-appropriate address error.
+              - Non-wrapped transfers validate the complete footprint; fixed and wrapped modes
+                validate only bytes they can reach.
+              - Source validation includes every byte fetched by aligned full-word TL-UL Get
+                requests; destination validation follows the asserted write byte lanes.
+              - The scoreboard fatally rejects any source or destination DMA transaction after an
+                invalid configuration is classified. Interrupt-clear writes are outside this check.
+              '''
+        stage: V2S
+        tests: ["dma_mem_boundary"]
+      }
+      {
         name: dma_illegal_addr_range
         desc: '''
               Test to check DMA hardware enforced security check for illegal source or destination address

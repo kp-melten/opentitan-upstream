@@ -1,0 +1,58 @@
+schema: swb-campaign-support/v0
+support_profile_id: opentitan-dma
+campaign_id: dma-memory-protection-closure-04908ed9c14c
+campaign_path: campaigns/dma-memory-protection-closure-04908ed9c14c
+support_root: campaigns/dma-memory-protection-closure-04908ed9c14c/swb-support
+
+# SWB-owned common tools used by this campaign. Tool IDs match `swb tool run <tool-id>`.
+swb_tools:
+  - tool_id: vivado-env
+    purpose: Record Xilinx tool availability and run the focused XSim boundary helper.
+  - tool_id: dvsim-matrix
+    purpose: Run a campaign-owned directed DVSim matrix if a supported simulator is available.
+
+# Campaign or repo-owned helper scripts/wrappers. Paths must stay inside the workspace.
+repo_tools: []
+
+# Campaign-local or repo-owned support references. Paths must stay inside the workspace.
+checks:
+  - path: campaigns/dma-memory-protection-closure-04908ed9c14c/swb-support/checks/run_dma_footprint_xsim.sh
+    purpose: Compile and run the focused DMA footprint helper with XSim.
+  - path: campaigns/dma-memory-protection-closure-04908ed9c14c/swb-support/checks/dma_footprint_xsim_tb.sv
+    purpose: Focused XSim helper/composition checks for footprint arithmetic and RTL structure.
+configs:
+  - path: hw/ip/dma/dv/dma_sim_cfg.hjson
+    purpose: OpenTitan DMA DVSim configuration containing dma_mem_boundary.
+schemas: []
+fixtures: []
+
+# Optional per-entry runtime setup metadata is allowed on swb_tools, repo_tools,
+# checks, configs, schemas, and fixtures. It is routing/setup context only.
+# Example:
+# swb_tools:
+#   - tool_id: dvsim-matrix
+#     purpose: Matrix runner.
+#     prerequisites:
+#       notes:
+#         - Requires simulator binaries available to the SWB tool runtime.
+#
+# repo_tools:
+#   - path: tools/model-check.sh
+#     purpose: Validate local model behavior.
+#     prerequisites:
+#       env:
+#         PATH_prefix:
+#           - /opt/systemc/bin
+#         vars:
+#           SYSTEMC_HOME: /opt/systemc
+#       packages:
+#         - systemc
+#       notes:
+#         - Requires systemc-config discoverable on PATH.
+#
+non_claims:
+  - Campaign support discovery does not prove that a referenced check was run.
+  - Runtime prerequisites are setup/routing metadata only and do not prove a tool ran successfully.
+  - Campaign-local support can change on the same branch as RTL and must be independently reviewed for promotion-relevant claims.
+  - Referenced tools, configs, fixtures, and schemas do not prove design correctness, verification sufficiency, or claim acceptance.
+  - The focused XSim helper does not execute the full DMA UVM environment, clock multi-chunk transfers, or prove scoreboard no-request behavior.

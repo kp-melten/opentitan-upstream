@@ -58,6 +58,108 @@ module dma
   localparam int unsigned INTR_CLEAR_SOURCES_WIDTH = $clog2(NumIntClearSources);
   localparam int unsigned NR_SHA_DIGEST_ELEMENTS  = 16;
 
+  // Return the size of the address envelope reachable from the programmed start address for one
+  // side of a transfer. Incrementing non-wrapped transfers can reach the complete transfer span.
+  // Fixed non-wrapped transfers repeatedly access one address within each chunk, then advance the
+  // programmed address by one chunk. Wrapped transfers repeatedly use one chunk, and fixed wrapped
+  // transfers repeatedly use only the first transfer width within that chunk.
+  function automatic logic [32:0] address_footprint_size(
+    input logic        increment,
+    input logic        wrap,
+    input logic [1:0]  transfer_width,
+    input logic [31:0] total_data_size,
+    input logic [31:0] chunk_data_size
+  );
+    logic [32:0] transfer_width_bytes;
+    logic [32:0] wrapped_size;
+    logic [31:0] last_chunk_offset;
+    logic [32:0] last_chunk_access_size;
+
+    unique case (transfer_width)
+      DmaXfer1BperTxn: transfer_width_bytes = 33'd1;
+      DmaXfer2BperTxn: transfer_width_bytes = 33'd2;
+      DmaXfer4BperTxn: transfer_width_bytes = 33'd4;
+      default:         transfer_width_bytes = '0;
+    endcase
+
+    wrapped_size = (total_data_size < chunk_data_size) ? {1'b0, total_data_size} :
+                                                         {1'b0, chunk_data_size};
+    if (!increment && !wrap && (total_data_size != '0) && (chunk_data_size != '0)) begin
+      // The last accessed chunk begins at floor((N - 1) / C) * C. Only one transfer-width request
+      // is reachable within that chunk, bounded by the bytes remaining in a partial final chunk.
+      last_chunk_offset = ((total_data_size - 32'd1) / chunk_data_size) * chunk_data_size;
+      last_chunk_access_size = {1'b0, total_data_size - last_chunk_offset};
+      if (transfer_width_bytes < last_chunk_access_size) begin
+        last_chunk_access_size = transfer_width_bytes;
+      end
+      address_footprint_size = {1'b0, last_chunk_offset} + last_chunk_access_size;
+    end else if (!wrap) begin
+      address_footprint_size = {1'b0, total_data_size};
+    end else if (increment) begin
+      address_footprint_size = wrapped_size;
+    end else begin
+      address_footprint_size = (transfer_width_bytes < wrapped_size) ? transfer_width_bytes :
+                                                                      wrapped_size;
+    end
+  endfunction
+
+  // Validate one side of a transfer. TL-UL reads always fetch a complete aligned word, even when
+  // the logical transfer width is smaller, while writes only touch their enabled byte lanes.
+  // Widen all arithmetic so a footprint that wraps a 32-bit address space is rejected instead of
+  // appearing in range. Both memory-range bounds are inclusive.
+  function automatic logic address_footprint_invalid(
+    input logic [31:0] address,
+    input logic [32:0] footprint_size,
+    input logic        increment,
+    input logic        wrap,
+    input logic [1:0]  transfer_width,
+    input logic        full_word_read,
+    input logic        check_32bit,
+    input logic        check_range,
+    input logic [31:0] range_base,
+    input logic [31:0] range_limit
+  );
+    logic [31:0] first_address;
+    logic [32:0] last_address;
+    logic [32:0] last_byte_offset;
+    logic [32:0] last_request_offset;
+    logic [32:0] last_request_address;
+
+    last_byte_offset    = footprint_size - 33'd1;
+    last_request_offset = last_byte_offset;
+
+    // Incrementing accesses advance by one programmed transfer width. Fixed, wrapped accesses
+    // repeatedly issue the same request. Fixed, non-wrapped accesses issue one repeated request
+    // per chunk, so address_footprint_size() returns an envelope ending at the final request.
+    if (full_word_read && (!increment && wrap)) begin
+      last_request_offset = '0;
+    end else if (full_word_read && increment) begin
+      unique case (transfer_width)
+        DmaXfer1BperTxn: last_request_offset = last_byte_offset;
+        DmaXfer2BperTxn: last_request_offset = {last_byte_offset[32:1], 1'b0};
+        DmaXfer4BperTxn: last_request_offset = {last_byte_offset[32:2], 2'b00};
+        default:         last_request_offset = last_byte_offset;
+      endcase
+    end
+
+    if (full_word_read) begin
+      first_address        = {address[31:2], 2'b00};
+      last_request_address = {1'b0, address} + last_request_offset;
+      last_address         = last_request_address | 33'd3;
+    end else begin
+      first_address        = address;
+      last_request_address = '0;
+      last_address         = {1'b0, address} + last_byte_offset;
+    end
+
+    address_footprint_invalid = (footprint_size != '0) &&
+                                ((check_32bit && last_address[32]) ||
+                                 (check_range &&
+                                  ((first_address[31:0] < range_base) ||
+                                   last_address[32] ||
+                                   (last_address[31:0] > range_limit))));
+  endfunction
+
   // Flopped bus for SYS interface
   dma_pkg::sys_req_t sys_req_d;
   dma_pkg::sys_rsp_t sys_resp_q;
@@ -273,6 +375,44 @@ module dma
   // during the start of the operation and, later on, only use the captured value in the state
   // machine. The captured state is stored in control_q.
   control_state_t control_d, control_q;
+
+  // Fiddle ASIDs out for better readability during the rest of the code.
+  logic [ASID_WIDTH-1:0] src_asid, dst_asid;
+  assign src_asid = reg2hw.addr_space_id.src_asid.q;
+  assign dst_asid = reg2hw.addr_space_id.dst_asid.q;
+
+  logic [TRANSFER_BYTES_WIDTH-1:0] transfer_byte_q, transfer_byte_d;
+  logic [31:0] src_memory_footprint_data_size, dst_memory_footprint_data_size;
+  logic [32:0] src_memory_footprint_size, dst_memory_footprint_size;
+  logic        src_memory_footprint_invalid, dst_memory_footprint_invalid;
+
+  // The programmed address advances after every fixed, non-wrapped chunk. In that mode, validate
+  // the current and all remaining chunk starts from the current programmed address. Other modes
+  // retain their original programmed base throughout the transfer and validate the full size.
+  assign src_memory_footprint_data_size =
+      (!reg2hw.src_config.increment.q && !reg2hw.src_config.wrap.q) ?
+          reg2hw.total_data_size.q - transfer_byte_q : reg2hw.total_data_size.q;
+  assign dst_memory_footprint_data_size =
+      (!reg2hw.dst_config.increment.q && !reg2hw.dst_config.wrap.q) ?
+          reg2hw.total_data_size.q - transfer_byte_q : reg2hw.total_data_size.q;
+  assign src_memory_footprint_size = address_footprint_size(
+      reg2hw.src_config.increment.q, reg2hw.src_config.wrap.q, reg2hw.transfer_width.q,
+      src_memory_footprint_data_size, reg2hw.chunk_data_size.q);
+  assign dst_memory_footprint_size = address_footprint_size(
+      reg2hw.dst_config.increment.q, reg2hw.dst_config.wrap.q, reg2hw.transfer_width.q,
+      dst_memory_footprint_data_size, reg2hw.chunk_data_size.q);
+  assign src_memory_footprint_invalid = address_footprint_invalid(
+      reg2hw.src_addr_lo.q, src_memory_footprint_size, reg2hw.src_config.increment.q,
+      reg2hw.src_config.wrap.q, reg2hw.transfer_width.q, 1'b1,
+      src_asid inside {OtInternalAddr, SocControlAddr},
+      (src_asid == OtInternalAddr) && (dst_asid inside {SocControlAddr, SocSystemAddr}),
+      control_q.enabled_memory_range_base, control_q.enabled_memory_range_limit);
+  assign dst_memory_footprint_invalid = address_footprint_invalid(
+      reg2hw.dst_addr_lo.q, dst_memory_footprint_size, reg2hw.dst_config.increment.q,
+      reg2hw.dst_config.wrap.q, reg2hw.transfer_width.q, 1'b0,
+      dst_asid inside {OtInternalAddr, SocControlAddr},
+      (dst_asid == OtInternalAddr) && (src_asid inside {SocControlAddr, SocSystemAddr}),
+      control_q.enabled_memory_range_base, control_q.enabled_memory_range_limit);
   logic           capture_state;
 
   // Fiddle out control bits into captured state
@@ -298,7 +438,6 @@ module dma
   `PRIM_FLOP_SPARSE_FSM(aff_ctrl_state_q, ctrl_state_d, ctrl_state_q, dma_ctrl_state_e, DmaIdle,
                         gated_clk, rst_ni)
 
-  logic [TRANSFER_BYTES_WIDTH-1:0] transfer_byte_q, transfer_byte_d;
   logic [TRANSFER_BYTES_WIDTH-1:0] transfer_remaining_bytes;
   logic [TRANSFER_BYTES_WIDTH-1:0] chunk_remaining_bytes;
   logic [TRANSFER_BYTES_WIDTH-1:0] remaining_bytes;
@@ -427,7 +566,7 @@ module dma
 
   // The SHA engine requires the message length in bits
   logic [63:0] sha2_message_len_bits;
-  assign sha2_message_len_bits = reg2hw.total_data_size.q << 3;
+  assign sha2_message_len_bits = 64'(reg2hw.total_data_size.q) << 3;
 
   // Translate the DMA opcode to the SHA2 digest mode
   always_comb begin
@@ -463,11 +602,6 @@ module dma
     .hash_running_o     (                       ),
     .idle_o             (                       )
   );
-
-  // Fiddle ASIDs out for better readability during the rest of the code
-  logic [ASID_WIDTH-1:0] src_asid, dst_asid;
-  assign src_asid = reg2hw.addr_space_id.src_asid.q;
-  assign dst_asid = reg2hw.addr_space_id.dst_asid.q;
 
   // Note: bus signals shall be asserted only when configured and active, to ensure
   // that address and - especially - data are not leaked to other buses.
@@ -699,7 +833,7 @@ module dma
             // The response might come immediately
             if (intr_clear_tlul_rsp_valid) begin
               if (intr_clear_tlul_rsp_error) begin
-                next_error[DmaBusErr] = 1'b1;
+                next_error[3'(DmaBusErr)] = 1'b1;
                 ctrl_state_d = DmaError;
               end else if (32'(clear_index_q) >= (NumIntClearSources - 1)) begin
                 ctrl_state_d = DmaAddrSetup;  // Proceed now we've handled all
@@ -725,7 +859,7 @@ module dma
           // Need to wait for this to not overrun TL-UL adapter
           if (intr_clear_tlul_rsp_valid) begin
             if (intr_clear_tlul_rsp_error) begin
-              next_error[DmaBusErr] = 1'b1;
+              next_error[3'(DmaBusErr)] = 1'b1;
               ctrl_state_d = DmaError;
             end else if (32'(clear_index_q) < (NumIntClearSources - 1)) begin
               clear_index_en = 1'b1;
@@ -749,7 +883,7 @@ module dma
             DmaXfer2BperTxn: transfer_width_d = 3'b010; // 2 bytes
             DmaXfer4BperTxn: transfer_width_d = 3'b100; // 4 bytes
             // Value 3 is an invalid configuration value that leads to an error
-            default: next_error[DmaSizeErr] = 1'b1;  // Invalid transfer_width
+            default: next_error[3'(DmaSizeErr)] = 1'b1;  // Invalid transfer_width
           endcase
 
           // Use start address on first byte of transaction
@@ -814,83 +948,91 @@ module dma
           // and does not start the DMA transfer
           if ((reg2hw.chunk_data_size.q == '0) ||         // No empty transactions
               (reg2hw.total_data_size.q == '0)) begin     // No empty transactions
-            next_error[DmaSizeErr] = 1'b1;
+            next_error[3'(DmaSizeErr)] = 1'b1;
+          end
+
+          // The transfer and chunk byte counters advance by a complete transfer width after each
+          // request. Consequently every non-final chunk must contain an integral number of
+          // requests. Reject a partial non-final chunk before issuing any data-bus request rather
+          // than silently skipping bytes at the next chunk boundary.
+          if (reg2hw.chunk_data_size.q < reg2hw.total_data_size.q) begin
+            unique case (reg2hw.transfer_width.q)
+              DmaXfer2BperTxn: begin
+                if (reg2hw.chunk_data_size.q[0]) begin
+                  next_error[3'(DmaSizeErr)] = 1'b1;
+                end
+              end
+              DmaXfer4BperTxn: begin
+                if (|reg2hw.chunk_data_size.q[1:0]) begin
+                  next_error[3'(DmaSizeErr)] = 1'b1;
+                end
+              end
+              default: ;
+            endcase
           end
 
           if (!(control_q.opcode inside {OpcCopy, OpcSha256, OpcSha384, OpcSha512})) begin
-            next_error[DmaOpcodeErr] = 1'b1;
+            next_error[3'(DmaOpcodeErr)] = 1'b1;
           end
 
           // Inline hashing is only allowed for 32-bit transfer width
           if (use_inline_hashing) begin
             if (reg2hw.transfer_width.q != DmaXfer4BperTxn) begin
-              next_error[DmaSizeErr] = 1'b1;
+              next_error[3'(DmaSizeErr)] = 1'b1;
             end
           end
 
           // Ensure that ASIDs have valid values
           // SEC_CM: ASID.INTERSIG.MUBI
           if (!(src_asid inside {OtInternalAddr, SocControlAddr, SocSystemAddr})) begin
-            next_error[DmaAsidErr] = 1'b1;
+            next_error[3'(DmaAsidErr)] = 1'b1;
           end
           if (!(dst_asid inside {OtInternalAddr, SocControlAddr, SocSystemAddr})) begin
-            next_error[DmaAsidErr] = 1'b1;
+            next_error[3'(DmaAsidErr)] = 1'b1;
           end
 
           // Check the validity of the restricted DMA-enabled memory range
           // Note: both the base and the limit addresses are inclusive
           if (control_q.enabled_memory_range_limit < control_q.enabled_memory_range_base) begin
-            next_error[DmaBaseLimitErr] = 1'b1;
+            next_error[3'(DmaBaseLimitErr)] = 1'b1;
           end
 
           // In 4-byte transfers, source and destination address must be 4-byte aligned
           if (reg2hw.transfer_width.q == DmaXfer4BperTxn && |reg2hw.src_addr_lo.q[1:0]) begin
-            next_error[DmaSrcAddrErr] = 1'b1;
+            next_error[3'(DmaSrcAddrErr)] = 1'b1;
           end
           if (reg2hw.transfer_width.q == DmaXfer4BperTxn && |reg2hw.dst_addr_lo.q[1:0]) begin
-            next_error[DmaDstAddrErr] = 1'b1;
+            next_error[3'(DmaDstAddrErr)] = 1'b1;
           end
 
           // In 2-byte transfers, source and destination address must be 2-byte aligned
           if (reg2hw.transfer_width.q == DmaXfer2BperTxn && reg2hw.src_addr_lo.q[0]) begin
-            next_error[DmaSrcAddrErr] = 1'b1;
+            next_error[3'(DmaSrcAddrErr)] = 1'b1;
           end
           if (reg2hw.transfer_width.q == DmaXfer2BperTxn &&
               reg2hw.dst_addr_lo.q[0]) begin
-            next_error[DmaDstAddrErr] = 1'b1;
+            next_error[3'(DmaDstAddrErr)] = 1'b1;
           end
 
-          // If data from the SOC system bus or the control bus is transferred
-          // to the OT internal memory, we must check if the destination address range falls into
-          // the DMA enabled memory region.
-          if ((src_asid inside {SocControlAddr, SocSystemAddr}) && (dst_asid == OtInternalAddr) &&
-              // Out-of-bound check
-              ((reg2hw.dst_addr_lo.q > control_q.enabled_memory_range_limit) ||
-                (reg2hw.dst_addr_lo.q < control_q.enabled_memory_range_base) ||
-                ((SYS_ADDR_WIDTH'(reg2hw.dst_addr_lo.q) +
-                  SYS_ADDR_WIDTH'(reg2hw.chunk_data_size.q)) >
-                  SYS_ADDR_WIDTH'(control_q.enabled_memory_range_limit)))) begin
-            next_error[DmaDstAddrErr] = 1'b1;
+          // Check destination low-address wrap for every 32-bit interface. When data is imported
+          // from the System or CTN bus, also require the OT destination write footprint to remain
+          // inside the DMA-enabled memory region.
+          if (dst_memory_footprint_invalid) begin
+            next_error[3'(DmaDstAddrErr)] = 1'b1;
           end
 
-          // If data from the OT internal memory is transferred  to the SOC system bus or the
-          // control bus, we must check if the source address range falls into the
-          // DMA enabled memory region.
-          if ((dst_asid inside {SocControlAddr, SocSystemAddr}) && (src_asid == OtInternalAddr) &&
-                // Out-of-bound check
-                ((reg2hw.src_addr_lo.q > control_q.enabled_memory_range_limit) ||
-                (reg2hw.src_addr_lo.q < control_q.enabled_memory_range_base)   ||
-                ((SYS_ADDR_WIDTH'(reg2hw.src_addr_lo.q) +
-                  SYS_ADDR_WIDTH'(reg2hw.chunk_data_size.q)) >
-                  SYS_ADDR_WIDTH'(control_q.enabled_memory_range_limit)))) begin
-            next_error[DmaSrcAddrErr] = 1'b1;
+          // Check source low-address wrap for every 32-bit interface. When data is exported to the
+          // System or CTN bus, also require the complete aligned OT source-read footprint to remain
+          // inside the DMA-enabled memory region.
+          if (src_memory_footprint_invalid) begin
+            next_error[3'(DmaSrcAddrErr)] = 1'b1;
           end
 
           // If the source ASID is the SOC control port or the OT internal port, we are accessing a
           // 32-bit address space. Thus the upper bits of the source address must be zero
           if ((src_asid inside {SocControlAddr, OtInternalAddr}) &&
               (|reg2hw.src_addr_hi.q)) begin
-            next_error[DmaSrcAddrErr] = 1'b1;
+            next_error[3'(DmaSrcAddrErr)] = 1'b1;
           end
 
           // If the destination ASID is the SOC control port or the OT internal port we are
@@ -898,11 +1040,11 @@ module dma
           // be zero
           if ((dst_asid inside {SocControlAddr, OtInternalAddr}) &&
               (|reg2hw.dst_addr_hi.q)) begin
-            next_error[DmaDstAddrErr] = 1'b1;
+            next_error[3'(DmaDstAddrErr)] = 1'b1;
           end
 
           if (!control_q.range_valid) begin
-            next_error[DmaRangeValidErr] = 1'b1;
+            next_error[3'(DmaRangeValidErr)] = 1'b1;
           end
 
           // If one or more errors occurred, transition to the error state.
@@ -924,7 +1066,7 @@ module dma
         DmaWaitReadResponse: begin
           if (read_rsp_valid) begin
             if (read_rsp_error) begin
-              next_error[DmaBusErr] = 1'b1;
+              next_error[3'(DmaBusErr)] = 1'b1;
               ctrl_state_d          = DmaError;
             end else begin
               capture_return_data = 1'b1;
@@ -951,7 +1093,7 @@ module dma
 
           if (write_rsp_valid) begin
             if (write_rsp_error) begin
-              next_error[DmaBusErr] = 1'b1;
+              next_error[3'(DmaBusErr)] = 1'b1;
               ctrl_state_d          = DmaError;
             end else begin
               // Advance by the number of bytes just transferred
@@ -1298,14 +1440,14 @@ module dma
     hw2reg.error_code.range_valid_error.de = set_error_code | clear_status;
     hw2reg.error_code.asid_error.de        = set_error_code | clear_status;
 
-    hw2reg.error_code.src_addr_error.d     = clear_status? '0 : next_error[DmaSrcAddrErr];
-    hw2reg.error_code.dst_addr_error.d     = clear_status? '0 : next_error[DmaDstAddrErr];
-    hw2reg.error_code.opcode_error.d       = clear_status? '0 : next_error[DmaOpcodeErr];
-    hw2reg.error_code.size_error.d         = clear_status? '0 : next_error[DmaSizeErr];
-    hw2reg.error_code.bus_error.d          = clear_status? '0 : next_error[DmaBusErr];
-    hw2reg.error_code.base_limit_error.d   = clear_status? '0 : next_error[DmaBaseLimitErr];
-    hw2reg.error_code.range_valid_error.d  = clear_status? '0 : next_error[DmaRangeValidErr];
-    hw2reg.error_code.asid_error.d         = clear_status? '0 : next_error[DmaAsidErr];
+    hw2reg.error_code.src_addr_error.d     = clear_status? '0 : next_error[3'(DmaSrcAddrErr)];
+    hw2reg.error_code.dst_addr_error.d     = clear_status? '0 : next_error[3'(DmaDstAddrErr)];
+    hw2reg.error_code.opcode_error.d       = clear_status? '0 : next_error[3'(DmaOpcodeErr)];
+    hw2reg.error_code.size_error.d         = clear_status? '0 : next_error[3'(DmaSizeErr)];
+    hw2reg.error_code.bus_error.d          = clear_status? '0 : next_error[3'(DmaBusErr)];
+    hw2reg.error_code.base_limit_error.d   = clear_status? '0 : next_error[3'(DmaBaseLimitErr)];
+    hw2reg.error_code.range_valid_error.d  = clear_status? '0 : next_error[3'(DmaRangeValidErr)];
+    hw2reg.error_code.asid_error.d         = clear_status? '0 : next_error[3'(DmaAsidErr)];
 
     // Clear the `control.abort` bit once we have handled the abort request
     hw2reg.control.abort.de = hw2reg.status.aborted.de;

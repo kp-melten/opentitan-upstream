@@ -1,0 +1,89 @@
+{
+  "schema": "swb-campaign-objective/v0",
+  "status": "active_non_promotion",
+  "created": "2026-07-16",
+  "support_profile_id": "opentitan-dma",
+  "campaign_id": "dma-memory-protection-closure-04908ed9c14c",
+  "campaign_path": "campaigns/dma-memory-protection-closure-04908ed9c14c",
+  "campaign_branch": "campaign/dma-memory-protection-closure-04908ed9c14c",
+  "authority": {
+    "objective_owner": "human_controller_plus_main_agent",
+    "change_authority": "human_controller",
+    "verification_plan_owner": "verification_agent",
+    "accepted": false
+  },
+  "objective": {
+    "summary": "Make the DMA-enabled memory boundary exact, overflow-safe, and consistent across RTL and DV for every transfer addressing mode."
+  },
+  "artifact_roots": {
+    "root": "campaigns/dma-memory-protection-closure-04908ed9c14c",
+    "surfaces": {
+      "artifacts": "campaigns/dma-memory-protection-closure-04908ed9c14c/artifacts",
+      "checks": "campaigns/dma-memory-protection-closure-04908ed9c14c/checks",
+      "evidence": "campaigns/dma-memory-protection-closure-04908ed9c14c/evidence",
+      "tool-runs": "campaigns/dma-memory-protection-closure-04908ed9c14c/tool-runs",
+      "verifier": "campaigns/dma-memory-protection-closure-04908ed9c14c/verifier"
+    },
+    "non_claims": [
+      "Artifact-root metadata declares campaign-owned storage surfaces; it does not prove any artifact content or design claim."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "MP-INC-LIMIT",
+      "classification": "hard_gate",
+      "target": "A final physically accessed byte equal to the inclusive limit is accepted.",
+      "status": "active"
+    },
+    {
+      "id": "MP-RANGE",
+      "classification": "hard_gate",
+      "target": "A physical byte below base or above limit raises the direction-correct address error.",
+      "status": "active"
+    },
+    {
+      "id": "MP-WRAP",
+      "classification": "hard_gate",
+      "target": "Applicable 32-bit address arithmetic overflow is rejected.",
+      "status": "active"
+    },
+    {
+      "id": "MP-NONWRAP",
+      "classification": "hard_gate",
+      "target": "Non-wrapped transfers validate the complete reachable envelope.",
+      "status": "active"
+    },
+    {
+      "id": "MP-EXACT-MODES",
+      "classification": "hard_gate",
+      "target": "Fixed and wrapped modes exclude bytes they cannot access.",
+      "status": "active"
+    },
+    {
+      "id": "MP-NO-DATA-REQ",
+      "classification": "hard_gate",
+      "target": "Invalid configurations emit no source-read or destination-write data request.",
+      "status": "active"
+    },
+    {
+      "id": "MP-LINT",
+      "classification": "hard_gate",
+      "target": "The DMA Verilator lint target exits successfully.",
+      "status": "complete"
+    }
+  ],
+  "milestone_review_questions": [
+    "Which milestone did this advance, block, or leave unchanged?",
+    "What design/work-product became executable, integrated, or explicitly unchanged?",
+    "What is the closeout posture: implementation checkpoint, claim-bearing, or promotion?",
+    "For claim-bearing or promotion closeouts, what evidence and claim-boundary state changed?",
+    "Did accepted objective, DV plan, milestone, requirement, or claim-boundary state change or need review?",
+    "What is the next milestone-directed action?"
+  ],
+  "non_claims": [
+    "The user request authorizes non-promotion implementation, not promotion acceptance.",
+    "No full regression, coverage, formal, synthesis, timing, integration, silicon, or promotion claim.",
+    "Commercial-simulator tests that cannot run remain pending.",
+    "Configured interrupt-clear writes are provisionally outside MP-NO-DATA-REQ pending controller clarification."
+  ]
+}
