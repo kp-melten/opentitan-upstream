@@ -1,0 +1,3 @@
+make: Entering directory '/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m13/rtl-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/fusesoc-work'
+verilator --lint-only -f lowrisc_ip_dma_0.1.vc -DDISABLE_PRIM_CDC_RAND_DELAY -Wall
+make: Leaving directory '/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-f96de0c2d41b/checks/m13/rtl-verilator/campaign-dma-memory-protection-closure-f96de0c2d41b/dma-lint-verilator/default/fusesoc-work'

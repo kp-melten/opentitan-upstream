@@ -65,13 +65,13 @@ recorded as pending, not passing.
 
 ## Evidence Digests
 
-- `direct-make-lint.log`: `2d27322cf94075ab9eaf7f7d160f09fd9e6d98413933c43a0b40d613cdf62218`
+- `direct-make-lint.txt`: `2d27322cf94075ab9eaf7f7d160f09fd9e6d98413933c43a0b40d613cdf62218`
 - `dv-verible-log.txt`: `ceda0a7b09d76fa4ea9a1980744858ffe1598eac0c0fd67328403735efc9ca68`
 - `dv-verible-results.hjson`: `d190f411eea5b783a51d963ff83a9aa99313cec71546dc714b0357ac260e4926`
 - `rtl-verilator-log.txt`: `0d57479eaadffc8b067534f9382cf5b2d1f1baad378c46c7082ec24404b0e4ba`
 - `rtl-verilator-results.hjson`: `f28be58438cbe300dbf973d8fd62dee77c1c56ddd2f0d778037c92ecb2a6d50e`
-- `uvm-xsim-build.log`: `fe45588f91109c86b98167b31d691ba3c9a61e56b911bf5b6c1678d46de6a64d`
-- `xsim-tb.log`: `346aed234150d8c05613856aaaf7e05446e40948418306e23c6aa2df4a26d74a`
+- `uvm-xsim-build.txt`: `fe45588f91109c86b98167b31d691ba3c9a61e56b911bf5b6c1678d46de6a64d`
+- `xsim-tb-log.txt`: `346aed234150d8c05613856aaaf7e05446e40948418306e23c6aa2df4a26d74a`
 
 ## Claim Boundary
 
