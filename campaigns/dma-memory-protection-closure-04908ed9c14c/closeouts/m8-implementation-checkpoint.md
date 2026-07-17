@@ -7,8 +7,8 @@ Posture: implementation checkpoint; no promotion
 ## Milestone delta
 
 - M8 advanced but remains pending. The strict all-request boundary is now
-  implemented and has exact-revision focused evidence; full directed UVM and
-  independent review of candidate C2 remain required for M8 exit.
+  implemented and independently accepted with exact-revision focused evidence;
+  full directed UVM remains required for M8 exit.
 - M1-M3 remain pending because the human silicon-architect and DV-owner
   promotion sign-offs are not recorded.
 
@@ -47,7 +47,10 @@ Implementation commit:
 - The earlier independent review identified the interrupt-clear prevalidation
   gap and otherwise found the complete footprint formulas consistent with RTL
   request traces over its enumerated mode/width/size surface.
-- Candidate C2 independent re-review is pending at this draft checkpoint.
+- The separate verification agent accepted candidate C2 for the requested
+  non-promotion implementation checkpoint, found the prior strict-request
+  blocker closed, and found no remaining source-level footprint correctness
+  blocker. The exact disposition is recorded in `verifier/m8/result.md`.
 - The full 45-case UVM sequence remains pending: XSim's installed UVM library
   is incompatible with common OpenTitan one-argument `uvm_hdl_release` calls,
   and Xcelium, VCS, and Questa executables are absent.
@@ -57,8 +60,11 @@ Implementation commit:
 - No objective, DV plan, requirement, or promotion state is human-accepted by
   this checkpoint. The ledgers now record the stricter source boundary and its
   evidence without advancing the claim beyond the user's requested wording.
-- The campaign branch is local and has no upstream tracking ref at this draft
-  checkpoint.
+- The campaign branch was published and configured to track
+  `origin/campaign/dma-memory-protection-closure-04908ed9c14c` at recording
+  revision `bb74f9589e337c39ee3ccb0ddf64ccd7912a1ae5`. The verifier-result commit
+  is the final closeout delta and must be pushed before the campaign is handed
+  off.
 
 ## Non-claims and next action
 
@@ -68,5 +74,6 @@ Implementation commit:
 - No promotion claim until independent review and required sign-offs.
 - The unavailable full-UVM run remains pending, not implicitly passing.
 
-Next action: independently review exact candidate C2, then run
-`dma_mem_boundary` on a supported UVM simulator when one is available.
+Next action: run `dma_mem_boundary` on a supported UVM simulator when one is
+available, then obtain the outstanding human/DV sign-offs before any promotion
+claim.
