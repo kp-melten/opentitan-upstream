@@ -8,7 +8,7 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
   `uvm_object_utils(dma_mem_boundary_vseq)
   `uvm_object_new
 
-  localparam int unsigned NumBoundaryCases = 44;
+  localparam int unsigned NumBoundaryCases = 45;
 
   int unsigned case_idx;
   bit          expect_error;
@@ -444,6 +444,17 @@ class dma_mem_boundary_vseq extends dma_generic_vseq;
       43: begin
         boundary_case_name = "nonwrap-multichunk-dst-2B-exact-limit";
         dma_config.per_transfer_width = DmaXfer2BperTxn;
+      end
+      44: begin
+        boundary_case_name = "handshake-clear-dst-under-base-no-request";
+        dma_config.dst_addr = 64'h0000_0000_0000_0fff;
+        dma_config.handshake = 1'b1;
+        dma_config.clear_intr_src[0] = 1'b1;
+        dma_config.handshake_intr_en[0] = 1'b1;
+        dma_config.lsio_trigger_i[0] = 1'b1;
+        dma_config.intr_src_addr[0] = 32'h0000_3000;
+        dma_config.intr_src_wr_val[0] = 32'h0000_0001;
+        expect_error = 1'b1;
       end
       default: `uvm_fatal(`gfn, $sformatf("Invalid boundary case index %0d", selected_case))
     endcase

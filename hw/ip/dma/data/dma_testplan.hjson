@@ -294,8 +294,8 @@
                 validate only bytes they can reach.
               - Source validation includes every byte fetched by aligned full-word TL-UL Get
                 requests; destination validation follows the asserted write byte lanes.
-              - The scoreboard fatally rejects any source or destination DMA transaction after an
-                invalid configuration is classified. Interrupt-clear writes are outside this check.
+              - The scoreboard fatally rejects any source, destination, or interrupt-clear DMA
+                transaction after an invalid configuration is classified.
               '''
         stage: V2S
         tests: ["dma_mem_boundary"]

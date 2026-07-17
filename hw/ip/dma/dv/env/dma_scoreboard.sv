@@ -542,7 +542,6 @@ class dma_scoreboard extends cip_base_scoreboard #(
                       uvm_tlm_analysis_fifo#(tl_channels_e) dir_fifo,
                       uvm_tlm_analysis_fifo#(tl_seq_item) a_chan_fifo,
                       uvm_tlm_analysis_fifo#(tl_seq_item) d_chan_fifo);
-    bit exp_intr_clearing;
     tl_channels_e dir;
     tl_seq_item   item;
     fork
@@ -578,13 +577,11 @@ class dma_scoreboard extends cip_base_scoreboard #(
             end
           end
 
-          // Clear Interrupt writes are emitted even for invalid configurations.
-          exp_intr_clearing = dma_config.handshake & |dma_config.clear_intr_src &
-                             |dma_config.handshake_intr_en;
-          // Check if transaction is expected for a valid configuration
-          `DV_CHECK_FATAL(dma_config.is_valid_config || exp_intr_clearing,
-                             $sformatf("transaction observed on %s for invalid configuration",
-                                       if_name))
+          // Configuration validation precedes every external request, including handshake
+          // interrupt clearing.
+          `DV_CHECK_FATAL(dma_config.is_valid_config,
+                          $sformatf("transaction observed on %s for invalid configuration",
+                                    if_name))
           // Check if there is any active operation, but be aware that the Abort functionality
           // intentionally does not wait for a bus response (this is safe because the design never
           // blocks/stalls the TL-UL response).

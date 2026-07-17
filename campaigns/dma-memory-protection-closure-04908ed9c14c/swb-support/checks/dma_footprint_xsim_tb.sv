@@ -85,6 +85,96 @@ module dma_footprint_xsim_tb;
     end
   endtask
 
+  // Hardware-handshake interrupt clearing must not bypass configuration validation. Check the
+  // first combinational transition after a trigger; the next DmaAddrSetup cycle is covered by the
+  // rejected-setup checks below.
+  task check_handshake_trigger_validates_before_clear();
+    forced_reg2hw = '0;
+    forced_reg2hw.control.go.q = 1'b1;
+    forced_reg2hw.control.initial_transfer.q = 1'b1;
+    forced_reg2hw.control.hardware_handshake_enable.q = 1'b1;
+    forced_reg2hw.clear_intr_src.q[0] = 1'b1;
+    forced_reg2hw.handshake_intr_enable.q[0] = 1'b1;
+    forced_control = '0;
+    forced_control.cfg_handshake_en = 1'b1;
+
+    lsio_trigger_i[0] = 1'b1;
+    force dut.ctrl_state_q = DmaIdle;
+    force dut.control_q = forced_control;
+    force dut.reg2hw = forced_reg2hw;
+    #1ns;
+
+    checks += 2;
+    if (dut.ctrl_state_d !== DmaAddrSetup) begin
+      failures++;
+      $error("handshake trigger bypassed DmaAddrSetup validation");
+    end
+    if (dut.dma_host_tlul_req_valid || dut.dma_ctn_tlul_req_valid ||
+        dut.dma_sys_read || dut.dma_sys_write) begin
+      failures++;
+      $error("handshake trigger emitted a request before configuration validation");
+    end
+
+    release dut.ctrl_state_q;
+    release dut.control_q;
+    release dut.reg2hw;
+    lsio_trigger_i = '0;
+    #1ns;
+  endtask
+
+  task check_valid_handshake_clear_path();
+    forced_reg2hw = '0;
+    forced_reg2hw.addr_space_id.src_asid.q = SocControlAddr;
+    forced_reg2hw.addr_space_id.dst_asid.q = OtInternalAddr;
+    forced_reg2hw.src_addr_lo.q = 32'h0000_2000;
+    forced_reg2hw.dst_addr_lo.q = 32'h0000_1000;
+    forced_reg2hw.src_config.increment.q = 1'b1;
+    forced_reg2hw.dst_config.increment.q = 1'b1;
+    forced_reg2hw.transfer_width.q = DmaXfer1BperTxn;
+    forced_reg2hw.total_data_size.q = 32'd16;
+    forced_reg2hw.chunk_data_size.q = 32'd8;
+    forced_reg2hw.clear_intr_src.q[0] = 1'b1;
+    forced_control = '0;
+    forced_control.opcode = OpcCopy;
+    forced_control.cfg_handshake_en = 1'b1;
+    forced_control.range_valid = 1'b1;
+    forced_control.enabled_memory_range_base = 32'h0000_1000;
+    forced_control.enabled_memory_range_limit = 32'h0000_100f;
+
+    force dut.ctrl_state_q = DmaAddrSetup;
+    force dut.transfer_byte_q = 32'd0;
+    force dut.control_q = forced_control;
+    force dut.reg2hw = forced_reg2hw;
+    force dut.intr_clear_done_q = 1'b0;
+    #1ns;
+
+    checks += 2;
+    if (dut.ctrl_state_d !== DmaClearIntrSrc) begin
+      failures++;
+      $error("valid handshake setup did not enter interrupt clearing");
+    end
+    if (dut.dma_host_tlul_req_valid || dut.dma_ctn_tlul_req_valid ||
+        dut.dma_sys_read || dut.dma_sys_write) begin
+      failures++;
+      $error("valid handshake setup emitted a data request before interrupt clearing");
+    end
+
+    force dut.intr_clear_done_q = 1'b1;
+    #1ns;
+    checks++;
+    if (dut.ctrl_state_d !== DmaSendRead) begin
+      failures++;
+      $error("validated handshake setup did not proceed after interrupt clearing");
+    end
+
+    release dut.ctrl_state_q;
+    release dut.transfer_byte_q;
+    release dut.control_q;
+    release dut.reg2hw;
+    release dut.intr_clear_done_q;
+    #1ns;
+  endtask
+
   task automatic check_invalid(
     input string name,
     input logic [31:0] address,
@@ -297,6 +387,9 @@ module dma_footprint_xsim_tb;
                              32'h0000_1000, 1'b0, 1'b0, DmaXfer2BperTxn,
                              32'd16, 32'd8, 1'b1,
                              32'h0000_1000, 32'h0000_100b, 33'd10, 1'b0);
+
+    check_handshake_trigger_validates_before_clear();
+    check_valid_handshake_clear_path();
 
     // Invalid configurations must transition to the error state without asserting any data-bus
     // request. Cover both address directions and both non-final chunk-alignment branches.

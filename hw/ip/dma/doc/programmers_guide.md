@@ -15,8 +15,9 @@ This involves a specific sequence of register writes:
 
 To start a memory transfer, software needs to configure several registers that define the source and destination of the data, as well as the transfer size and access pattern:
 
-1.  **Source and Destination Configuration:** Configure the source and destination address modes using the [`SRC_CONFIG`](registers.md#src_config) and [`DST_CONFIG`](registers.md#dst_config) registers. The DMA supports 3 addressing modes, which can be configured independently for the source and destination via the aforementioned registers:
+1.  **Source and Destination Configuration:** Configure the source and destination address modes using the [`SRC_CONFIG`](registers.md#src_config) and [`DST_CONFIG`](registers.md#dst_config) registers. The DMA supports 4 addressing modes, which can be configured independently for the source and destination via the aforementioned registers:
   * Continuously accessing the same address (`increment = 0`, `wrap = 1`)
+  * Fixed-within-chunk addressing (`increment = 0`, `wrap = 0`), advancing by one chunk between non-wrapped chunks
   * Linear addressing (`increment = 1`, `wrap = 0`), with an address increment after each transfer
   * Wrap Mode:  (`increment = 1`, `wrap = 1`), with an address increment after each transfer and a wrap to the start address after finishing the transfer of one chunk.
 2.  **Source and Destination Addresses:** Specify the starting memory addresses for the source and destination using the lower and upper 32-bit parts of the addresses in the [`SRC_ADDR_LO`](registers.md#src_addr_lo), [`SRC_ADDR_HI`](registers.md#src_addr_hi), [`DST_ADDR_LO`](registers.md#dst_addr_lo), and [`DST_ADDR_HI`](registers.md#dst_addr_hi) registers.

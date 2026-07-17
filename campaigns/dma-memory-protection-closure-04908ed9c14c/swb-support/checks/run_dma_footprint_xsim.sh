@@ -41,6 +41,8 @@ cd "$repo_root"
 fusesoc --cores-root . run \
   --target=lint \
   --tool=xsim \
+  --mapping=lowrisc:prim_generic:all:0.1 \
+  --mapping=lowrisc:systems:top_darjeeling:0.1 \
   --setup \
   --no-export \
   --work-root "$out_dir" \

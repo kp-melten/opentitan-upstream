@@ -192,6 +192,7 @@ module dma
   logic [INTR_CLEAR_SOURCES_WIDTH-1:0] clear_index_d, clear_index_q;
   logic                                clear_index_en, intr_clear_tlul_rsp_valid;
   logic                                intr_clear_tlul_gnt, intr_clear_tlul_rsp_error;
+  logic                                intr_clear_done_d, intr_clear_done_q;
 
   logic [DmaErrLast-1:0] next_error;
 
@@ -532,6 +533,15 @@ module dma
     .q_o   ( clear_index_q  )
   );
 
+  prim_flop #(
+    .Width(1)
+  ) u_intr_clear_done (
+    .clk_i ( gated_clk         ),
+    .rst_ni( rst_ni            ),
+    .d_i   ( intr_clear_done_d ),
+    .q_o   ( intr_clear_done_q )
+  );
+
   logic use_inline_hashing;
   logic sha2_hash_start, sha2_hash_process;
   logic sha2_valid, sha2_ready, sha2_digest_set;
@@ -738,10 +748,11 @@ module dma
     req_src_be_d = '0;
     req_dst_be_d = '0;
 
-    dma_host_clear_intr = 1'b0;
-    dma_ctn_clear_intr = 1'b0;
-    clear_index_d  = '0;
-    clear_index_en = '0;
+    dma_host_clear_intr  = 1'b0;
+    dma_ctn_clear_intr   = 1'b0;
+    clear_index_d        = '0;
+    clear_index_en       = '0;
+    intr_clear_done_d = intr_clear_done_q;
 
     clear_go       = 1'b0;
     chunk_done     = 1'b0;
@@ -799,20 +810,16 @@ module dma
               transfer_byte_d       = '0;
               capture_transfer_byte = 1'b1;
               // Capture unlocked state when starting the transfer.
-              capture_state = 1'b1;
+              capture_state         = 1'b1;
             end
             // if not handshake start transfer
             if (!cfg_handshake_en) begin
               ctrl_state_d = DmaAddrSetup;
             end else if (cfg_handshake_en && |lsio_trigger) begin
-              // if handshake wait for interrupt
-              if (|reg2hw.clear_intr_src.q) begin
-                clear_index_en = 1'b1;
-                clear_index_d  = '0;
-                ctrl_state_d   = DmaClearIntrSrc;
-              end else begin
-                ctrl_state_d = DmaAddrSetup;
-              end
+              // Validate the complete configuration before issuing an optional interrupt-clear
+              // request. A new trigger begins a new clear/transfer round.
+              intr_clear_done_d = 1'b0;
+              ctrl_state_d      = DmaAddrSetup;
             end
           end
         end
@@ -822,7 +829,7 @@ module dma
           if (reg2hw.clear_intr_src.q[clear_index_q]) begin
             // Send 'clear interrupt' write to the appropriate bus
             dma_host_clear_intr = reg2hw.clear_intr_bus.q[clear_index_q];
-            dma_ctn_clear_intr = !reg2hw.clear_intr_bus.q[clear_index_q];
+            dma_ctn_clear_intr  = !reg2hw.clear_intr_bus.q[clear_index_q];
 
             if (intr_clear_tlul_gnt) begin
               ctrl_state_d = DmaWaitIntrSrcResponse;
@@ -836,7 +843,8 @@ module dma
                 next_error[3'(DmaBusErr)] = 1'b1;
                 ctrl_state_d = DmaError;
               end else if (32'(clear_index_q) >= (NumIntClearSources - 1)) begin
-                ctrl_state_d = DmaAddrSetup;  // Proceed now we've handled all
+                intr_clear_done_d = 1'b1;
+                ctrl_state_d      = DmaAddrSetup;  // Proceed now we've handled all
               end else begin
                 clear_index_en = 1'b1;
                 clear_index_d  = clear_index_q + INTR_CLEAR_SOURCES_WIDTH'(1'b1);
@@ -849,7 +857,8 @@ module dma
             clear_index_d  = clear_index_q + INTR_CLEAR_SOURCES_WIDTH'(1'b1);
 
             if (32'(clear_index_q) >= (NumIntClearSources - 1)) begin
-              ctrl_state_d = DmaAddrSetup;
+              intr_clear_done_d = 1'b1;
+              ctrl_state_d      = DmaAddrSetup;
             end
           end
         end
@@ -866,7 +875,8 @@ module dma
               clear_index_d  = clear_index_q + INTR_CLEAR_SOURCES_WIDTH'(1'b1);
               ctrl_state_d   = DmaClearIntrSrc;
             end else begin
-              ctrl_state_d = DmaAddrSetup;
+              intr_clear_done_d = 1'b1;
+              ctrl_state_d      = DmaAddrSetup;
             end
           end
         end
@@ -1050,6 +1060,14 @@ module dma
           // If one or more errors occurred, transition to the error state.
           if (|next_error) begin
             ctrl_state_d = DmaError;
+          end else if (control_q.cfg_handshake_en && |reg2hw.clear_intr_src.q &&
+                       !intr_clear_done_q) begin
+            // The configuration is valid. Clear the triggering interrupt before moving data, then
+            // return to this state with intr_clear_done_q set so validation is repeated against the
+            // same captured configuration before any source or destination request.
+            clear_index_en = 1'b1;
+            clear_index_d  = '0;
+            ctrl_state_d   = DmaClearIntrSrc;
           end else begin
             // Start the inline hashing if we are in the very first transfer. This is indicated
             // when transfer_byte_q is still 0
