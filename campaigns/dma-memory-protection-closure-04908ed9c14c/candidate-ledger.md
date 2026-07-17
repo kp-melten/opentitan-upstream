@@ -26,3 +26,17 @@ Record every candidate base and promotion-relevant source identity here.
 | Candidate ID | Base Ref / Commit | Implementation Commit | Measurement Anchors | Status | Claims | Non-Claims |
 | --- | --- | --- | --- | --- | --- | --- |
 | C1 | `58f8fdd5396817b775d2c69af9a6322ac7a84e5a` | `d1038f6154ed90667756fba454fe023bc04bf8be` | EV-RTL-LINT, EV-DV-LINT, EV-XSIM-FOCUSED; EV-UVM-DIRECTED pending | implementation_checkpoint | recorded static and focused-check claim only | no promotion or full closure |
+| C2 | `d1038f6154ed90667756fba454fe023bc04bf8be` | `c9619cb7610e9554eae1b812a5fadd7fd9fa32ac` | M8 EV-RTL-LINT, EV-DV-LINT, EV-XSIM-FOCUSED; EV-UVM-DIRECTED pending | implementation_checkpoint_pending_verifier | strict all-request source boundary plus exact-revision static/focused checks | no full UVM, regression, or promotion claim |
+
+## C2 — strict pre-request validation candidate
+
+- Design delta: handshake triggers enter `DmaAddrSetup` before interrupt
+  clearing; valid configurations clear and then revalidate before data motion.
+  The scoreboard rejects interrupt-clear traffic for invalid configurations,
+  the directed sequence contains 45 cases including a handshake-clear invalid
+  case, and the focused XSim helper checks both invalid and valid sequencing.
+- Implementation commit: `c9619cb7610e9554eae1b812a5fadd7fd9fa32ac`.
+- Status: exact-revision lint and focused XSim evidence complete; independent
+  re-review and full UVM execution pending.
+- Non-claims: no promotion, full regression, coverage, formal, integration,
+  synthesis/QoR, timing, or silicon claim.

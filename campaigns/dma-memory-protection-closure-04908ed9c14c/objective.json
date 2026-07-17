@@ -62,7 +62,7 @@
     {
       "id": "MP-NO-DATA-REQ",
       "classification": "hard_gate",
-      "target": "Invalid configurations emit no source-read or destination-write data request.",
+      "target": "Invalid configurations emit no source-read, destination-write, or handshake interrupt-clear request.",
       "status": "active"
     },
     {
@@ -83,7 +83,6 @@
   "non_claims": [
     "The user request authorizes non-promotion implementation, not promotion acceptance.",
     "No full regression, coverage, formal, synthesis, timing, integration, silicon, or promotion claim.",
-    "Commercial-simulator tests that cannot run remain pending.",
-    "Configured interrupt-clear writes are provisionally outside MP-NO-DATA-REQ pending controller clarification."
+    "Commercial-simulator tests that cannot run remain pending."
   ]
 }

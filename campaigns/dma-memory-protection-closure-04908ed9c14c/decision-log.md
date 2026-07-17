@@ -29,7 +29,7 @@
   Configured interrupt-clear writes are excluded pending user clarification.
 - Rationale: the hard gate explicitly names source/destination transactions,
   while the working target also uses the broader phrase “any bus request.”
-- Status: open controller question; no promotion claim.
+- Status: superseded by D5; no promotion claim.
 
 ## D4 — repair selected-target dependency width warning
 
@@ -42,6 +42,22 @@
   inclusive `0..SkewCycles` behavior.
 - Claim impact: enables the required DMA lint target; does not establish a
   broader prim functional or regression claim.
+
+## D5 — enforce the literal all-request boundary
+
+- Date: 2026-07-16
+- Decision: treat “before any bus request” literally. An invalid handshake
+  configuration may emit neither source/destination traffic nor its configured
+  interrupt-clear write.
+- Implementation: route a handshake trigger through `DmaAddrSetup`, clear the
+  triggering interrupt only after a valid classification, and revalidate before
+  moving data. The scoreboard now rejects a transaction on every DMA request
+  interface after invalid classification.
+- Rationale: independent review found that the prior interrupt-clear exception
+  contradicted the working-capability target. The stricter interpretation is
+  security-conservative and preserves interrupt clearing for valid transfers.
+- Claim impact: resolves the source-level ambiguity; full UVM behavioral proof
+  and promotion authority remain pending.
 
 | Date | Decision ID | Owner | Decision | Evidence / Reference | Claim Impact |
 | --- | --- | --- | --- | --- | --- |

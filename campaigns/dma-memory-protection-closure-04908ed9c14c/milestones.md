@@ -12,7 +12,7 @@ Current next milestone: M8
 | M5 | complete | Exact RTL and DV boundary candidate | Centralized physical-footprint validation, directed boundary sequence, model/scoreboard agreement, no-data-request checking, testplan/config entries, and documentation form one reviewable candidate | main_agent | implementation_checkpoint |
 | M6 | complete | Static and focused directed checks recorded | DMA Verilator lint, DV lint, and the narrowest available Xilinx simulation are recorded with exact pending gaps | main_agent_plus_verification_agent | implementation_checkpoint |
 | M7 | complete | Campaign checkpoint closeout | Campaign artifacts record work completed, evidence, branch state, verifier findings, claim boundary, and remaining verification | main_agent | implementation_checkpoint |
-| M8 | pending | Resolve no-request boundary and run full directed UVM | Controller resolves interrupt-clear semantics; the directed sequence runs on a supported UVM simulator and receives independent behavioral review | controller_plus_verification_agent | required_for_stronger_claim |
+| M8 | pending | Complete no-request verification and run full directed UVM | Strict interrupt-clear suppression is implemented and focused-check evidence is recorded; exit still requires the directed sequence on a supported UVM simulator and independent review of the exact candidate | verification_agent | required_for_stronger_claim |
 
 Every closeout should answer the current step delta:
 

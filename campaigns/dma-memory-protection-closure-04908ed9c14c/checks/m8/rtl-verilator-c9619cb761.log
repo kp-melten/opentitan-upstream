@@ -1,0 +1,69 @@
+[I 260716 21:15:32 run:950] [proj_root]: /home/k/melten-dev/opentitan-upstream
+[I 260716 21:15:32 one_shot:111] [scratch_path]: [dma] [/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/dma-lint-verilator]
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/mbx-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/dma-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/aes-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/ac_range_check-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/alert_handler-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/aon_timer-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/ast-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/csrng-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/entropy_src-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/edn-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/hmac-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/kmac-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/i2c-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/lc_ctrl-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/keymgr-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/keymgr_dpe-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/otbn-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/otp_ctrl-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/pwrmgr-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/rom_ctrl-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/rstmgr-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/gpio-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/rv_core_ibex-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/rv_dm-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/soc_dbg_ctrl-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/soc_dbg_ctrl_decode-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/top_darjeeling_rv_plic-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/rv_timer-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/soc_proxy-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/spi_device-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/spi_host-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/sram_ctrl-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/uart-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/socket_1n-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/socket_m1-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/adapter_reg-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/adapter_sram-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/sram2tlul-lint-verilator
+[I 260716 21:15:32 one_shot:126] Purging scratch path /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/top_darjeeling-lint-verilator
+[I 260716 21:15:32 status_printer:199] [1m         [0m [   legend    ]: [S: scheduled, Q: queued, R: running, P: passed, F: failed, K: killed, T: total]
+[W 260716 21:15:34 backend:245] dma:default: Using dvsim-maintained job_runtime instead.
+[E 260716 21:15:34 core:273] Status change to [F: Failed] for dma:default
+[I 260716 21:15:34 status_printer:223] [1m00:00:01 [0m [    build    ]: [S:         0, Q:      0, R:       0, P:      0, F:      1, K:      0, T:     1] 100%
+[I 260716 21:15:34 lint:140] [results:hjson]: [dma]: [/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/dma-lint-verilator/default/results.hjson]
+[I 260716 21:15:34 one_shot:217] [results]: [dma]:
+## DMA Lint Results
+
+### Friday July 17 2026 02:15:32 UTC
+### GitHub Revision: [`c9619cb761`](https://github.com/lowrisc/opentitan/tree/c9619cb7610e9554eae1b812a5fadd7fd9fa32ac)
+### Branch: campaign-dma-memory-protection-closure-04908ed9c14c
+### Tool: VERILATOR
+
+|  Build Mode  |  Flow Infos  |  Flow Warnings  |  Flow Errors  |  Lint Infos  |  Lint Warnings  |  Lint Errors  |
+|:------------:|:------------:|:---------------:|:-------------:|:------------:|:---------------:|:-------------:|
+|   default    |     0 I      |       1 W       |      0 E      |     0 I      |       0 W       |      0 E      |
+
+### Messages for Build Mode `'default'`
+#### Flow Warnings
+```
+WARNING: This backend is deprecated and will eventually be removed. Please migrate to the flow API instead.  See https://edalize.readthedocs.io/en/latest/ref/migrations.html#migrating-from-the-tool-api-to-the-flow-api for more details.
+
+```
+
+
+[I 260716 21:15:34 one_shot:218] [scratch_path]: [dma] [/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/rtl-verilator-c9619cb761/campaign-dma-memory-protection-closure-04908ed9c14c/dma-lint-verilator]
+[I 260716 21:15:34 lint:59] Create summary of lint results
+[E 260716 21:15:34 run:1044] Errors were encountered in this run.

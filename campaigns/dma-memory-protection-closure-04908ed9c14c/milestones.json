@@ -84,9 +84,9 @@
     {
       "id": "M8",
       "status": "pending",
-      "title": "Resolve no-request boundary and run full directed UVM",
-      "exit_criteria": "Controller resolves interrupt-clear semantics; the directed sequence runs on a supported UVM simulator and receives independent behavioral review.",
-      "owner": "controller_plus_verification_agent",
+      "title": "Complete no-request verification and run full directed UVM",
+      "exit_criteria": "Strict interrupt-clear suppression is implemented and focused-check evidence is recorded; exit still requires the directed sequence on a supported UVM simulator and independent review of the exact candidate.",
+      "owner": "verification_agent",
       "review": "required_for_stronger_claim"
     }
   ]

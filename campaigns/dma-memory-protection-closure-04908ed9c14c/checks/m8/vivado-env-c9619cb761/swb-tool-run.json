@@ -1,0 +1,56 @@
+{
+  "schema": "swb-tool-run/v0",
+  "status": "passed",
+  "tool_id": "vivado-env",
+  "check_id": "vivado-env",
+  "tool_status": "available",
+  "summary": "Locate/source Vivado settings and run a child command with recorded tool environment evidence.",
+  "source_root": "/home/k/melten-dev/silicon-workbench",
+  "tool_dir": "/home/k/melten-dev/silicon-workbench/tools/vivado-env",
+  "manifest_path": "/home/k/melten-dev/silicon-workbench/tools/vivado-env/tool.yaml",
+  "check_path": "/home/k/melten-dev/silicon-workbench/tools/vivado-env/tool.yaml",
+  "entrypoint": "/home/k/melten-dev/silicon-workbench/tools/vivado-env/with_vivado_env.sh",
+  "summary_schema": "schemas/vivado-env.v0.schema.json",
+  "output_dir": "/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/vivado-env-c9619cb761",
+  "metadata_path": "/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/vivado-env-c9619cb761/swb-tool-run.json",
+  "stdout_path": "/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/vivado-env-c9619cb761/logs/swb-tool-run.stdout",
+  "stderr_path": "/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/vivado-env-c9619cb761/logs/swb-tool-run.stderr",
+  "produced_files": {
+    "summary_json": "/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/vivado-env-c9619cb761/vivado-env.json",
+    "vivado_env": "/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/vivado-env-c9619cb761/vivado-env.json"
+  },
+  "command": [
+    "/home/k/melten-dev/silicon-workbench/tools/vivado-env/with_vivado_env.sh",
+    "--metadata-out",
+    "/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/vivado-env-c9619cb761/vivado-env.json",
+    "--settings",
+    "/data/tools/Xilinx/2025.2.1/Vivado/settings64.sh",
+    "--require-tool",
+    "xvlog",
+    "--require-tool",
+    "xelab",
+    "--require-tool",
+    "xsim",
+    "--",
+    "bash",
+    "campaigns/dma-memory-protection-closure-04908ed9c14c/swb-support/checks/run_dma_footprint_xsim.sh",
+    "campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/xsim-footprint-c9619cb761"
+  ],
+  "command_normalized": "/home/k/melten-dev/silicon-workbench/tools/vivado-env/with_vivado_env.sh --metadata-out /home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/vivado-env-c9619cb761/vivado-env.json --settings /data/tools/Xilinx/2025.2.1/Vivado/settings64.sh --require-tool xvlog --require-tool xelab --require-tool xsim -- bash campaigns/dma-memory-protection-closure-04908ed9c14c/swb-support/checks/run_dma_footprint_xsim.sh campaigns/dma-memory-protection-closure-04908ed9c14c/checks/m8/xsim-footprint-c9619cb761",
+  "dry_run": false,
+  "started_at": "2026-07-17T02:15:43.125682308Z",
+  "finished_at": "2026-07-17T02:15:52.057473158Z",
+  "duration_millis": 8931,
+  "tool_exit_code": 0,
+  "supported_claims": [
+    "Vivado/XSim tools were available to the wrapped child command as recorded.",
+    "The selected settings script path and resolved tools are captured for rerun."
+  ],
+  "non_claims": [
+    "Tool correctness.",
+    "Simulator, synthesis, implementation, P\u0026R, signoff, or design correctness."
+  ],
+  "evidence_boundary": "tool output is normalized mechanics evidence, not strategy selection or claim promotion",
+  "wrapper_stdout_bytes": 42685,
+  "wrapper_stderr_bytes": 18241
+}

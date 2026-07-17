@@ -1,0 +1,467 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/rv_dm/rtl/jtag_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_cipher_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_and2.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_and2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_buf.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_buf
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_clock_gating.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_clock_gating
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_const.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_const
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_const_sec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_const_sec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_flop.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_flop
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_flop_no_rst.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_flop_no_rst
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_inv.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_inv
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_xnor2.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_xnor2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_xor2.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_xor2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_pad_wrapper_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_22_16_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_22_16_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_22_16_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_22_16_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_28_22_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_28_22_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_28_22_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_28_22_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_39_32_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_39_32_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_39_32_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_39_32_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_64_57_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_64_57_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_64_57_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_64_57_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_72_64_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_72_64_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_72_64_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_72_64_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_hamming_22_16_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_hamming_22_16_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_hamming_22_16_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_hamming_22_16_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_hamming_39_32_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_hamming_39_32_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_hamming_39_32_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_hamming_39_32_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_hamming_72_64_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_hamming_72_64_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_hamming_72_64_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_hamming_72_64_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_hamming_76_68_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_hamming_76_68_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_hamming_76_68_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_hamming_76_68_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_22_16_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_22_16_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_22_16_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_22_16_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_28_22_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_28_22_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_28_22_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_28_22_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_39_32_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_39_32_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_39_32_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_39_32_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_64_57_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_64_57_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_64_57_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_64_57_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_72_64_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_72_64_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_72_64_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_72_64_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_hamming_22_16_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_hamming_22_16_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_hamming_22_16_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_hamming_22_16_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_hamming_39_32_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_hamming_39_32_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_hamming_39_32_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_hamming_39_32_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_hamming_72_64_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_hamming_72_64_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_hamming_72_64_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_hamming_72_64_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_hamming_76_68_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_hamming_76_68_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_secded_inv_hamming_76_68_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_secded_inv_hamming_76_68_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sha2_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_blanker.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_blanker
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_cdc_rand_delay.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_cdc_rand_delay
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_subst_perm.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_subst_perm
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_present.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_present
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_prince.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_prince
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_count_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_count.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_count
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_clock_mux2.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_clock_mux2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_pad_wrapper.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_pad_wrapper
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sec_anchor_buf.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_sec_anchor_buf
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sec_anchor_const.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_sec_anchor_const
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sec_anchor_flop.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_sec_anchor_flop
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sha2_pad.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_sha2_pad
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sha2.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_sha2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sha2_32.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_sha2_32
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sparse_fsm_flop.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_sparse_fsm_flop
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_util_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/top_darjeeling/rtl/top_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/lc_ctrl/rtl/lc_ctrl_state_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_clock_inv.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_clock_inv
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_flop_2sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_flop_2sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_flop_en.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_flop_en
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_leading_one_ppc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_leading_one_ppc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi4_sender.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi4_sender
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi4_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi4_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi4_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi4_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi8_sender.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi8_sender
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi8_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi8_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi8_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi8_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi12_sender.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi12_sender
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi12_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi12_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi12_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi12_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi16_sender.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi16_sender
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi16_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi16_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi16_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi16_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi20_sender.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi20_sender
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi20_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi20_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi20_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi20_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi24_sender.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi24_sender
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi24_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi24_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi24_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi24_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi28_sender.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi28_sender
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi28_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi28_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi28_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi28_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi32_sender.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi32_sender
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi32_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi32_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_mubi32_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_mubi32_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_onehot_check.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_onehot_check
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_arbiter_fixed.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_arbiter_fixed
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_arbiter_ppc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_arbiter_ppc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_arbiter_tree.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_arbiter_tree
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_arbiter_tree_dup.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_arbiter_tree_dup
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_diff_decode.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_diff_decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_fifo_async_sram_adapter.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_fifo_async_sram_adapter
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_fifo_async_simple.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_fifo_async_simple
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_fifo_async.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_fifo_async
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_fifo_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_fifo_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_fifo_sync_cnt.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_fifo_sync_cnt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim_generic/rtl/prim_rst_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_rst_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_reg_we_check.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_reg_we_check
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_subreg_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_reg_cdc.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_reg_cdc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_reg_cdc_arb.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_reg_cdc_arb
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_subreg.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_subreg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_subreg_arb.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_subreg_arb
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_subreg_ext.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_subreg_ext
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_subreg_shadow.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_subreg_shadow
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/top_darjeeling/rtl/autogen/top_racl_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/lc_ctrl/rtl/lc_ctrl_reg_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/lc_ctrl/rtl/lc_ctrl_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_esc_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_esc_receiver.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_esc_receiver
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_esc_sender.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_esc_sender
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_data_integ_enc.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_data_integ_enc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_data_integ_dec.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_data_integ_dec
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_cmd_intg_gen.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_cmd_intg_gen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_cmd_intg_chk.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_cmd_intg_chk
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_rsp_intg_gen.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_rsp_intg_gen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_rsp_intg_chk.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_rsp_intg_chk
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/dma/rtl/dma_reg_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/dma/rtl/dma_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_alert_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_alert_receiver.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_alert_receiver
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_alert_sender.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_alert_sender
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_lc_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_lc_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_fifo_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_fifo_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_fifo_async.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_fifo_async
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_assert.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_assert
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_err.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_err
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_assert_multiple.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_assert_multiple
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_clock_gating_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_clock_gating_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_hpc2.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_hpc2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_hpc3.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_hpc3
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sram_arbiter.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_sram_arbiter
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_slicer.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_slicer
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sync_reqack.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_sync_reqack
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sync_reqack_data.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_sync_reqack_data
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_sync_slow_fast.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_sync_slow_fast
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_keccak.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_keccak
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_packer.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_packer
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_packer_fifo.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_packer_fifo
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_gate_gen.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_gate_gen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_pulse_sync.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_pulse_sync
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_filter.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_filter
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_filter_ctr.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_filter_ctr
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_flop_x.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_flop_x
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl/prim_intr_hw.sv" into library work
+INFO: [VRFC 10-311] analyzing module prim_intr_hw
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_adapter_host.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_adapter_host
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_adapter_reg.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_adapter_reg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_sram_byte.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_sram_byte
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_adapter_sram.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_adapter_sram
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_lc_gate.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_lc_gate
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_request_loopback.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_request_loopback
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_err_resp.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_err_resp
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_socket_1n.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_socket_1n
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_socket_m1.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_socket_m1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/sram2tlul.sv" into library work
+INFO: [VRFC 10-311] analyzing module sram2tlul
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_adapter_racl.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_adapter_racl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_adapter_reg_racl.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_adapter_reg_racl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom.sv" into library work
+INFO: [VRFC 10-311] analyzing module debug_rom
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom_one_scratch.sv" into library work
+INFO: [VRFC 10-311] analyzing module debug_rom_one_scratch
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/vendor/pulp_riscv_dbg/src/dm_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/vendor/pulp_riscv_dbg/src/dm_sba.sv" into library work
+INFO: [VRFC 10-311] analyzing module dm_sba
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/vendor/pulp_riscv_dbg/src/dm_csrs.sv" into library work
+INFO: [VRFC 10-311] analyzing module dm_csrs
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/vendor/pulp_riscv_dbg/src/dm_mem.sv" into library work
+INFO: [VRFC 10-311] analyzing module dm_mem
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/vendor/pulp_riscv_dbg/src/dmi_cdc.sv" into library work
+INFO: [VRFC 10-311] analyzing module dmi_cdc
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/vendor/pulp_riscv_dbg/src/dmi_jtag.sv" into library work
+INFO: [VRFC 10-311] analyzing module dmi_jtag
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/vendor/pulp_riscv_dbg/src/dmi_jtag_tap.sv" into library work
+INFO: [VRFC 10-311] analyzing module dmi_jtag_tap
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/vendor/pulp_riscv_dbg/src/dm_top.sv" into library work
+INFO: [VRFC 10-311] analyzing module dm_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_adapter_dmi.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_adapter_dmi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_adapter_sram_racl.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_adapter_sram_racl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/tlul/rtl/tlul_jtag_dtm.sv" into library work
+INFO: [VRFC 10-311] analyzing module tlul_jtag_dtm
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/dma/rtl/dma_reg_top.sv" into library work
+INFO: [VRFC 10-311] analyzing module dma_reg_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/hw/ip/dma/rtl/dma.sv" into library work
+INFO: [VRFC 10-311] analyzing module dma
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/swb-support/checks/dma_footprint_xsim_tb.sv" into library work
+INFO: [VRFC 10-311] analyzing module dma_footprint_xsim_tb
+Vivado Simulator v2025.2.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /data/tools/Xilinx/2025.2.1/Vivado/bin/unwrapped/lnx64.o/xelab dma_footprint_xsim_tb --snapshot dma_footprint_xsim_tb -i /home/k/melten-dev/opentitan-upstream/hw/ip/prim/rtl --define SYNTHESIS=1 --log xelab-tb.log
+Multi-threading is on. Using 30 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+    LIBRARY_PATH
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package work.prim_mubi_pkg
+Compiling package work.dma_pkg
+Compiling package work.top_racl_pkg
+Compiling package work.prim_alert_pkg
+Compiling package work.tlul_pkg
+Compiling package work.prim_secded_pkg
+Compiling package work.dma_reg_pkg
+Compiling package work.prim_sha2_pkg
+Compiling package work.prim_subreg_pkg
+Compiling module work.prim_flop
+Compiling module work.prim_clock_gating(FpgaBufGlobal=...
+Compiling module work.prim_secded_inv_64_57_dec
+Compiling module work.prim_secded_inv_39_32_dec
+Compiling module work.tlul_data_integ_dec
+Compiling module work.tlul_cmd_intg_chk
+Compiling module work.prim_buf(Width=63)
+Compiling module work.prim_onehot_check(AddrWidth=32'b...
+Compiling module work.prim_reg_we_check(OneHotWidth=32...
+Compiling module work.prim_secded_inv_64_57_enc
+Compiling module work.prim_secded_inv_39_32_enc
+Compiling module work.tlul_data_integ_enc
+Compiling module work.tlul_rsp_intg_gen_default
+Compiling module work.tlul_rsp_intg_gen(EnableRspIntgG...
+Compiling module work.tlul_err_default
+Compiling module work.tlul_adapter_reg(RegAw=9)
+Compiling module work.prim_subreg_arb(DW=1,SwAccess=Sw...
+Compiling module work.prim_subreg(DW=1,SwAccess=SwAcce...
+Compiling module work.prim_subreg_arb(DW=1,SwAccess=Sw...
+Compiling module work.prim_subreg(DW=1,SwAccess=SwAcce...
+Compiling module work.prim_subreg_ext(DW=32'b01)
+Compiling module work.prim_subreg_arb(SwAccess=SwAcces...
+Compiling module work.prim_subreg(SwAccess=SwAccessRW_...
+Compiling module work.prim_subreg_arb(DW=4,SwAccess=Sw...
+Compiling module work.prim_subreg(DW=4,SwAccess=SwAcce...
+Compiling module work.prim_flop(ResetValue=1'b0)
+Compiling module work.prim_subreg_arb(DW=4,SwAccess=Sw...
+Compiling module work.prim_subreg(DW=4,SwAccess=SwAcce...
+Compiling module work.prim_subreg_ext(DW=32'b0100)
+Compiling module work.prim_subreg_arb(DW=2,SwAccess=Sw...
+Compiling module work.prim_subreg(DW=2,SwAccess=SwAcce...
+Compiling module work.prim_subreg_arb(DW=1,SwAccess=Sw...
+Compiling module work.prim_subreg(DW=1,SwAccess=SwAcce...
+Compiling module work.prim_subreg_arb(DW=1,SwAccess=Sw...
+Compiling module work.prim_subreg(DW=1,SwAccess=SwAcce...
+Compiling module work.prim_subreg_arb(SwAccess=SwAcces...
+Compiling module work.prim_subreg(SwAccess=SwAccessRO_...
+Compiling module work.prim_subreg_arb(DW=11,SwAccess=S...
+Compiling module work.prim_subreg(DW=11,SwAccess=SwAcc...
+Compiling module work.dma_reg_top(RaclErrorRsp=1'b0,Ra...
+Compiling module work.prim_buf(Width=2)
+Compiling module work.prim_sec_anchor_buf(Width=2)
+Compiling module work.prim_flop_2sync(Width=1,ResetVal...
+Compiling module work.prim_flop(ResetValue=1'b1)
+Compiling module work.prim_flop_2sync(Width=1,ResetVal...
+Compiling module work.prim_diff_decode(AsyncOn=1'b1)
+Compiling module work.prim_buf
+Compiling module work.prim_sec_anchor_buf
+Compiling module work.prim_flop(Width=2,ResetValue=2'b...
+Compiling module work.prim_sec_anchor_flop(Width=2,Res...
+Compiling module work.prim_alert_sender(IsFatal=1'b1)
+Compiling module work.tlul_cmd_intg_gen(EnableDataIntg...
+Compiling module work.tlul_rsp_intg_chk_default
+Compiling module work.tlul_adapter_host(MAX_REQS=32'b0...
+Compiling module work.prim_flop_en(Width=71)
+Compiling module work.prim_flop(Width=8,ResetValue=8'b...
+Compiling module work.prim_sparse_fsm_flop(Width=8,Sta...
+Compiling module work.prim_flop_en(Width=32)
+Compiling module work.prim_flop_en(Width=3)
+Compiling module work.prim_flop_en(Width=64)
+Compiling module work.prim_flop_en(Width=4)
+Compiling module work.prim_sha2_pad_default
+Compiling module work.prim_sha2(MultimodeEn=1'b1)
+Compiling module work.prim_sha2_32(MultimodeEn=1'b1)
+Compiling module work.prim_intr_hw(IntrT="Status")
+Compiling module work.prim_flop(Width=2)
+Compiling module work.prim_flop(Width=32)
+Compiling module work.prim_flop(Width=3)
+Compiling module work.dma(EnableDataIntgGen=1'b0,Enabl...
+Compiling module work.dma_footprint_xsim_tb
+Built simulation snapshot dma_footprint_xsim_tb
+
+****** xsim v2025.2.1 (64-bit)
+  **** SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+  **** IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
+  **** SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
+  **** Start of session at: Thu Jul 16 21:15:49 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/dma_footprint_xsim_tb/xsim_script.tcl
+# xsim {dma_footprint_xsim_tb} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+DMA_FOOTPRINT_XSIM_PASS checks=49
+$finish called at time : 48 ns : File "/home/k/melten-dev/opentitan-upstream/campaigns/dma-memory-protection-closure-04908ed9c14c/swb-support/checks/dma_footprint_xsim_tb.sv" Line 423
+exit
+INFO: xsimkernel Simulation Memory Usage: 286712 KB (Peak: 339176 KB), Simulation CPU Usage: 490 ms
+INFO: [Common 17-206] Exiting xsim at Thu Jul 16 21:15:51 2026...

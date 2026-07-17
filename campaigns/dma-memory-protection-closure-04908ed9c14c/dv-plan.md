@@ -52,10 +52,10 @@ using the same terminology as the objective ledger.
 | --- | --- | --- | --- | --- | --- | --- |
 | BND-DIR | hard_gate | Restricted source export and restricted destination import through CTN and System peers | Directed cases select OT source/destination and CTN/System opposite endpoint | Correct source/destination error and completion status | implemented_pending_run | no OT-to-OT restriction claim |
 | BND-WIDTH | hard_gate | One-, two-, and four-byte widths including partial finals | Cross every addressing class and restricted direction; explicit partial final cases | Model and DUT classification agree | implemented_pending_run | no exhaustive size sweep |
-| BND-MODE | hard_gate | Incrementing non-wrap, incrementing chunk-wrap, fixed wrapped, fixed-within-chunk non-wrap | 44 directed cases and source-derived helper checks | Exact physical footprint accepted/rejected | implemented_pending_run | variable-divider QoR pending |
+| BND-MODE | hard_gate | Incrementing non-wrap, incrementing chunk-wrap, fixed wrapped, fixed-within-chunk non-wrap | 45 directed cases and source-derived helper checks | Exact physical footprint accepted/rejected | implemented_pending_run | variable-divider QoR pending |
 | BND-EDGE | hard_gate | Exact base/limit, one-byte under/over, 32-bit carry | Directed positive and negative cases | Inclusive limit accepted; escapes rejected | implemented_pending_run | no formal exhaustive arithmetic proof |
 | BND-READ-PHYS | hard_gate | Narrow OT source reads fetch aligned full TL word | Cases with base/limit cutting aligned word | Physical read footprint enforced | implemented_pending_run | no claim for unrelated bus fabric |
-| BND-NO-REQ | hard_gate | Invalid config produces no transfer data request | Scoreboard fatal on any source/destination data transaction after invalid classification | Zero such transactions | implemented_pending_run | interrupt-clear writes provisionally excluded |
+| BND-NO-REQ | hard_gate | Invalid config produces no source, destination, or handshake interrupt-clear request | Scoreboard fatal on every external request interface after invalid classification; directed handshake-clear negative case; focused XSim state/request checks | Zero such transactions | focused_helper_complete_full_uvm_pending | no full-UVM pass claim |
 | BND-CHUNK-ALIGN | hard_gate | Non-final chunk is width-aligned | Directed 2B/4B invalid chunk cases | Size error before transfer request | implemented_pending_run | final partial chunk remains allowed |
 | BND-XILINX-UVM | diagnostic | Full directed sequence on XSim | Build/run attempt with OpenTitan UVM | Pass or exact tool incompatibility recorded | blocked_by_uvm_hdl_release_signature | unavailable run is not passing |
 
@@ -66,15 +66,16 @@ using the same terminology as the objective ledger.
 | EV-RTL-LINT | MP-LINT and structural consistency | DMA-selected Verilator lint plus direct generated lint target if wrapper warning masks result | DVSim/Verilator | main_agent | complete | no functional proof |
 | EV-DV-LINT | Directed sequence/model/scoreboard syntax and style | DMA DV Verible lint | DVSim/Verible | main_agent | complete | no runtime proof |
 | EV-XSIM-FOCUSED | Footprint helper composition and source structure | Campaign-local XSim testbench | Vivado Simulator | main_agent | complete | no full UVM or bus-monitor proof |
-| EV-UVM-DIRECTED | Full boundary behavior and no-data-request check | `dma_mem_boundary` | available supported simulator | verification_agent | pending | no full regression |
+| EV-UVM-DIRECTED | Full boundary behavior and no-request check | `dma_mem_boundary` | available supported simulator | verification_agent | pending | no full regression |
 
 ## Known Gaps / Deferred Decisions
 
-- Whether interrupt-clear writes must also be suppressed for an invalid
-  handshake configuration remains a controller clarification. Until resolved,
-  the no-request hard gate covers source-read and destination-write data
-  transactions.
-- Xcelium availability is unknown; XSim is required to be attempted.
+- The literal working-capability boundary includes handshake interrupt-clear
+  writes. The candidate validates before entering interrupt clearing and adds a
+  directed invalid-handshake case; full UVM execution remains pending.
+- Xcelium, VCS, and Questa executables are absent on this host. XSim was used
+  for the focused helper; the full OpenTitan UVM build remains blocked by the
+  common `uvm_hdl_release` signature incompatibility recorded at M6.
 - The sparse fixed/non-wrapped envelope uses variable division; synthesis QoR
   is out of scope and remains a review item.
 - Full regression, coverage, formal, and top-level integration are deferred.
